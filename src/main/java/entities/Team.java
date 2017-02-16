@@ -33,9 +33,16 @@ public class Team implements Serializable {
 	private List<Player> previousPlayers;
 	@OneToMany(mappedBy="signerTeam", orphanRemoval=true)
 	private List<Contract> contracts;
+	@OneToMany(mappedBy="winnerTeam") 
+	private List<Match> wonMatches;
 	
 	
-	
+	public List<Match> getWonMatches() {
+		return wonMatches;
+	}
+	public void setWonMatches(List<Match> wonMatches) {
+		this.wonMatches = wonMatches;
+	}
 	public List<Contract> getContracts() {
 		return contracts;
 	}

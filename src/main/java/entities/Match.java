@@ -3,8 +3,12 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
-//@Entity
+/**
+ * Entity implementation class for Entity: Match
+ *
+ */
+@Entity
+@Table(name="GameMatch")
 public class Match implements Serializable {
 
 	
@@ -13,6 +17,39 @@ public class Match implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@ManyToOne
+	private Team homeTeam;
+	@ManyToOne
+	private Team visitorTeam;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="winner")
+	private Team winnerTeam;
+					
+	
+	public Team getWinnerTeam() {
+		return winnerTeam;
+	}
+
+	public void setWinnerTeam(Team winnerTeam) {
+		this.winnerTeam = winnerTeam;
+	}
+
+	public Team getHomeTeam() {
+		return homeTeam;
+	}
+
+	public void setHomeTeam(Team homeTeam) {
+		this.homeTeam = homeTeam;
+	}
+
+	public Team getVisitorTeam() {
+		return visitorTeam;
+	}
+
+	public void setVisitorTeam(Team visitorTeam) {
+		this.visitorTeam = visitorTeam;
+	}
 
 	public Long getId() {
 		return id;
@@ -21,7 +58,5 @@ public class Match implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
    
 }

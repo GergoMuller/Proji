@@ -20,8 +20,8 @@ public class Player implements Serializable {
 	private String name;
 	private String password;
 	private String description;
-//	@Enumerated(EnumType.STRING)
-//	private PlayerPosition position;
+	@Enumerated(EnumType.STRING)
+	private PlayerPosition position;
 	@OneToOne(orphanRemoval=true)
 	private Contract contract;
 	
@@ -33,18 +33,14 @@ public class Player implements Serializable {
 	@JoinTable(name="previousteam_player")
 	private List<Team> previousTeams;
 	
-//	public enum PlayerPosition{
-//		DEFENSE,OFFENSE
-//	}
+
 	
-	
-	
-//	public PlayerPosition getPosition() {
-//		return position;
-//	}
-//	public void setPosition(PlayerPosition position) {
-//		this.position = position;
-//	}
+	public PlayerPosition getPosition() {
+		return position;
+	}
+	public void setPosition(PlayerPosition position) {
+		this.position = position;
+	}
 	public Contract getContract() {
 		return contract;
 	}
