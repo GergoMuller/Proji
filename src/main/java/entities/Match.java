@@ -25,8 +25,20 @@ public class Match implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="winner")
 	private Team winnerTeam;
+	@ManyToOne
+	@JoinColumn(name="seasonId")
+	private Season season;
 					
 	
+	
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
 	public Team getWinnerTeam() {
 		return winnerTeam;
 	}
