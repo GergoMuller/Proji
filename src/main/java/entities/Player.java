@@ -20,9 +20,10 @@ public class Player implements Serializable {
 	private String name;
 	private String password;
 	private String description;
+	private int age;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
-	@OneToOne(orphanRemoval=true)
+	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
 	private Contract contract;
 	
 	@ManyToOne
@@ -33,8 +34,14 @@ public class Player implements Serializable {
 	@JoinTable(name="previousteam_player")
 	private List<Team> previousTeams;
 	
-
 	
+	
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
 	public PlayerPosition getPosition() {
 		return position;
 	}
