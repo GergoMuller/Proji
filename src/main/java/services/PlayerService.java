@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import entities.Player;
 import repositories.PlayerRepository;
+import webcontrollers.PlayerController;
 
 @Stateless
 @LocalBean
@@ -18,6 +19,7 @@ public class PlayerService {
 	
 //	@PersistenceContext
 //	EntityManager em;
+	
 	
 	public void createPlayer(Player player){
 		repo.save(player);
