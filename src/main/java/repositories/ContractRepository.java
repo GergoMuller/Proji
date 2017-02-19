@@ -6,7 +6,7 @@ import org.apache.deltaspike.data.api.AbstractEntityRepository;
 import org.apache.deltaspike.data.api.Repository;
 
 import entities.Contract;
-
+import entities.Player;
 
 @Repository
 @Dependent

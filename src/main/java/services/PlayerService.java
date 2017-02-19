@@ -1,5 +1,8 @@
 package services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -8,7 +11,6 @@ import javax.persistence.PersistenceContext;
 
 import entities.Player;
 import repositories.PlayerRepository;
-import webcontrollers.PlayerController;
 
 @Stateless
 @LocalBean
@@ -17,13 +19,16 @@ public class PlayerService {
 	@Inject
 	PlayerRepository repo;
 	
-//	@PersistenceContext
-//	EntityManager em;
-	
-	
 	public void createPlayer(Player player){
 		repo.save(player);
-		//em.persist(player);
+		
+	}
+	
+	public List<String> getByAge(int age){
+		return repo.findByAgeGreaterThanEqualsOrderByNameAsc(age)
+								.stream()
+								.map(x -> x.getName())
+								.collect(Collectors.toList());
 	}
 
 }

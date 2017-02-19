@@ -6,7 +6,7 @@
 
 <h:head></h:head>
 <body>
-	<h:outputLabel value="Hello-bello!!" />
+	<h:outputLabel value="Hello!!" />
 
 	<h:form>
 		<h:outputLabel for="name" value="Name:"></h:outputLabel>
@@ -15,8 +15,18 @@
 		<h:outputLabel for="age" value="Age:"></h:outputLabel>
 		<h:inputText id="age" value="#{playerController.age}"></h:inputText>
 
-		<h:commandButton action="#{playerController.addPlayer}" value="Submit" />
+		<h:commandButton action="#{playerController.addPlayer}" value="Save" />
 	</h:form>
-	
+
+	<h:form>
+		<h:commandButton action="#{playerController.getAdults}"
+			value="Fill List" />
+	</h:form>
+	<ul>
+		<ui:repeat var="name" value="#{playerController.names}">
+			<li><h:outputText value="#{name}" /></li>
+		</ui:repeat>
+	</ul>
+
 </body>
 </html>

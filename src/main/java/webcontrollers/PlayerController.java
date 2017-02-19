@@ -1,5 +1,7 @@
 package webcontrollers;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -13,6 +15,7 @@ public class PlayerController {
 	
 	private String name;
 	private int age;
+	private List<String> names;
 	@EJB
 	PlayerService playerEJB;
 	
@@ -21,9 +24,22 @@ public class PlayerController {
 		player.setName(name);
 		player.setAge(age);
 		playerEJB.createPlayer(player);
-		return "index.xhtml";
+		return "index";
 	}
 	
+	
+	public String getAdults(){
+		names = playerEJB.getByAge(18);
+		return "index";
+	}
+	public List<String> getNames() {
+		return names;
+	}
+
+	public void setNames(List<String> names) {
+		this.names = names;
+	}
+
 	public String getName() {
 		return name;
 	}

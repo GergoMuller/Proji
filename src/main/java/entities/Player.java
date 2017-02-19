@@ -23,7 +23,7 @@ public class Player implements Serializable {
 	private int age;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
-	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
+	@OneToOne(orphanRemoval=true)
 	private Contract contract;
 	
 	@ManyToOne
