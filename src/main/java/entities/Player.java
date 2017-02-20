@@ -7,23 +7,17 @@ import javax.persistence.*;
 
 
 @Entity
-public class Player implements Serializable {
+public class Player extends User implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	@Column(unique=true)
-	private String email;
-	private String name;
-	private String password;
+	
 	private String description;
 	private int age;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
-	@OneToOne(orphanRemoval=true)
+	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
 	private Contract contract;
 	
 	@ManyToOne
@@ -72,30 +66,8 @@ public class Player implements Serializable {
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
 	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
+	
 	
 	
    

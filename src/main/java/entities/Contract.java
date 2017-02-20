@@ -15,10 +15,10 @@ public class Contract implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@OneToOne(mappedBy="contract")
+	@OneToOne
 	private Player signedPlayer;
 	@ManyToOne
-	@JoinColumn(name="TEAM")
+	@JoinColumn(name="team")
 	private Team signerTeam;
 	
 	

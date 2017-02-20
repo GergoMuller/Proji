@@ -3,10 +3,7 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
-/**
- * Entity implementation class for Entity: Match
- *
- */
+
 @Entity
 @Table(name="GameMatch")
 public class Match implements Serializable {

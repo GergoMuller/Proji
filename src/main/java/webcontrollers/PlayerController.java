@@ -1,20 +1,27 @@
 package webcontrollers;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import entities.Player;
 import services.PlayerService;
+import utilities.Roles;
+
 
 @Named
-@RequestScoped
-public class PlayerController {
+@SessionScoped
+public class PlayerController implements Serializable{
+	
 	
 	private String name;
 	private int age;
+	private String email;
+	private String password;
 	private List<String> names;
 	@EJB
 	PlayerService playerEJB;
@@ -23,6 +30,9 @@ public class PlayerController {
 		Player player = new Player();
 		player.setName(name);
 		player.setAge(age);
+		player.setEmail(email);
+		player.setPassword(password);
+		player.addRole(Roles.PLAYER);
 		playerEJB.createPlayer(player);
 		return "index";
 	}
@@ -32,6 +42,29 @@ public class PlayerController {
 		names = playerEJB.getByAge(18);
 		return "index";
 	}
+	
+	public String login(){
+		return "main?faces-redirect=true";
+	}
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 	public List<String> getNames() {
 		return names;
 	}
