@@ -19,11 +19,11 @@ public class User implements Serializable {
 	private Long id;
 	
 	@Column(unique=true)
-	private String email;
-	private String name;
-	private String password;
+	protected String email;
+	protected String name;
+	protected String password;
 	@ElementCollection(fetch=FetchType.EAGER)
-	private Set<String> roles = new HashSet<>();
+	protected Set<String> roles = new HashSet<>();
 	
 	public void addRole(String role){
 		roles.add(role);

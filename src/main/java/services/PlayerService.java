@@ -45,9 +45,9 @@ public class PlayerService {
 		return true;
 	}
 	
-	public String findPlayerName(String email){
-		User u =userRepo.findByEmail(email);
-		return u.getName();
+	public Player getPlayerByEmail(String email){
+		return playerRepo.findByEmail(email);
+		
 	}
 
 }

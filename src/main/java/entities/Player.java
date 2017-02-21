@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.persistence.*;
@@ -30,6 +31,11 @@ public class Player extends User implements Serializable {
 	
 	
 	
+	@Override
+	public String toString(){
+		MessageFormat mf = new MessageFormat("Name: {0}, Email: {1}" );
+		return mf.format(name, email );
+	}
 	public int getAge() {
 		return age;
 	}

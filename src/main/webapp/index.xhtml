@@ -89,7 +89,7 @@
             <form method="post" action="j_security_check">
                 <input type="text" name="j_username" placeholder="Email" required="required" />
                 <input type="password" name="j_password" placeholder="Password" required="required" />
-                <button type="submit" onclick="close_modal()" class="btn btn-primary btn-block btn-large">Let me in.</button>
+                <button type="submit" onclick="" class="btn btn-primary btn-block btn-large">Log in.</button>
                 <button type="button" class="btn btn-primary btn-block btn-large" data-toggle="modal" data-target="#myModal" >Sign up</button>
             </form>
         </div>
@@ -108,7 +108,7 @@
                                 <label class="control-label col-sm-4" for="firstName">First name:</label>
                                 <div class="col-sm-8">
                                     <p:inputText id="firstName"
-                                                 value="#{playerController.firstName}"
+                                                 value="#{registrationController.firstName}"
                                                  size="40"
                                                  label="firstName"
                                                  placeholder="Enter your first name ( min. 2 caracters )" />
@@ -119,7 +119,7 @@
                                 <label class="control-label col-sm-4" for="lastName">Last name:</label>
                                 <div class="col-sm-8">
                                     <p:inputText id="lastName"
-                                                 value="#{playerController.lastName}"
+                                                 value="#{registrationController.lastName}"
                                                  size="40"
                                                  label="lastName"
                                                  placeholder="Enter your last name ( min. 2 caracters )" />
@@ -133,7 +133,7 @@
                                                  required="true"
                                                  label="email"
                                                  size="40"
-                                                 value="#{playerController.email}"
+                                                 value="#{registrationController.email}"
                                                  placeholder="Enter your email address"
                                                  />
                                 </div>
@@ -143,7 +143,7 @@
                                 <label class="control-label col-sm-4" for="password">Password:</label>
                                 <div class="col-sm-8">
                                     <p:password id="password"        
-                                                value="#{playerController.password}"
+                                                value="#{registrationController.password}"
                                                 size="40" label="password"
                                                 placeholder="Enter your password ( min. 6 caracters)" /> 
                                 </div>
@@ -153,7 +153,7 @@
                                 <label class="control-label col-sm-4" for="confirmPassword">Password again:</label>
                                 <div class="col-sm-8">
                                     <p:password id="confirmPassword"
-                                                value="#{playerController.confirmPassword}"
+                                                value="#{registrationController.confirmPassword}"
                                                 size="40"
                                                 placeholder="Enter your password" />        
                                 </div>                            
@@ -167,8 +167,9 @@
                                     onclick="start_validation()"
                                     />
                             </div>
-                            <p:remoteCommand name="check_mail" action="#{playerController.checkEmail}" />
-                            <p:remoteCommand name="reg" actionListener="#{playerController.registration}"  />                
+                            <p:remoteCommand name="check_mail" action="#{registrationController.checkEmail}" />
+                            <p:remoteCommand name="reg" actionListener="#{registrationController.registration}"/>
+                
                         </h:form> 
                     </div>
                 </div>
