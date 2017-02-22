@@ -37,7 +37,7 @@ function continue_validation() {
         $.growl.error({message: "Your password has to be at least 6 caracters long."});
         fail = true;
     } else if (document.getElementById('registerForm:password').value !== document.getElementById('registerForm:confirmPassword').value) {
-        $.growl.error({message: "Passwords don't match."});
+        $.growl.error({message: "Passwords don't match"});
         fail = true;
     }
     if (!fail) {
@@ -46,9 +46,16 @@ function continue_validation() {
 }
 
 function wrong_email() {
-    $.growl.error({message: "This email already in use"});
+    $.growl.error({message: "This email is already in use"});
     fail = true;
 }
+
+function invalid_login(){
+	$('#loginpw').val('');
+	$('#loginemail').val('');
+	$.growl.error({message: "Invalid login name or password"});
+}
+
 
 function reg_success() {
     $.growl.notice({title: "Your account has been successfully created", message: "Welcome! :)"});

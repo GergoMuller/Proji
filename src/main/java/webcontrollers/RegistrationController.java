@@ -45,9 +45,6 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 		return "index";
 	}
 	
-	public String login(){
-		return "main?faces-redirect=true";
-	}
 	
 	public void checkEmail() {
         if(playerService.isEmailExists(email)){
@@ -69,7 +66,7 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
     		newPlayer.setName(name);
     		newPlayer.setAge(age);
     		newPlayer.setEmail(email);
-    		newPlayer.setPassword(password);
+    		newPlayer.setPassword(b64String);
     		newPlayer.addRole(Roles.PLAYER);
     		playerService.createPlayer(newPlayer);
             LOGGER.log(Level.INFO, "USER létrehozva: {0}", newPlayer.toString());

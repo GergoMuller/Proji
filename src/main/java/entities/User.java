@@ -23,7 +23,7 @@ public class User implements Serializable {
 	protected String name;
 	protected String password;
 	@ElementCollection(fetch=FetchType.EAGER)
-	protected Set<String> roles = new HashSet<>();
+	protected Set<String> roles = new HashSet<>(); 
 	
 	public void addRole(String role){
 		roles.add(role);
