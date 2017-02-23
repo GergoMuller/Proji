@@ -35,6 +35,9 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	private String confirmPassword;
 	private List<String> names;
 	private String name;
+	private String userType;
+	private String teamName;
+	
 	@EJB
 	PlayerService playerService;
 	
@@ -69,6 +72,7 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
     		newPlayer.setPassword(b64String);
     		newPlayer.addRole(Roles.PLAYER);
     		playerService.createPlayer(newPlayer);
+    		LOGGER.log(Level.INFO,"usertype: "+userType);
             LOGGER.log(Level.INFO, "USER létrehozva: {0}", newPlayer.toString());
             Ajax.oncomplete("reg_success()");
         } catch (NoSuchAlgorithmException ex) {
@@ -146,6 +150,26 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 
 }

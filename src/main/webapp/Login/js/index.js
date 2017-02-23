@@ -68,3 +68,29 @@ function reg_success() {
         location.reload();
 }
 
+function defaultModal(){
+	$('#label_teamName').hide();
+	$(document.getElementById('div_teamName')).hide();
+}
+
+function roleChanged(type) {
+    if (type == 'user_player') {
+    	$('#label_firstName').hide();
+    	$('#label_lastName').hide();
+    	$(document.getElementById('div_firstName')).hide();
+    	$(document.getElementById('div_lastName')).hide();
+    	$('#label_teamName').show();
+    	$(document.getElementById('div_teamName')).show();
+    	
+    }
+    else 
+    {
+    	$('#label_firstName').show();
+    	$('#label_lastName').show();
+    	$(document.getElementById('div_firstName')).show();
+    	$(document.getElementById('div_lastName')).show();
+    	$('#label_teamName').hide();
+    	$(document.getElementById('div_teamName')).hide();
+    }
+}
+
