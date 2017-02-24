@@ -61,8 +61,8 @@ function wrong_email() {
 }
 
 function invalid_login(){
-	$('#loginpw').val('');
-	$('#loginemail').val('');
+	$(document.getElementById('loginForm:loginemail')).val('');
+	$(document.getElementById('loginForm:loginpw')).val('');
 	$.growl.error({message: "Invalid login name or password"});
 }
 
