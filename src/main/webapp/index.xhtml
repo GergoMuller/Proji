@@ -259,12 +259,25 @@ input:focus {
 				<div class="modal-body">
 					<h:form id="registerForm" role="form" class="form-horizontal">
 
+						<div class="form-group row" id="div_teamCity">
+							<label id="label_cityName" class="control-label col-sm-4"
+								for="teamCity">Home City:</label>
+							<div class="col-sm-8">
+								<h:selectOneMenu id="teamCity"
+									value="#{registrationController.firstName}" >
+									<f:selectItem itemLabel="Select City" itemValue="no"
+										noSelectionOption="false" />
+									<f:selectItems value="#{registrationController.cities}" />
+								</h:selectOneMenu>
+							</div>
+						</div>
+
 						<div class="form-group row" id="div_teamName">
 							<label id="label_teamName" class="control-label col-sm-4"
 								for="teamName">Team name:</label>
 							<div class="col-sm-8">
 								<p:inputText id="teamName"
-									value="#{registrationController.teamName}" size="40"
+									value="#{registrationController.lastName}" size="40"
 									label="teamName" placeholder="Enter the name of your team" />
 							</div>
 						</div>
@@ -324,8 +337,8 @@ input:focus {
 						<div class="form-group row">
 							<label class="control-label col-sm-4">Choose user type: </label>
 							<div class="col-sm-8">
-								<p:selectOneRadio onclick="roleChanged(this.value)" id="user_roles"
-									value="#{registrationController.userType}">
+								<p:selectOneRadio onclick="roleChanged(this.value)"
+									id="user_roles" value="#{registrationController.userType}">
 									<f:selectItem id="player" itemLabel="Player"
 										itemValue="user_player" />
 									<f:selectItem id="team" itemLabel="Team" itemValue="user_team" />

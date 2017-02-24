@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,6 +25,12 @@ public class User implements Serializable {
 	protected String password;
 	@ElementCollection(fetch=FetchType.EAGER)
 	protected Set<String> roles = new HashSet<>(); 
+	
+	@Override
+	public String toString(){
+		MessageFormat mf = new MessageFormat("Name: {0}, Email: {1}" );
+		return mf.format(name, email );
+	}
 	
 	public void addRole(String role){
 		roles.add(role);

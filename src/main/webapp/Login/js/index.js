@@ -1,20 +1,30 @@
 
+var user_type = "user_player";
+
 function start_validation() {
     this.fail = false;
-    if (document.getElementById('registerForm:firstName').value.length <= 0) {
-        $.growl.error({message: "Enter your first name."});
-        fail = true;
+    if(user_type === "user_player"){
+	    if (document.getElementById('registerForm:firstName').value.length <= 0) {
+	        $.growl.error({message: "Enter your first name."});
+	        fail = true;
+	    }
+	    if (document.getElementById('registerForm:lastName').value.length <= 0) {
+	        $.growl.error({message: "Enter your last name."});
+	        fail = true;
+	    } else if (document.getElementById('registerForm:firstName').value.length < 2) {
+	        $.growl.error({message: "Your first name has to be at least 2 caracters long."});
+	        fail = true;
+	    } else if (document.getElementById('registerForm:lastName').value.length < 2) {
+	        $.growl.error({message: "Your last name has to be at least 2 caracters long."});
+	        fail = true;
+	    }
     }
-    if (document.getElementById('registerForm:lastName').value.length <= 0) {
-        $.growl.error({message: "Enter your last name."});
-        fail = true;
-    } else if (document.getElementById('registerForm:firstName').value.length < 2) {
-        $.growl.error({message: "Your first name has to be at least 2 caracters long."});
-        fail = true;
-    } else if (document.getElementById('registerForm:lastName').value.length < 2) {
-        $.growl.error({message: "Your last name has to be at least 2 caracters long."});
-        fail = true;
+    else if(user_type === "user_team"){
+    	if(document.getElementById('registerForm:teamCity').value == "no"){
+    		$.growl.error({message: "You must select a City"});
+    	}
     }
+    
 
     if (document.getElementById('registerForm:email').value.length <= 0) {
         $.growl.error({message: "Please enter your email address."});
@@ -71,26 +81,31 @@ function reg_success() {
 function defaultModal(){
 	$('#label_teamName').hide();
 	$(document.getElementById('div_teamName')).hide();
+	$(document.getElementById('div_teamCity')).hide();
 }
 
 function roleChanged(type) {
-    if (type == 'user_player') {
+    if (type == 'user_team') {
+    	user_type = 'user_team';
     	$('#label_firstName').hide();
     	$('#label_lastName').hide();
     	$(document.getElementById('div_firstName')).hide();
     	$(document.getElementById('div_lastName')).hide();
     	$('#label_teamName').show();
     	$(document.getElementById('div_teamName')).show();
+    	$(document.getElementById('div_teamCity')).show();
     	
     }
     else 
     {
+    	user_type = 'user_player';
     	$('#label_firstName').show();
     	$('#label_lastName').show();
     	$(document.getElementById('div_firstName')).show();
     	$(document.getElementById('div_lastName')).show();
     	$('#label_teamName').hide();
     	$(document.getElementById('div_teamName')).hide();
+    	$(document.getElementById('div_teamCity')).hide();
     }
 }
 

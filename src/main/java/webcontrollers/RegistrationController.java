@@ -17,8 +17,11 @@ import javax.inject.Named;
 
 import org.omnifaces.util.Ajax;
 
+import entities.City;
 import entities.Player;
+import entities.Team;
 import services.PlayerService;
+import services.RegistrationService;
 import utilities.Roles;
 
 @Named
@@ -27,6 +30,8 @@ public class RegistrationController {
 	
 private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
 	
+	private static final String USER ="user_player"; 
+	private static final String TEAM ="user_team"; 
 	private String firstName;
 	private String lastName;
 	private int age;
@@ -36,18 +41,16 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	private List<String> names;
 	private String name;
 	private String userType;
-	private String teamName;
+	private List<String> cities;
 	
 	@EJB
 	PlayerService playerService;
+	@EJB
+	RegistrationService regService;
+	
 	
 	
 		
-	public String getAdults(){
-		names = playerService.getByAge(18);
-		return "index";
-	}
-	
 	
 	public void checkEmail() {
         if(playerService.isEmailExists(email)){
@@ -56,6 +59,25 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
         }
         Ajax.oncomplete("continue_validation()");
     }
+	
+	public Player createNewPlayer(){
+		Player newPlayer = new Player();
+		StringBuilder sb = new StringBuilder(firstName);
+		name = sb.append(" ").append(lastName).toString();
+		newPlayer.setName(name);
+		newPlayer.setEmail(email);
+		newPlayer.addRole(Roles.PLAYER);
+		return newPlayer;
+	}
+	public Team createNewTeam(){
+		Team newTeam = new Team();
+		StringBuilder sb = new StringBuilder(firstName);
+		name = sb.append(" ").append(lastName).toString();
+		newTeam.setName(name);
+		newTeam.setEmail(email);
+		newTeam.addRole(Roles.TEAM);
+		return newTeam;
+	}
 
     public void registration() throws NoSuchAlgorithmException {
         LOGGER.info("Regisztráció elkezdése");
@@ -63,17 +85,21 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
             String b64String = Base64.getEncoder().encodeToString(hash);
-            StringBuilder sb = new StringBuilder(firstName);
-    		name = sb.append(" ").append(lastName).toString();
-    		Player newPlayer = new Player();
-    		newPlayer.setName(name);
-    		newPlayer.setAge(age);
-    		newPlayer.setEmail(email);
-    		newPlayer.setPassword(b64String);
-    		newPlayer.addRole(Roles.PLAYER);
-    		playerService.createPlayer(newPlayer);
-    		LOGGER.log(Level.INFO,"usertype: "+userType);
-            LOGGER.log(Level.INFO, "USER létrehozva: {0}", newPlayer.toString());
+    		if(userType.equals(USER)){
+	    		Player newPlayer = createNewPlayer();
+	    		newPlayer.setPassword(b64String);
+	    		regService.createPlayer(newPlayer);
+	    		LOGGER.log(Level.INFO,"usertype: "+userType);
+	            LOGGER.log(Level.INFO, "USER létrehozva: {0}", newPlayer.toString());
+    		}
+    		else if(userType.equals(TEAM)){
+    			Team newTeam = createNewTeam();
+    			newTeam.setPassword(b64String);
+    			regService.createTeam(newTeam);
+    			LOGGER.log(Level.INFO,"usertype: "+userType);
+	            LOGGER.log(Level.INFO, "USER létrehozva: {0}", newTeam.toString());
+    		}
+    		
             Ajax.oncomplete("reg_success()");
         } catch (NoSuchAlgorithmException ex) {
             LOGGER.severe("Hiba a jelszó titkosítása közben");
@@ -84,6 +110,19 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
     }
 	
 	
+
+	public List<String> getCities() {
+		if(cities == null){
+			cities = regService.getAllCitiyNames();
+		}
+		return cities;
+	}
+
+
+	public void setCities(List<String> cities) {
+		this.cities = cities;
+	}
+
 
 	public String getName() {
 		return name;
@@ -160,16 +199,6 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 
 	public void setUserType(String userType) {
 		this.userType = userType;
-	}
-
-
-	public String getTeamName() {
-		return teamName;
-	}
-
-
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
 	}
 
 }

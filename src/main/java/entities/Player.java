@@ -16,6 +16,8 @@ public class Player extends User implements Serializable {
 	
 	private String description;
 	private int age;
+	@Lob
+	private byte[] picture;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
 	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
@@ -31,10 +33,13 @@ public class Player extends User implements Serializable {
 	
 	
 	
-	@Override
-	public String toString(){
-		MessageFormat mf = new MessageFormat("Name: {0}, Email: {1}" );
-		return mf.format(name, email );
+	
+	
+	public byte[] getPicture() {
+		return picture;
+	}
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 	public int getAge() {
 		return age;

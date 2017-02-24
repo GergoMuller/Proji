@@ -24,10 +24,7 @@ public class PlayerService {
 	@Inject
 	UserRepository userRepo;
 	
-	public void createPlayer(Player player){
-		playerRepo.save(player);
-		
-	}
+	
 	
 	public List<String> getByAge(int age){
 		return playerRepo.findByAgeGreaterThanEqualsOrderByNameAsc(age)
@@ -48,6 +45,12 @@ public class PlayerService {
 	public Player getPlayerByEmail(String email){
 		return playerRepo.findByEmail(email);
 		
+	}
+	
+	public void saveImage(Player p, byte[] image){
+		Player player = playerRepo.findByEmail(p.getEmail());
+		player.setPicture(image);
+		playerRepo.save(player);
 	}
 
 }
