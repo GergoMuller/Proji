@@ -1,0 +1,23 @@
+@@ -1,22 +0,0 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+<h1>Jeeeeee bejelentkeztünk!!</h1>
+<h2> Hello <h:outputText value="#{playerController.currentPlayersName}" /> !</h2>
+<h:form>
+	<p:graphicImage value="#{playerController.currentPlayersPicture}" alt="No picture set" />
+	<p:outputLabel for="file" value="Choose file:" />
+	<p:fileUpload id="file" fileUploadListener="#{playerController.uploadFile}" allowTypes="/(\.|\/)(png|jpg)$/"  style="width: 60%"/>
+	
+</h:form>
+<h:form>
+	<h:commandButton action="#{securityController.logOut}" value="Log out" />
+</h:form>
+</body> 
+</html>
