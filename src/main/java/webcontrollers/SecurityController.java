@@ -19,8 +19,10 @@ import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Ajax;
 
 import entities.Player;
+import entities.Team;
 import entities.User;
 import services.PlayerService;
+import services.TeamService;
 import services.UserService;
 import utilities.Roles;
 
@@ -30,11 +32,16 @@ public class SecurityController implements Serializable {
 	
 	@EJB
 	private PlayerService playerService;
+	
+	@EJB
+	private TeamService teamService;
+	
 	@EJB
 	private UserService userService;
 	private String loginEmail;
 	private String password;
 	private String forwardURL;
+	
 	
 	@PostConstruct
 	private void init(){
@@ -85,6 +92,10 @@ public class SecurityController implements Serializable {
 
 	public Player getCurrentPlayer() {
 		return playerService.getPlayerByEmail(getUserEmail());
+	}
+	
+	public Team getCurrentTeam(){
+		return teamService.getTeamByEmail(getUserEmail());
 	}
 	
 	public boolean isUserInRole(String role){
