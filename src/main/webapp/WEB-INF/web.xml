@@ -32,7 +32,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>team</web-resource-name>
-			<url-pattern>/teamProfile.xhtml</url-pattern>
+			<url-pattern>/pages/team/teamProfile.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			 <role-name>TEAM</role-name> 

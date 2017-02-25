@@ -61,7 +61,7 @@ public class SecurityController implements Serializable {
         		if(isUserInRole(Roles.ADMIN))
         			forwardURL = exc.getRequestContextPath() + "/adminPage.xhtml";
         		else if(isUserInRole(Roles.TEAM))
-        			forwardURL = exc.getRequestContextPath() + "/teamProfile.xhtml";
+        			forwardURL = exc.getRequestContextPath() + "/pages/team/teamProfile.xhtml";
         		else if(isUserInRole(Roles.PLAYER))
         			forwardURL = exc.getRequestContextPath() + "/playerProfile.xhtml";
         	}
