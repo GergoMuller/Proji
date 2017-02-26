@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import entities.City;
 import entities.Player;
@@ -29,6 +30,15 @@ public class RegistrationService {
 					.sorted((c1,c2) -> c1.getCityName().compareTo(c2.getCityName()))
 					.map(c -> new String(c.getCityName()))
 					.collect(Collectors.toList());
+	}
+	
+	public boolean isEmailExists(String email){
+		try{
+		userRepo.findByEmail(email);
+		}catch (NoResultException e ){
+			return false;
+		}
+		return true;
 	}
 	
 	public void createTeam(Team team){

@@ -17,12 +17,11 @@ public class TeamController implements Serializable{
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
 	
 	private Team currentTeam;
-	private String teamName;
 
 	@Inject
 	private SecurityController securityControl;
 
-	//create team service
+	
 
 	@PostConstruct
 	private void init(){
@@ -34,9 +33,20 @@ public class TeamController implements Serializable{
 		return currentTeam.getName();
 	}
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public Team getCurrentTeam() {
+		if(currentTeam == null){
+			currentTeam = securityControl.getCurrentTeam();
+		}
+		return currentTeam;
 	}
+
+	public void setCurrentTeam(Team currentTeam) {
+		this.currentTeam = currentTeam;
+	}
+	
+	
+
+	
 
 	
 

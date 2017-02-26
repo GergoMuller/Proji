@@ -78,9 +78,12 @@ public class SecurityController implements Serializable {
         }  
 	}
 	
-	public String logOut(){
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "index?faces-redirect=true";
+	public void logOut() throws IOException{
+		ExternalContext exc =FacesContext.getCurrentInstance().getExternalContext();
+		exc.invalidateSession();
+		exc.redirect(exc.getRequestContextPath() + "/index.xhtml");
+		
+		//return "index?faces-redirect=true";
 	}
 	
 	public String getUserEmail() {

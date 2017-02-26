@@ -34,6 +34,8 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	private static final String TEAM ="user_team"; 
 	private String firstName;
 	private String lastName;
+	private String teamCity;
+	private String teamName;
 	private int age;
 	private String email;
 	private String password;
@@ -53,7 +55,7 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 		
 	
 	public void checkEmail() {
-        if(playerService.isEmailExists(email)){
+        if(regService.isEmailExists(email)){
         	LOGGER.log(Level.FINE, "Email checked: {0}", this.email);
         	Ajax.oncomplete("wrong_email()");
         }
@@ -71,8 +73,8 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	}
 	public Team createNewTeam(){
 		Team newTeam = new Team();
-		StringBuilder sb = new StringBuilder(firstName);
-		name = sb.append(" ").append(lastName).toString();
+		StringBuilder sb = new StringBuilder(teamCity);
+		name = sb.append(" ").append(teamName).toString();
 		newTeam.setName(name);
 		newTeam.setEmail(email);
 		newTeam.addRole(Roles.TEAM);
@@ -131,7 +133,23 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 
+	public String getTeamCity() {
+		return teamCity;
+	}
+
+	public void setTeamCity(String teamCity) {
+		this.teamCity = teamCity;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 
 	public String getFirstName() {
 		return firstName;

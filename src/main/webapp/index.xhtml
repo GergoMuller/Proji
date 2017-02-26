@@ -66,7 +66,7 @@
 								for="teamCity">Home City:</label>
 							<div class="col-sm-8">
 								<h:selectOneMenu id="teamCity"
-									value="#{registrationController.firstName}" >
+									value="#{registrationController.teamCity}" >
 									<f:selectItem itemLabel="Select City" itemValue="no"
 										noSelectionOption="false" />
 									<f:selectItems value="#{registrationController.cities}" />
@@ -79,7 +79,7 @@
 								for="teamName">Team name:</label>
 							<div class="col-sm-8">
 								<p:inputText id="teamName"
-									value="#{registrationController.lastName}" size="40"
+									value="#{registrationController.teamName}" size="40"
 									label="teamName" placeholder="Enter the name of your team" />
 							</div>
 						</div>
