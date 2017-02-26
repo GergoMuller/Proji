@@ -33,14 +33,6 @@ public class PlayerService {
 								.collect(Collectors.toList());
 	}
 	
-	public boolean isEmailExists(String email){
-		try{
-		userRepo.findByEmail(email);
-		}catch (NoResultException e ){
-			return false;
-		}
-		return true;
-	}
 	
 	public Player getPlayerByEmail(String email){
 		return playerRepo.findByEmail(email);

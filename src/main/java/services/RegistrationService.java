@@ -13,6 +13,7 @@ import entities.Team;
 import repositories.CityRepository;
 import repositories.PlayerRepository;
 import repositories.TeamRepository;
+import repositories.UserRepository;
 
 @Stateless
 public class RegistrationService {
@@ -23,6 +24,8 @@ public class RegistrationService {
 	TeamRepository teamRepsoitory;
 	@Inject
 	PlayerRepository playerRepository;
+	@Inject
+	UserRepository userRepository;
 
 	
 	public List<String> getAllCitiyNames(){
@@ -34,7 +37,7 @@ public class RegistrationService {
 	
 	public boolean isEmailExists(String email){
 		try{
-		userRepo.findByEmail(email);
+		userRepository.findByEmail(email);
 		}catch (NoResultException e ){
 			return false;
 		}
