@@ -1,6 +1,8 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -44,8 +46,16 @@ public class TeamService {
 		signingPlayer.setCurrentTeam(team);
 		//team.getCurrentPlayers().add(signingPlayer);
 		playerRepo.save(signingPlayer);
+		System.out.println("sikeres mentés: "+playerMail);
+		
+		List<Player> temp = new ArrayList();
+		temp = team.getCurrentPlayers();
+		for (Player player : temp) {
+			System.out.println(player.getName());
+		}
+		
 		}catch(NoResultException ex){
-			System.out.println("Nincs ilyen csapat");
+			System.out.println("Nincs ilyen játékos: "+playerMail);
 		}
 		
 	}

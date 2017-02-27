@@ -26,7 +26,7 @@ public class Player extends User implements Serializable {
 	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
 	private Contract contract;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne
 	@JoinColumn(name="Current_Team")
 	private Team currentTeam;
 	

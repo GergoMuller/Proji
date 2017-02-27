@@ -7,12 +7,15 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -23,6 +26,7 @@ import javax.inject.Named;
 import javax.servlet.http.Part;
 
 import org.omnifaces.cdi.GraphicImageBean;
+import org.omnifaces.util.Ajax;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -33,7 +37,7 @@ import entities.Team;
 import services.TeamService;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class TeamController implements Serializable{
 	
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
@@ -41,7 +45,7 @@ public class TeamController implements Serializable{
 	private Team currentTeam;
 	private UploadedFile teamPicture;
 	private String teamDate;
-	private DataModel<Player> roster;
+	private List<Player> roster;
 	private String toBeSignedPlayer;
 	
 
@@ -55,6 +59,7 @@ public class TeamController implements Serializable{
 	@PostConstruct
 	private void init(){
 		currentTeam = securityControl.getCurrentTeam();
+		currentTeam.getCurrentPlayers();
 		LOGGER.info("csapat nev: "+currentTeam.getName());
 	}
 	
@@ -97,7 +102,6 @@ public class TeamController implements Serializable{
 	public String signPlayer(){
 		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);
 		toBeSignedPlayer = null;
-		currentTeam=null;
 		return "teamProfile?faces-redirect=true";
 	}
 	
@@ -121,14 +125,14 @@ public class TeamController implements Serializable{
 	
 	
 	
-	public DataModel<Player> getRoster() {
+	public List<Player> getRoster() {
 		if(roster == null)
-			roster = new ListDataModel<Player>(getCurrentTeam().getCurrentPlayers());
+			roster = new ArrayList<Player>(getCurrentTeam().getCurrentPlayers());
 		return roster;
 	}
 
 
-	public void setRoster(DataModel<Player> roster) {
+	public void setRoster(List<Player> roster) {
 		this.roster = roster;
 	}
 
