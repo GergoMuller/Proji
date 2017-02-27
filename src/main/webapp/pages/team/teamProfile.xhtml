@@ -143,19 +143,19 @@
 				<!-- User Account Menu -->
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <!-- The user image in the navbar--> 
-					<p:graphicImage	value="#{teamController.currentTeamsPicture}" class="user-image"
+					data-toggle="dropdown"> <!-- The user image in the navbar--> <p:graphicImage
+							value="#{teamController.currentTeamsPicture}" class="user-image"
 							alt="Team cover" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
 						<span class="hidden-xs"> <h:outputText
-								value="#{teamController.teamName}" />
+								value="#{teamController.currentTeamName}" />
 					</span></a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
-						<li class="user-header">
-						<p:graphicImage	value="#{teamController.currentTeamsPicture}" class="user-image-bigger"
-								alt="Team cover" />
+						<li class="user-header"><p:graphicImage
+								value="#{teamController.currentTeamsPicture}"
+								class="user-image-bigger" alt="Team cover" />
 
-							<p>#{teamController.teamName}</p></li>
+							<p>#{teamController.currentTeamName}</p></li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
@@ -216,12 +216,36 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>Your Team</h1>
+			<h1>#{teamController.currentTeamName}</h1>
 			</section>
 
 			<!-- Main content -->
-			<section class="content"> <!-- Your Page Content Here --> </section>
-			<!-- /.content -->
+			<section class="content"> <p:dataTable
+				value="#{teamController.roster}" var="player">
+				<p:column>
+					<f:facet name="header">
+						<label></label>
+					</f:facet>
+					<p:graphicImage value="#{player.streamedPicture}" class="user-image" alt="User image" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<label>Name</label>
+					</f:facet>
+					<p:outputLabel value="#{player.name}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">
+						<label>Email address</label>
+					</f:facet>
+					<p:outputLabel value="#{player.email}" />
+				</p:column>
+			</p:dataTable> </section>
+			<h:form>
+				<p:inputText value="#{teamController.toBeSignedPlayer}"/>
+				<p:commandButton action="#{teamController.signPlayer}" value="Sign player"></p:commandButton>
+			</h:form>
+
 		</div>
 		<!-- /.content-wrapper -->
 
@@ -282,25 +306,41 @@
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
 			<div class="tab-pane" id="control-sidebar-settings-tab">
-				<h3 class="control-sidebar-heading">General Settings</h3>
-				<div class="form-group">
-					<label class="control-sidebar-subheading"> Upload your
-						teams cover picture </label>
-				</div>
+				<h3 class="control-sidebar-heading">Account settings</h3>
+
 				<h:form enctype="multipart/form-data">
-					<p:fileUpload id="file" value="#{teamController.teamPicture}"
-						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
-					<p:commandButton action="#{teamController.uploadPicture}"
-						class="btn-primary-red" ajax="false" value="Upload cover" />
+					<div class="settings-border form-group">
+						<div class="form-group">
+							<label class="control-sidebar-subheading"> Upload cover
+								picture </label>
+						</div>
+						<p:fileUpload id="file" value="#{teamController.teamPicture}"
+							allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
+						<p:commandButton action="#{teamController.uploadPicture}"
+							class="btn-primary-red" ajax="false" value="Upload cover" />
+					</div>
 				</h:form>
-				
-				<div class="form-group">
-					<label class="control-sidebar-subheading"> Your team was founded in </label>
-				</div>
+
+
+
 				<h:form>
-					<p:inputText value="#{teamController.teamDate}" placeholder="#{teamController.currentTeamsDate}"></p:inputText>
-					<p:messages/>
-					<p:commandButton action="#{teamController.saveFoundationDate}" class="btn-primary-red" value="Set foundation date"></p:commandButton>
+					<div class="settings-border form-group">
+						<div class="form-group">
+							<label class="control-sidebar-subheading"> Your team was
+								founded in </label>
+						</div>
+						<p:inputText value="#{teamController.teamDate}"
+							placeholder="#{teamController.currentTeamsDate}"></p:inputText>
+						<div class="form-group">
+							<label class="control-sidebar-subheading"> Your team was
+								founded in </label>
+						</div>
+						<p:inputText value="#{teamController.teamDate}"
+							placeholder="#{teamController.currentTeamsDate}"></p:inputText>
+						<p:messages />
+						<p:commandButton action="#{teamController.saveFoundationDate}"
+							class="btn-primary-red" value="Save changes"></p:commandButton>
+					</div>
 				</h:form>
 
 
@@ -324,7 +364,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Profile of #{teamController.teamName}</h4>
+					<h4 class="modal-title">Profile of #{teamController.currentTeamName}</h4>
 				</div>
 				<div class="modal-body">
 					<p>Some text in the modal.</p>

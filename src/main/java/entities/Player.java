@@ -1,10 +1,13 @@
 package entities;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.primefaces.model.DefaultStreamedContent;
 
 
 @Entity
@@ -23,7 +26,7 @@ public class Player extends User implements Serializable {
 	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
 	private Contract contract;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="Current_Team")
 	private Team currentTeam;
 	
@@ -34,6 +37,11 @@ public class Player extends User implements Serializable {
 	
 	
 	
+	public DefaultStreamedContent getStreamedPicture(){
+		if(picture == null)
+			return null;
+		return new DefaultStreamedContent(new ByteArrayInputStream(picture));
+	}
 	
 	public byte[] getPicture() {
 		return picture;
@@ -77,6 +85,8 @@ public class Player extends User implements Serializable {
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
 	}
+	
+	
 	
 	
 	

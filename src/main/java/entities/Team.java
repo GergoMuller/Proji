@@ -19,7 +19,7 @@ public class Team extends User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Past
 	private Date foundedIn;
-	@OneToMany(mappedBy="currentTeam")
+	@OneToMany(mappedBy="currentTeam", fetch=FetchType.EAGER )
 	private List<Player> currentPlayers;
 	@ManyToMany(mappedBy="previousTeams")
 	private List<Player> previousPlayers;

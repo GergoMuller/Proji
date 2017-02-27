@@ -4,9 +4,11 @@ import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import entities.Player;
 import entities.Team;
+import repositories.PlayerRepository;
 import repositories.TeamRepository;
 import repositories.UserRepository;
 
@@ -17,6 +19,8 @@ public class TeamService {
 	TeamRepository teamRepo;
 	@Inject
 	UserRepository userRepo;
+	@Inject
+	PlayerRepository playerRepo;
 	
 	
 	public Team getTeamByEmail(String email){
@@ -34,4 +38,15 @@ public class TeamService {
 		teamRepo.save(team);
 	}
 	
+	public void signPlayer(Team team, String playerMail){
+		try{
+		Player signingPlayer = playerRepo.findByEmail(playerMail);
+		signingPlayer.setCurrentTeam(team);
+		//team.getCurrentPlayers().add(signingPlayer);
+		playerRepo.save(signingPlayer);
+		}catch(NoResultException ex){
+			System.out.println("Nincs ilyen csapat");
+		}
+		
+	}
 }

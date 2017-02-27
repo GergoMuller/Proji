@@ -16,15 +16,19 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
 import org.omnifaces.cdi.GraphicImageBean;
+import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.UploadedFile;
 
+import entities.Player;
 import entities.Team;
 import services.TeamService;
 
@@ -37,6 +41,8 @@ public class TeamController implements Serializable{
 	private Team currentTeam;
 	private UploadedFile teamPicture;
 	private String teamDate;
+	private DataModel<Player> roster;
+	private String toBeSignedPlayer;
 	
 
 	@Inject
@@ -54,28 +60,47 @@ public class TeamController implements Serializable{
 	
 
 	
-	public void uploadPicture() throws IOException{
-		
+	public void uploadPicture() {
 		if(teamPicture != null){
 			byte[] imageContent = teamPicture.getContents();
 			teamSrevice.saveImage(currentTeam,imageContent);
-			}
-			else
 			currentTeam = null;
-			FacesContext.getCurrentInstance().getExternalContext().redirect("teamProfile.xhtml");
+			try{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("teamProfile.xhtml");
+			}catch(IOException e){
+				LOGGER.severe(("Redirect error in teamcontroller"));
+			}
+			LOGGER.info("Picture uploaded");
+		}
 	}
 	
 	public void saveFoundationDate(){
-		DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-		Date fundationDate;
-		try {
-			fundationDate = df.parse(teamDate);
-			teamSrevice.saveFoundationDate(currentTeam,fundationDate);
-		} catch (ParseException e) {
-			FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
-			
+		if(teamDate == null){
+			DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+			Date fundationDate;
+			try {
+				fundationDate = df.parse(teamDate);
+				teamSrevice.saveFoundationDate(currentTeam,fundationDate);
+			} catch (ParseException e) {
+				FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
+				
+			}
+			LOGGER.info("Foundation date updated");
 		}
 	}
+	
+	public void saveEditedTeamInfo(){
+		saveFoundationDate();
+		// többi adat modositasa
+	}
+	
+	public String signPlayer(){
+		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);
+		toBeSignedPlayer = null;
+		currentTeam=null;
+		return "teamProfile?faces-redirect=true";
+	}
+	
 	
 	public DefaultStreamedContent getCurrentTeamsPicture(){
 		if(getCurrentTeam().getTeamPicture() == null)
@@ -83,9 +108,30 @@ public class TeamController implements Serializable{
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
 	}
 
-	public String getTeamName() {
+	public String getCurrentTeamName() {
 		return getCurrentTeam().getName();
 	}
+
+
+	public String getCurrentTeamsDate(){
+		if(currentTeam.getFoundedIn() == null)
+			return "yyyy-mm-dd";
+		return currentTeam.getFoundedIn().toString();
+	}
+	
+	
+	
+	public DataModel<Player> getRoster() {
+		if(roster == null)
+			roster = new ListDataModel<Player>(getCurrentTeam().getCurrentPlayers());
+		return roster;
+	}
+
+
+	public void setRoster(DataModel<Player> roster) {
+		this.roster = roster;
+	}
+
 
 	public Team getCurrentTeam() {
 		if(currentTeam == null){
@@ -93,13 +139,6 @@ public class TeamController implements Serializable{
 		}
 		return currentTeam;
 	}
-	
-	public String getCurrentTeamsDate(){
-		if(currentTeam.getFoundedIn() == null)
-			return "yyyy-mm-dd";
-		return currentTeam.getFoundedIn().toString();
-	}
-	
 
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
@@ -120,6 +159,18 @@ public class TeamController implements Serializable{
 
 	public void setTeamDate(String teamDate) {
 		this.teamDate = teamDate;
+	}
+
+
+
+	public String getToBeSignedPlayer() {
+		return toBeSignedPlayer;
+	}
+
+
+
+	public void setToBeSignedPlayer(String toBeSignedPlayer) {
+		this.toBeSignedPlayer = toBeSignedPlayer;
 	}
 	
 	
