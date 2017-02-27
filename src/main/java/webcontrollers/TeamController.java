@@ -75,7 +75,7 @@ public class TeamController implements Serializable{
 	}
 	
 	public void saveFoundationDate(){
-		if(teamDate == null){
+		if(teamDate != null){
 			DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
 			Date fundationDate;
 			try {
