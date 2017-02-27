@@ -27,8 +27,17 @@ public class Team extends User implements Serializable {
 	private List<Contract> contracts;
 	@OneToMany(mappedBy="winnerTeam") 
 	private List<Match> wonMatches;
+	@Lob
+	private byte[] teamPicture;
 	
 	
+	
+	public byte[] getTeamPicture() {
+		return teamPicture;
+	}
+	public void setTeamPicture(byte[] teamPicture) {
+		this.teamPicture = teamPicture;
+	}
 	public List<Match> getWonMatches() {
 		return wonMatches;
 	}

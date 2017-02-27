@@ -1,6 +1,7 @@
 package webcontrollers;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -15,6 +16,7 @@ import javax.batch.api.partition.PartitionAnalyzer;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -44,10 +46,11 @@ public class PlayerController implements Serializable{
 		currentPlayer = securityControl.getCurrentPlayer();
 	}
 	
-	public void uploadFile(FileUploadEvent event){
+	public void uploadFile(FileUploadEvent event) throws IOException{
 		byte[] imageContent = event.getFile().getContents();
 		playerService.saveImage(currentPlayer, imageContent);
 		currentPlayer = null;
+		FacesContext.getCurrentInstance().getExternalContext().redirect("playerProfile.xhtml");
 	}
 	
 	public Player getCurrentPlayer() {
@@ -61,7 +64,9 @@ public class PlayerController implements Serializable{
 		return getCurrentPlayer().getName();
 	}
 	
-	public StreamedContent getCurrentPlayersPicture(){			
+	public StreamedContent getCurrentPlayersPicture(){		
+		if(getCurrentPlayer().getPicture() == null)
+			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentPlayer().getPicture()));
 	}
 

@@ -13,33 +13,33 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-	
+
 	<welcome-file-list>
 		<welcome-file>/index.xhtml</welcome-file>
 	</welcome-file-list>
 
- 
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>player</web-resource-name>
 			<url-pattern>/playerProfile.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			 <role-name>PLAYER</role-name> 
+			<role-name>PLAYER</role-name>
 		</auth-constraint>
 	</security-constraint>
-	
+
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>team</web-resource-name>
 			<url-pattern>/pages/team/teamProfile.xhtml</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			 <role-name>TEAM</role-name> 
+			<role-name>TEAM</role-name>
 		</auth-constraint>
 	</security-constraint>
-	 
-	 
+
+
 
 	<login-config>
 		<auth-method>FORM</auth-method>
@@ -58,5 +58,6 @@
 	<security-role>
 		<role-name>ADMIN</role-name>
 	</security-role>
+
 
 </web-app>

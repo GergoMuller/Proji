@@ -3,12 +3,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:hh="http://xmlns.jcp.org/jsf/html"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
 
 
 <h:head>
 	<meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge" />-->
 	<title>AdminLTE 2 | Starter</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta
@@ -31,6 +35,8 @@
 
 
 <h:body class="hold-transition skin-blue sidebar-mini">
+
+
 	<div class="wrapper">
 
 		<!-- Main Header -->
@@ -60,7 +66,8 @@
 									<!-- start message --> <a href="#">
 										<div class="pull-left">
 											<!-- User Image -->
-											<img src="http://wallpaper.imcphoto.net/animals/seal/baby-seal-image.jpg"
+											<img
+												src="http://wallpaper.imcphoto.net/animals/seal/baby-seal-image.jpg"
 												alt="User Image" />
 										</div> <!-- Message title and timestamp -->
 										<h4>
@@ -136,19 +143,19 @@
 				<!-- User Account Menu -->
 				<li class="dropdown user user-menu">
 					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <!-- The user image in the navbar--> <img
-						src="http://wallpaper.imcphoto.net/animals/seal/baby-seal-image.jpg"
-						class="user-image" alt="User Image" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs"> <h:outputText  value="#{teamController.teamName}"/> </span></a>
+					data-toggle="dropdown"> <!-- The user image in the navbar--> 
+					<p:graphicImage	value="#{teamController.currentTeamsPicture}" class="user-image"
+							alt="Team cover" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+						<span class="hidden-xs"> <h:outputText
+								value="#{teamController.teamName}" />
+					</span></a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
-						<li class="user-header"><img
-							src="http://wallpaper.imcphoto.net/animals/seal/baby-seal-image.jpg"
-							class="img-circle" alt="User Image" />
+						<li class="user-header">
+						<p:graphicImage	value="#{teamController.currentTeamsPicture}" class="user-image-bigger"
+								alt="Team cover" />
 
-							<p>
-								#{teamController.teamName} <small>Member since Nov. 2012</small>
-							</p></li>
+							<p>#{teamController.teamName}</p></li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
@@ -160,12 +167,8 @@
 							</div>
 							<div class="pull-right">
 								<h:form>
-									  <button type="button"
-										class="btn btn-primary btn-block btn-large" onclick="logout()">Sign
-										out</button> 
-									<p:remoteCommand name="logout"
-										action="#{securityController.logOut}" />
-									<p:commandButton class="btn btn-primary btn-block btn-large" action="#{securityController.logOut}"  value="Sign out"/>
+									<p:commandButton class="btn btn-primary btn-block btn-large"
+										action="#{securityController.logOut}" value="Sign out" />
 								</h:form>
 							</div>
 						</li>
@@ -279,18 +282,30 @@
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
 			<div class="tab-pane" id="control-sidebar-settings-tab">
-				<form method="post">
-					<h3 class="control-sidebar-heading">General Settings</h3>
+				<h3 class="control-sidebar-heading">General Settings</h3>
+				<div class="form-group">
+					<label class="control-sidebar-subheading"> Upload your
+						teams cover picture </label>
+				</div>
+				<h:form enctype="multipart/form-data">
+					<p:fileUpload id="file" value="#{teamController.teamPicture}"
+						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
+					<p:commandButton action="#{teamController.uploadPicture}"
+						class="btn-primary-red" ajax="false" value="Upload cover" />
+				</h:form>
+				
+				<div class="form-group">
+					<label class="control-sidebar-subheading"> Your team was founded in </label>
+				</div>
+				<h:form>
+					<p:inputText value="#{teamController.teamDate}" placeholder="#{teamController.currentTeamsDate}"></p:inputText>
+					<p:messages/>
+					<p:commandButton action="#{teamController.saveFoundationDate}" class="btn-primary-red" value="Set foundation date"></p:commandButton>
+				</h:form>
 
-					<div class="form-group">
-						<label class="control-sidebar-subheading"> Report panel
-							usage <input type="checkbox" class="pull-right" />
-						</label>
 
-						<p>Some information about this general settings option</p>
-					</div>
-					<!-- /.form-group -->
-				</form>
+
+
 			</div>
 			<!-- /.tab-pane -->
 		</div>

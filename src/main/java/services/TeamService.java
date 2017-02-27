@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -20,6 +22,16 @@ public class TeamService {
 	public Team getTeamByEmail(String email){
 		return teamRepo.findByEmail(email);
 		
+	}
+	
+	public void saveImage(Team team, byte[] image){
+		team.setTeamPicture(image);
+		teamRepo.save(team);
+	}
+	
+	public void saveFoundationDate(Team team, Date date){
+		team.setFoundedIn(date);
+		teamRepo.save(team);
 	}
 	
 }

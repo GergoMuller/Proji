@@ -1,14 +1,32 @@
 package webcontrollers;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
+
+import org.omnifaces.cdi.GraphicImageBean;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.UploadedFile;
 
 import entities.Team;
+import services.TeamService;
 
 @Named
 @SessionScoped
@@ -17,9 +35,14 @@ public class TeamController implements Serializable{
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
 	
 	private Team currentTeam;
+	private UploadedFile teamPicture;
+	private String teamDate;
+	
 
 	@Inject
 	private SecurityController securityControl;
+	@EJB
+	private TeamService teamSrevice;
 
 	
 
@@ -28,9 +51,40 @@ public class TeamController implements Serializable{
 		currentTeam = securityControl.getCurrentTeam();
 		LOGGER.info("csapat nev: "+currentTeam.getName());
 	}
+	
+
+	
+	public void uploadPicture() throws IOException{
+		
+		if(teamPicture != null){
+			byte[] imageContent = teamPicture.getContents();
+			teamSrevice.saveImage(currentTeam,imageContent);
+			}
+			else
+			currentTeam = null;
+			FacesContext.getCurrentInstance().getExternalContext().redirect("teamProfile.xhtml");
+	}
+	
+	public void saveFoundationDate(){
+		DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+		Date fundationDate;
+		try {
+			fundationDate = df.parse(teamDate);
+			teamSrevice.saveFoundationDate(currentTeam,fundationDate);
+		} catch (ParseException e) {
+			FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
+			
+		}
+	}
+	
+	public DefaultStreamedContent getCurrentTeamsPicture(){
+		if(getCurrentTeam().getTeamPicture() == null)
+			return null;
+		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
+	}
 
 	public String getTeamName() {
-		return currentTeam.getName();
+		return getCurrentTeam().getName();
 	}
 
 	public Team getCurrentTeam() {
@@ -39,16 +93,35 @@ public class TeamController implements Serializable{
 		}
 		return currentTeam;
 	}
+	
+	public String getCurrentTeamsDate(){
+		if(currentTeam.getFoundedIn() == null)
+			return "yyyy-mm-dd";
+		return currentTeam.getFoundedIn().toString();
+	}
+	
 
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
 	}
-	
-	
 
-	
+	public UploadedFile getTeamPicture() {
+		return teamPicture;
+	}
 
-	
+	public void setTeamPicture(UploadedFile teamPicture) {
+		this.teamPicture = teamPicture;
+	}
 
+	public String getTeamDate() {
+		return teamDate;
+	}
+
+
+	public void setTeamDate(String teamDate) {
+		this.teamDate = teamDate;
+	}
+	
+	
 
 }
