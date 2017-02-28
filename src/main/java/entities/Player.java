@@ -36,8 +36,7 @@ public class Player extends User implements Serializable {
 	
 	
 	
-	
-	public DefaultStreamedContent getStreamedPicture(){
+	public DefaultStreamedContent streamPicture(){
 		if(picture == null)
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(picture));

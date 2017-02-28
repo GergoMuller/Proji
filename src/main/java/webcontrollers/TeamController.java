@@ -30,6 +30,7 @@ import org.omnifaces.util.Ajax;
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import entities.Player;
@@ -37,7 +38,7 @@ import entities.Team;
 import services.TeamService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class TeamController implements Serializable{
 	
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
@@ -94,6 +95,11 @@ public class TeamController implements Serializable{
 		}
 	}
 	
+	//csak tesztelésre
+	public StreamedContent pic(){
+		return currentTeam.getCurrentPlayers().get(0).streamPicture();
+	}
+	
 	public void saveEditedTeamInfo(){
 		saveFoundationDate();
 		// többi adat modositasa
@@ -102,6 +108,7 @@ public class TeamController implements Serializable{
 	public String signPlayer(){
 		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);
 		toBeSignedPlayer = null;
+		currentTeam = null;
 		return "teamProfile?faces-redirect=true";
 	}
 	
@@ -176,7 +183,6 @@ public class TeamController implements Serializable{
 	public void setToBeSignedPlayer(String toBeSignedPlayer) {
 		this.toBeSignedPlayer = toBeSignedPlayer;
 	}
-	
 	
 
 }

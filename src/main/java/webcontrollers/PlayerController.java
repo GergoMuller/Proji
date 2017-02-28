@@ -69,8 +69,10 @@ public class PlayerController implements Serializable{
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentPlayer().getPicture()));
 	}
-
+	
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
+	
+	
 }

@@ -94,7 +94,10 @@ public class SecurityController implements Serializable {
 	}
 
 	public Player getCurrentPlayer() {
-		return playerService.getPlayerByEmail(getUserEmail());
+		if(isUserInRole(Roles.PLAYER))
+			return playerService.getPlayerByEmail(getUserEmail());
+		else
+			return null;
 	}
 	
 	public Team getCurrentTeam(){

@@ -44,10 +44,11 @@ public class TeamService {
 		try{
 		Player signingPlayer = playerRepo.findByEmail(playerMail);
 		signingPlayer.setCurrentTeam(team);
-		//team.getCurrentPlayers().add(signingPlayer);
+		team.getCurrentPlayers().add(signingPlayer);
 		playerRepo.save(signingPlayer);
-		System.out.println("sikeres mentés: "+playerMail);
 		
+		//debug
+		System.out.println("sikeres mentés: "+playerMail);
 		List<Player> temp = new ArrayList();
 		temp = team.getCurrentPlayers();
 		for (Player player : temp) {
