@@ -25,7 +25,9 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import entities.Contract;
 import entities.Player;
+import services.ContractService;
 import services.PlayerService;
 import utilities.Roles;
 
@@ -34,12 +36,18 @@ import utilities.Roles;
 @SessionScoped
 public class PlayerController implements Serializable{
 	
+	
+	private static final long serialVersionUID = 1L;
 	private Player currentPlayer;
+	private List<Contract> currentPlayersOffers;
+	
 	
 	@EJB
 	private PlayerService playerService;
 	@Inject
 	private SecurityController securityControl;
+	@EJB
+	private ContractService contractService;
 	
 	@PostConstruct
 	private void init(){
@@ -52,6 +60,12 @@ public class PlayerController implements Serializable{
 		currentPlayer = null;
 		FacesContext.getCurrentInstance().getExternalContext().redirect("playerProfile.xhtml");
 	}
+	
+	public int getNumberOfNewContracts(){
+		return playerService.numberOfNewContracts(currentPlayer);
+	}
+	
+	
 	
 	public Player getCurrentPlayer() {
 		if(currentPlayer == null){
@@ -74,5 +88,15 @@ public class PlayerController implements Serializable{
 		this.currentPlayer = currentPlayer;
 	}
 	
+
+	public List<Contract> getCurrentPlayersOffers() {
+		if(currentPlayersOffers == null)
+			currentPlayersOffers = contractService.getPlayersContracts(currentPlayer);
+		return currentPlayersOffers;
+	}
+
+	public void setCurrentPlayersOffers(List<Contract> currentPlayersOffers) {
+		this.currentPlayersOffers = currentPlayersOffers;
+	}
 	
 }

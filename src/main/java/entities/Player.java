@@ -83,12 +83,6 @@ public class Player extends User implements Serializable {
 	}
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
-	}
-	
-	
-	
-	
-	
-	
+	}	
    
 }

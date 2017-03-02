@@ -10,10 +10,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import entities.Contract;
 import entities.Player;
 import entities.User;
+import repositories.ContractRepository;
 import repositories.PlayerRepository;
 import repositories.UserRepository;
+
 
 @Stateless
 @LocalBean
@@ -23,6 +26,8 @@ public class PlayerService {
 	PlayerRepository playerRepo;
 	@Inject
 	UserRepository userRepo;
+	@Inject
+	ContractRepository contractRepo;
 	
 	
 	
@@ -44,5 +49,9 @@ public class PlayerService {
 		player.setPicture(image);
 		playerRepo.save(player);
 	}
-
+	
+	public int numberOfNewContracts(Player player){
+		return contractRepo.findBySignedPlayerEqualAndSeenByPlayerEqual(player,false).size();
+	}
+	
 }

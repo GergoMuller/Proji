@@ -101,7 +101,10 @@ public class SecurityController implements Serializable {
 	}
 	
 	public Team getCurrentTeam(){
+	if(isUserInRole(Roles.TEAM))
 		return teamService.getTeamByEmail(getUserEmail());
+	else
+		return null;
 	}
 	
 	public boolean isUserInRole(String role){

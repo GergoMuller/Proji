@@ -4,14 +4,55 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
 
-<h:head></h:head> 
+<h:head>
+	<link rel="stylesheet" href="pages/team/resources/bootstrap/css/bootstrap.min.css" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<!-- Ionicons -->
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+	<!-- Theme style -->
+	<link rel="stylesheet" href="pages/team/resources/dist/css/AdminLTE.min.css" />
+
+	<link rel="stylesheet"
+		href="pages/team/resources/dist/css/skins/skin-blue.min.css" />
+
+	<link rel="stylesheet" href="pages/team/resources/css/primefaces.css" />
+</h:head> 
 <h:body> 
-<h1>Jeeeeee bejelentkeztünk!!</h1>
+<h1>Player profile!!</h1>
 <h2> Hello <h:outputText value="#{playerController.currentPlayersName}" /> !</h2>
+
+<div class="navbar-custom-menu col-lg-12">
+			<ul class="nav navbar-nav col-lg-12">
+				<li class="dropdown messages-menu pull-right">
+						<a class="contract-btn dropdown-toggle"
+					data-toggle="dropdown" href="#"  > 
+							 <i class="glyphicon glyphicon-copy" aria-hidden="true"></i>
+							 <span class="label label-success">#{playerController.numberOfNewContracts}</span>
+						</a>
+					<ul class="dropdown-menu">
+						<li class="header"><h3 style="font-weight: 600">You have #{playerController.numberOfNewContracts} new offers</h3></li>
+						<ul class="menu">
+							<ui:repeat var="sender" value="#{playerController.currentPlayersOffers}">
+							<h:form>
+								<li><a href="#" onclick="loadContract()" data-toggle="modal" data-target="#contractModal"> From the  #{sender.signerTeam.name}</a></li>
+								<p:remoteCommand name="loadContract" action="#{contractController.loadContract}">
+								</p:remoteCommand>
+							</h:form>
+							</ui:repeat>
+						</ul>
+					</ul>
+				</li>
+			</ul>
+			
+</div>
 <h:form>
-	<p:graphicImage value="#{playerController.currentPlayersPicture}" alt="No picture set" />
+	<p:graphicImage value="#{playerController.currentPlayersPicture}" class="user-image-bigger" alt="No picture set" />
 	<p:outputLabel for="file" value="Choose file:" />
 	<p:fileUpload id="file" fileUploadListener="#{playerController.uploadFile}" allowTypes="/(\.|\/)(png|jpg)$/"  style="width: 60%"/>
 	
@@ -19,5 +60,72 @@
 <h:form>
 	<h:commandButton action="#{securityController.logOut}" value="Log out" />
 </h:form>
+
+<!-- Contract modal -->
+<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<h:form>
+			<div class="modal-content col-lg-12">
+				<div class="modal-header col-lg-12">
+					<h2 class="modal-title" id="exampleModalLabel col-lg-11"
+						style="font-weight: 600">Offer from the #{contractController.selectedContract.signerTeam.name}</h2>
+					<button type="button" class="close col-lg-1" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body col-lg-12">
+				
+				<div class="form-group ">
+					
+				 
+						<div class="form-group contractform">
+							<div class="col-lg-12">
+								<p:outputLabel > Amount of annual payment: <b>#{contractController.selectedContract.validDate}</b> </p:outputLabel>
+							</div>
+							
+
+						</div>
+						<div class="form-group contractform">
+							<div class="col-lg-12">
+								<p:outputLabel > Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b></p:outputLabel>
+							</div>
+							
+						</div>
+						<div class="col-lg-12">
+							<h:messages />
+							<h:message />
+						</div>
+
+						<div class="form-group contractform">
+							<div class="col-lg-12">
+								<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
+							</div>
+						</div>
+
+					
+					</div>
+
+
+				</div>
+				<div class="modal-footer col-lg-12">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<p:commandButton action="#{contractController.sendContract}" value="Accept contract" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
+				</div>
+				
+			</div>
+			</h:form>
+		</div>
+	</div>
+
+
+<!-- jQuery 2.2.3 -->
+	<script src="pages/team/resources/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<!-- Bootstrap 3.3.6 -->
+	<script src="pages/team/resources/bootstrap/js/bootstrap.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="pages/team/resources/dist/js/app.min.js"></script>
 </h:body> 
 </html>

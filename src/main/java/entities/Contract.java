@@ -27,10 +27,17 @@ public class Contract implements Serializable {
 	private double amount;
 	@Temporal(TemporalType.DATE)
 	private Date validDate;
+	private boolean seenByPlayer;
 	
 	
 	
 	
+	public boolean isSeenByPlayer() {
+		return seenByPlayer;
+	}
+	public void setSeenByPlayer(boolean seenByPlayer) {
+		this.seenByPlayer = seenByPlayer;
+	}
 	public Date getValidDate() {
 		return validDate;
 	}
