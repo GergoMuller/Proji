@@ -1,10 +1,14 @@
 package webcontrollers;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,7 +22,7 @@ import services.TeamService;
 
 @Named
 @RequestScoped
-public class ContractController {
+public class ContractController implements Serializable {
 	
 	@Inject
 	private SecurityController securityController;
@@ -59,9 +63,13 @@ public class ContractController {
 		return newContract;
 	}
 	
-	public void loadContract(Long id){
+	public void loadContract(Long id) throws IOException{
 		System.out.println("aaaaaaaaaaaaaaaaaaa:" +id);
 		selectedContract = contractService.getContractById(id);
+		
+		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
+		exc.getFlash().put("contract",selectedContract);
+		exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
 	}
 
 	public void setNewContract(Contract newContract) {
@@ -93,7 +101,9 @@ public class ContractController {
 	}
 
 	public Contract getSelectedContract() {
-		return selectedContract;
+		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
+		return (Contract)exc.getFlash().get("contract");
+		//return selectedContract;
 	}
 
 	public void setSelectedContract(Contract selectedContract) {
