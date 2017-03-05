@@ -1,9 +1,13 @@
 package services;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -69,17 +73,7 @@ public class TeamService {
 		}
 	}
 	
-	public void saveContract(Contract newContract, String signingPlayerEmail, String valid, String amount)
-			throws ParseException, NoResultException, NumberFormatException{
-		
-		newContract.setSignedPlayer(playerRepo.findByEmail((signingPlayerEmail)));
-		newContract.setAmount(Double.parseDouble(amount));
-		DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-		Date validDate;
-		validDate = df.parse(valid);
-		newContract.setValidDate(validDate);
-		contractRepo.save(newContract);
-	}
+	
 
 	public void updateTeam(Team temp, String email) {
 		//hashelni a passwordot!!!
@@ -88,16 +82,23 @@ public class TeamService {
 			team.setEmail(temp.getEmail());
 		}
 		if (temp.getPassword().length() != 0) {
-		team.setPassword(temp.getPassword());
+			try{
+				MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	            byte[] hash = digest.digest(temp.getPassword().getBytes(StandardCharsets.UTF_8));
+	            String b64String = Base64.getEncoder().encodeToString(hash);
+	            team.setPassword(b64String);
+			}catch(NoSuchAlgorithmException e){
+				System.out.println("Hiba a hashelésnél");
+			}
 		}
-		if (temp.getTeamPicture().toString() != null) {
-		team.setTeamPicture(temp.getTeamPicture());
+		if (temp.getTeamPicture() != null) {
+			team.setTeamPicture(temp.getTeamPicture());
 		}
 		if (temp.getFoundedIn() != null) {
-		team.setFoundedIn(temp.getFoundedIn());
+			team.setFoundedIn(temp.getFoundedIn());
 		}
 		if (temp.getName().length() != 0) {
-		team.setName(temp.getName());
+			team.setName(temp.getName());
 		}
 		teamRepo.save(team);
 		System.out.println("update megtörtént: "+email);

@@ -3,6 +3,7 @@ package webcontrollers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.logging.Level;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -14,10 +15,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 
+import org.omnifaces.util.Ajax;
+
 import entities.Contract;
 import entities.Team;
 import services.ContractService;
-import services.PlayerService;
+import services.RegistrationService;
 import services.TeamService;
 
 @Named
@@ -27,11 +30,11 @@ public class ContractController implements Serializable {
 	@Inject
 	private SecurityController securityController;
 	@EJB
-	private PlayerService playerSrevice;
+	private TeamService teamService;
 	@EJB
-	private TeamService teamSrevice;
+	private ContractService contractService;
 	@EJB
-	ContractService contractService;
+	private RegistrationService regService;
 	
 	
 	private Contract newContract;
@@ -44,15 +47,25 @@ public class ContractController implements Serializable {
 		Team currentTeam = securityController.getCurrentTeam();
 		if(currentTeam != null){
 			newContract.setSignerTeam(currentTeam);
-			try{
-				teamSrevice.saveContract(newContract, signingPlayerEmail, validDate, amount);
-			} catch (ParseException e) {
-				FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
-			} catch(NoResultException e){
-				FacesContext.getCurrentInstance().addMessage("Invalid email-address",new FacesMessage( "Invalid email-address"));
-			} catch(NumberFormatException e){
-				FacesContext.getCurrentInstance().addMessage("Invalid amount",new FacesMessage( "Invalid amount"));
-			}catch(Exception e){System.out.println("HIBAAAAAAAA");}
+			if(checkEmail()){
+				try{
+					contractService.saveContract(newContract, signingPlayerEmail, validDate, amount);
+				} catch (ParseException e) {
+					FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
+				} catch(NoResultException e){
+					FacesContext.getCurrentInstance().addMessage("Invalid email-address",new FacesMessage( "Invalid email-address"));
+					System.out.println("NoResultExceptiont caught");
+				} catch(NumberFormatException e){
+					FacesContext.getCurrentInstance().addMessage("Invalid amount",new FacesMessage( "Invalid amount"));
+					System.out.println("NumberFormatException caught");
+				}catch(Exception e){
+					System.out.println("HIBAAAAAAAA");
+					FacesContext.getCurrentInstance().addMessage("Invalid parameters for the contract",new FacesMessage( "Invalid parameters for the contract"));
+				}
+			}
+			else{
+				System.out.println("Non-existing email");
+			}
 		}
 		
 	}
@@ -64,13 +77,19 @@ public class ContractController implements Serializable {
 	}
 	
 	public void loadContract(Long id) throws IOException{
-		System.out.println("aaaaaaaaaaaaaaaaaaa:" +id);
 		selectedContract = contractService.getContractById(id);
-		
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
 		exc.getFlash().put("contract",selectedContract);
 		exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
 	}
+	
+	public boolean checkEmail() {
+        if(regService.isEmailExists(signingPlayerEmail)){
+        	return true;
+        }
+        //Ajax.oncomplete("invalidEmail()");
+        return false;
+    }
 
 	public void setNewContract(Contract newContract) {
 		this.newContract = newContract;
@@ -109,7 +128,4 @@ public class ContractController implements Serializable {
 	public void setSelectedContract(Contract selectedContract) {
 		this.selectedContract = selectedContract;
 	}
-	
-	
-	
 }

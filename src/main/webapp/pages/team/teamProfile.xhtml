@@ -374,6 +374,7 @@
 	<!--Profile Modal -->
 	<div class="modal fade" id="profileModal" role="dialog"
 		data-backdrop="static">
+		
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -388,7 +389,6 @@
 					<!-- Settings tab content -->
 					<div class="tab-pane" id="control-sidebar-settings-tab">
 						<h:form id="editForm" role="form" class="form-horizontal">
-
 							<div class="form-group row" id="div_teamName">
 								<label id="label_teamName" class="control-label col-sm-4"
 									for="teamName">Team name:</label>
@@ -404,7 +404,7 @@
 									for="calendar">Team was founded in:</label>
 								<div class="col-sm-8">
 
-									<p:calendar id="restricted" mode="inline"
+									<p:calendar id="calendar" mode="inline"
 										value="#{teamController.teamDate}"
 										maxdate="#{teamController.currentDate}" />
 								</div>
@@ -420,26 +420,29 @@
 										<p:fileUpload id="file" value="#{teamController.teamPicture}"
 											allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 										<p:commandButton action="#{teamController.uploadPicture}"
-											class="btn-primary-red" ajax="false" value="Upload cover" />
+											class="btn-primary-red" ajax="false" value="Upload cover" /> 
 									</div>
 								</p:panel>
 							</div>
 
-							<p:panel collapsed="true" id="toggleable_email"
-								header="Change your email" toggleable="true" toggleSpeed="500"
-								closeSpeed="500" widgetVar="panel_email"
-								style="margin-bottom:20px">
-
-								<div class="form-group row">
-									<label class="control-label col-sm-4" for="email">Email
-										address:</label>
-									<div class="col-sm-8">
-										<p:inputText id="email" required="true" label="email"
-											size="35" value="#{teamController.email}"
-											placeholder="#{teamController.currentEmail}" />
+							<div>
+								<p:panel collapsed="true" id="toggleable_email"
+									header="Change your email" toggleable="true" toggleSpeed="500"
+									closeSpeed="500" widgetVar="panel_email"
+									style="margin-bottom:20px">
+	
+									<div class="form-group row">
+										<label class="control-label col-sm-4" for="email">Email
+											address:</label>
+										<div class="col-sm-8">
+											<p:inputText id="email" label="email"
+												size="35" value="#{teamController.email}"
+												placeholder="#{teamController.currentEmail}" />
+										</div>
 									</div>
-								</div>
-							</p:panel>
+									
+								</p:panel>
+							</div>
 
 							<div id="div_password">
 								<p:panel collapsed="true" id="toggleable_password"
@@ -480,11 +483,12 @@
 								</p:panel>
 							</div>
 
+
 							<div class="form-group row " align="center">
-								<p:commandButton icon="ui-icon-check" type="button"
-								 onclick="update()" value="Save Changes"
+								<p:commandButton onclick="update()" value="Save Changes"
 									class="btn btn-info btn-default btn-primary" />
 							</div>
+							
 							<p:remoteCommand name="updateEntity"
 								action="#{teamController.updateEntity}" />
 						</h:form>
@@ -496,6 +500,7 @@
 				</div>
 			</div>
 		</div>
+		
 	</div>
 
 	<!-- Contract modal -->
@@ -570,7 +575,7 @@
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
 						<p:commandButton action="#{contractController.sendContract}"
-							value="Send" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
+							value="Send" class="btn btn-danger"  onclick="hideModal()"></p:commandButton>
 					</div>
 
 				</div>
@@ -583,7 +588,8 @@
 
 
 	<!-- REQUIRED JS SCRIPTS -->
-	<script src="resources/js/refresh_modal.js"></script>
+	<script src="resources/js/refresh_modal.js" type="text/javascript"></script>
+	<script src="resources/dist/js/contract.js" type="text/javascript"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->

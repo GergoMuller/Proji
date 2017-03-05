@@ -64,12 +64,14 @@ public class TeamController implements Serializable {
 	}
 
 	public void updateEntity() {
-		LOGGER.info("UPDATE MEGH�VVA");
+		LOGGER.info("UPDATE MEGHÍVVA");
 		Team temp = new Team();
 		temp.setEmail(email);
 		temp.setPassword(password);
-		byte[] imageContent = teamPicture.getContents();
-		temp.setTeamPicture(imageContent);
+		if(teamPicture != null){
+			byte[] imageContent = teamPicture.getContents();
+			temp.setTeamPicture(imageContent);
+		}
 		temp.setName(newName);
 		temp.setFoundedIn(saveFoundationDate());
 		teamSrevice.updateTeam(temp, currentTeam.getEmail());
@@ -78,6 +80,7 @@ public class TeamController implements Serializable {
 
 	public void uploadPicture() {
 		if (teamPicture != null) {
+			System.out.println("kép feltöltés megkezdödött");
 			byte[] imageContent = teamPicture.getContents();
 			teamSrevice.saveImage(currentTeam, imageContent);
 			currentTeam = null;
@@ -100,6 +103,7 @@ public class TeamController implements Serializable {
 			} catch (ParseException e) {
 				FacesContext.getCurrentInstance().addMessage("Invalid date format",
 						new FacesMessage("Invalid date fromat"));
+				LOGGER.info("parse error");
 
 			}
 			LOGGER.info("Foundation date updated");
@@ -107,14 +111,14 @@ public class TeamController implements Serializable {
 		return fundationDate;
 	}
 
-	// csak tesztel�sre
+	// csak tesztelésre
 	public StreamedContent pic() {
 		return currentTeam.getCurrentPlayers().get(0).streamPicture();
 	}
 
 	public void saveEditedTeamInfo() {
 		saveFoundationDate();
-		// t�bbi adat modositasa
+		// többi adat modositasa
 	}
 
 	public String signPlayer() {
