@@ -15,20 +15,14 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
-import org.omnifaces.cdi.GraphicImageBean;
-import org.omnifaces.util.Ajax;
-import org.primefaces.component.datatable.DataTable;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
@@ -40,6 +34,8 @@ import services.TeamService;
 @Named
 @SessionScoped
 public class TeamController implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
 
@@ -67,7 +63,7 @@ public class TeamController implements Serializable {
 		LOGGER.info("csapat nev: " + currentTeam.getName());
 	}
 
-	public void updateTeam() {
+	public void updateEntity() {
 		LOGGER.info("UPDATE MEGHÍVVA");
 		Team temp = new Team();
 		temp.setEmail(email);

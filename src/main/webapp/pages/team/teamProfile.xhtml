@@ -171,11 +171,11 @@
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
-								<h:form method="post">
+								<form method="post">
 									<button type="button"
 										class="btn btn-primary btn-block btn-large"
 										data-toggle="modal" data-target="#profileModal">Profile</button>
-								</h:form>
+								</form>
 							</div>
 							<div class="pull-right">
 								<h:form>
@@ -482,11 +482,11 @@
 
 							<div class="form-group row " align="center">
 								<p:commandButton icon="ui-icon-check" type="button"
-									onclick="update()" value="Save Changes"
+								 onclick="update()" value="Save Changes"
 									class="btn btn-info btn-default btn-primary" />
 							</div>
 							<p:remoteCommand name="updateEntity"
-								actionListener="#{teamController.updateTeam}" />
+								action="#{teamController.updateEntity}" />
 						</h:form>
 					</div>
 				</div>
