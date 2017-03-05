@@ -80,6 +80,29 @@ public class TeamService {
 		newContract.setValidDate(validDate);
 		contractRepo.save(newContract);
 	}
+
+	public void updateTeam(Team temp, String email) {
+		//hashelni a passwordot!!!
+		Team team = getTeamByEmail(email);
+		if (temp.getEmail().length() != 0) {
+			team.setEmail(temp.getEmail());
+		}
+		if (temp.getPassword().length() != 0) {
+		team.setPassword(temp.getPassword());
+		}
+		if (temp.getTeamPicture().toString() != null) {
+		team.setTeamPicture(temp.getTeamPicture());
+		}
+		if (temp.getFoundedIn() != null) {
+		team.setFoundedIn(temp.getFoundedIn());
+		}
+		if (temp.getName().length() != 0) {
+		team.setName(temp.getName());
+		}
+		teamRepo.save(team);
+		System.out.println("update megtörtént: "+email);
+	}
+
 	
 	
 }

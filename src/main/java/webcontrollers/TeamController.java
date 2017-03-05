@@ -39,82 +39,97 @@ import services.TeamService;
 
 @Named
 @SessionScoped
-public class TeamController implements Serializable{
-	
+public class TeamController implements Serializable {
+
 	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
-	
+
 	private Team currentTeam;
 	private UploadedFile teamPicture;
 	private String teamDate;
 	private List<Player> roster;
 	private String toBeSignedPlayer;
-	
+	private Date currentDate = new Date();
+	private String email;
+	private String password;
+	private String confirmPassword;
+	private String oldPassword;
+	private String newName;
 
 	@Inject
 	private SecurityController securityControl;
 	@EJB
 	private TeamService teamSrevice;
 
-	
-
 	@PostConstruct
-	private void init(){
+	private void init() {
 		currentTeam = securityControl.getCurrentTeam();
 		currentTeam.getCurrentPlayers();
-		LOGGER.info("csapat nev: "+currentTeam.getName());
+		LOGGER.info("csapat nev: " + currentTeam.getName());
 	}
-	
 
-	
+	public void updateTeam() {
+		LOGGER.info("UPDATE MEGHÍVVA");
+		Team temp = new Team();
+		temp.setEmail(email);
+		temp.setPassword(password);
+		byte[] imageContent = teamPicture.getContents();
+		temp.setTeamPicture(imageContent);
+		temp.setName(newName);
+		temp.setFoundedIn(saveFoundationDate());
+		teamSrevice.updateTeam(temp, currentTeam.getEmail());
+		LOGGER.info("UPDATE LEFUTOTT: " + currentTeam.getEmail());
+	}
+
 	public void uploadPicture() {
-		if(teamPicture != null){
+		if (teamPicture != null) {
 			byte[] imageContent = teamPicture.getContents();
-			teamSrevice.saveImage(currentTeam,imageContent);
+			teamSrevice.saveImage(currentTeam, imageContent);
 			currentTeam = null;
-			try{
+			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("teamProfile.xhtml");
-			}catch(IOException e){
+			} catch (IOException e) {
 				LOGGER.severe(("Redirect error in teamcontroller"));
 			}
 			LOGGER.info("Picture uploaded");
 		}
 	}
-	
-	public void saveFoundationDate(){
-		if(teamDate != null){
+
+	public Date saveFoundationDate() {
+		Date fundationDate = null;
+		if (teamDate != null) {
 			DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-			Date fundationDate;
 			try {
 				fundationDate = df.parse(teamDate);
-				teamSrevice.saveFoundationDate(currentTeam,fundationDate);
+				// teamSrevice.saveFoundationDate(currentTeam, fundationDate);
 			} catch (ParseException e) {
-				FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
-				
+				FacesContext.getCurrentInstance().addMessage("Invalid date format",
+						new FacesMessage("Invalid date fromat"));
+
 			}
 			LOGGER.info("Foundation date updated");
 		}
+		return fundationDate;
 	}
-	
-	//csak tesztelésre
-	public StreamedContent pic(){
+
+	// csak tesztelésre
+	public StreamedContent pic() {
 		return currentTeam.getCurrentPlayers().get(0).streamPicture();
 	}
-	
-	public void saveEditedTeamInfo(){
+
+	public void saveEditedTeamInfo() {
 		saveFoundationDate();
 		// többi adat modositasa
 	}
-	
-	public String signPlayer(){
+
+	public String signPlayer() {
 		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);
 		toBeSignedPlayer = null;
 		currentTeam = null;
 		return "teamProfile?faces-redirect=true";
 	}
-	
-	
-	public DefaultStreamedContent getCurrentTeamsPicture(){
-		if(getCurrentTeam().getTeamPicture() == null)
+
+	public DefaultStreamedContent getCurrentTeamsPicture() {
+		if (getCurrentTeam().getTeamPicture() == null)
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
 	}
@@ -123,29 +138,24 @@ public class TeamController implements Serializable{
 		return getCurrentTeam().getName();
 	}
 
-
-	public String getCurrentTeamsDate(){
-		if(currentTeam.getFoundedIn() == null)
+	public String getCurrentTeamsDate() {
+		if (currentTeam.getFoundedIn() == null)
 			return "yyyy-mm-dd";
 		return currentTeam.getFoundedIn().toString();
 	}
-	
-	
-	
+
 	public List<Player> getRoster() {
-		if(roster == null)
+		if (roster == null)
 			roster = new ArrayList<Player>(getCurrentTeam().getCurrentPlayers());
 		return roster;
 	}
-
 
 	public void setRoster(List<Player> roster) {
 		this.roster = roster;
 	}
 
-
 	public Team getCurrentTeam() {
-		if(currentTeam == null){
+		if (currentTeam == null) {
 			currentTeam = securityControl.getCurrentTeam();
 		}
 		return currentTeam;
@@ -167,22 +177,65 @@ public class TeamController implements Serializable{
 		return teamDate;
 	}
 
-
 	public void setTeamDate(String teamDate) {
 		this.teamDate = teamDate;
 	}
-
-
 
 	public String getToBeSignedPlayer() {
 		return toBeSignedPlayer;
 	}
 
+	public Date getCurrentDate() {
 
+		return currentDate;
+	}
 
 	public void setToBeSignedPlayer(String toBeSignedPlayer) {
 		this.toBeSignedPlayer = toBeSignedPlayer;
 	}
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewName() {
+		return newName;
+	}
+
+	public void setNewName(String newName) {
+		this.newName = newName;
+	}
+
+	public String getCurrentEmail() {
+		return currentTeam.getEmail();
+	}
 
 }

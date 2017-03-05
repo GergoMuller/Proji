@@ -29,6 +29,8 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" href="resources/dist/css/AdminLTE.min.css" />
 
+	<link href="resources/css/jquery.growl.css" rel="stylesheet"
+		type="text/css" />
 	<link rel="stylesheet"
 		href="resources/dist/css/skins/skin-blue.min.css" />
 
@@ -59,7 +61,7 @@
 				<li><a class="contract-btn" href="#" data-toggle="modal"
 					data-target="#contractModal"> <i
 						class="glyphicon glyphicon-paste" aria-hidden="true"></i>
-				</a> </li>
+				</a></li>
 
 				<!-- Messages: style can be found in dropdown.less-->
 				<li class="dropdown messages-menu">
@@ -169,11 +171,11 @@
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
-								<form method="post">
+								<h:form method="post">
 									<button type="button"
 										class="btn btn-primary btn-block btn-large"
-										data-toggle="modal" data-target="#myModal">Profile</button>
-								</form>
+										data-toggle="modal" data-target="#profileModal">Profile</button>
+								</h:form>
 							</div>
 							<div class="pull-right">
 								<h:form>
@@ -370,77 +372,127 @@
 	</div>
 
 	<!--Profile Modal -->
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="profileModal" role="dialog"
+		data-backdrop="static">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<button type="button" class="close" data-dismiss="modal"
+						onclick="refreshModal()">&times;</button>
 					<h4 class="modal-title">Profile of
 						#{teamController.currentTeamName}</h4>
 				</div>
 				<div class="modal-body">
 					<!-- Settings tab content -->
 					<div class="tab-pane" id="control-sidebar-settings-tab">
-						<div class="container">
-							<h2>Collapsible Panel</h2>
-							<p>Click on the collapsible panel to open and close it.</p>
-							<div class="panel-group">
-								<div class="panel panel-default">
-									<div class="panel-heading  accordion-group">
-										<h4 class="panel-title">
-											<a data-toggle="collapse" href="#collapse1">Collapsible
-												panel</a>
-										</h4>
+						<h:form id="editForm" role="form" class="form-horizontal">
+
+							<div class="form-group row" id="div_teamName">
+								<label id="label_teamName" class="control-label col-sm-4"
+									for="teamName">Team name:</label>
+								<div class="col-sm-8">
+									<p:inputText id="teamName" value="#{teamController.newName}"
+										size="35" label="teamName"
+										placeholder="#{teamController.currentTeamName}" />
+								</div>
+							</div>
+
+							<div class="form-group row" id="div_calendar">
+								<label id="label_calendar" class="control-label col-sm-4"
+									for="calendar">Team was founded in:</label>
+								<div class="col-sm-8">
+
+									<p:calendar id="restricted" mode="inline"
+										value="#{teamController.teamDate}"
+										maxdate="#{teamController.currentDate}" />
+								</div>
+							</div>
+
+							<div id="div_picture">
+								<p:panel collapsed="true" id="toggleable_picture"
+									header="Upload cover photo" toggleable="true" toggleSpeed="500"
+									closeSpeed="500" widgetVar="panel_picture"
+									style="margin-bottom:20px">
+
+									<div class="form-group row">
+										<p:fileUpload id="file" value="#{teamController.teamPicture}"
+											allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
+										<p:commandButton action="#{teamController.uploadPicture}"
+											class="btn-primary-red" ajax="false" value="Upload cover" />
 									</div>
-									<div id="collapse1" class="panel-collapse collapse">
-										<div class="panel-body">
-											<h:form enctype="multipart/form-data">
-												<div class="settings-border form-group">
-													<div class="form-group">
-														<label class="control-sidebar-subheading"> Upload
-															cover picture </label>
-													</div>
-													<p:fileUpload id="file"
-														value="#{teamController.teamPicture}"
-														allowTypes="/(\.|\/)(png|jpg)$/" mode="simple"
-														ajax="false" />
-													<p:commandButton action="#{teamController.uploadPicture}"
-														class="btn-primary-red" ajax="false" value="Upload cover" />
-												</div>
-											</h:form>
+								</p:panel>
+							</div>
+
+							<p:panel collapsed="true" id="toggleable_email"
+								header="Change your email" toggleable="true" toggleSpeed="500"
+								closeSpeed="500" widgetVar="panel_email"
+								style="margin-bottom:20px">
+
+								<div class="form-group row">
+									<label class="control-label col-sm-4" for="email">Email
+										address:</label>
+									<div class="col-sm-8">
+										<p:inputText id="email" required="true" label="email"
+											size="35" value="#{teamController.email}"
+											placeholder="#{teamController.currentEmail}" />
+									</div>
+								</div>
+							</p:panel>
+
+							<div id="div_password">
+								<p:panel collapsed="true" id="toggleable_password"
+									header="Change your password" toggleable="true"
+									toggleSpeed="500" closeSpeed="500" widgetVar="panel_password"
+									style="margin-bottom:20px">
+
+									<div class="form-group row">
+										<label class="control-label col-sm-4" for="old_password">Old
+											password:</label>
+										<div class="col-sm-8">
+											<p:password id="old_password"
+												value="#{teamController.oldPassword}" size="35"
+												label="Old password" placeholder="Your old password" />
 										</div>
-										<div class="panel-footer">Panel Footer</div>
 									</div>
-								</div>
-							</div>
-						</div>
 
-						<h:form>
-							<div class="settings-border form-group">
-								<div class="form-group">
-									<label class="control-sidebar-subheading"> Your team
-										was founded in </label>
-								</div>
-								<p:inputText value="#{teamController.teamDate}"
-									placeholder="#{teamController.currentTeamsDate}" ></p:inputText>
-								<div class="form-group">
-									<label class="control-sidebar-subheading"> Your team
-										was founded in </label>
-								</div>
-								<p:inputText value="#{teamController.teamDate}"
-									placeholder="#{teamController.currentTeamsDate}"></p:inputText>
-								<p:messages />
-								<p:commandButton action="#{teamController.saveFoundationDate}"
-									class="btn-primary-red" value="Save changes"></p:commandButton>
+									<div class="form-group row">
+										<label class="control-label col-sm-4" for="new_password">New
+											Password:</label>
+										<div class="col-sm-8">
+											<p:password id="new_password"
+												value="#{teamController.password}" size="35"
+												label="password"
+												placeholder="Enter your password ( min. 6 caracters)" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<label class="control-label col-sm-4" for="confirmPassword">New
+											password again:</label>
+										<div class="col-sm-8">
+											<p:password id="confirmPassword"
+												value="#{teamController.confirmPassword}" size="35"
+												placeholder="Enter your password" />
+										</div>
+									</div>
+								</p:panel>
 							</div>
+
+							<div class="form-group row " align="center">
+								<p:commandButton icon="ui-icon-check" type="button"
+									onclick="update()" value="Save Changes"
+									class="btn btn-info btn-default btn-primary" />
+							</div>
+							<p:remoteCommand name="updateEntity"
+								actionListener="#{teamController.updateTeam}" />
 						</h:form>
-
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default"
+						onclick="refreshModal()" data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -451,71 +503,77 @@
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<h:form>
-			<div class="modal-content col-lg-12">
-				<div class="modal-header col-lg-12">
-					<h2 class="modal-title" id="exampleModalLabel col-lg-11"
-						style="font-weight: 600">Offer Contract</h2>
-					<button type="button" class="close col-lg-1" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body col-lg-12">
-				 
-					<div class="form-group ">
-						<div class="form-group contractform">
-							<div class="col-lg-7">
-								<p:outputLabel for="contract-to"
-									value=" Email address of the recipient:" ></p:outputLabel>
-							</div>
-							<div class="col-lg-5">
-								<p:inputText id="contract-to" required="true"  value="#{contractController.signingPlayerEmail}"></p:inputText>
-							</div>
+				<div class="modal-content col-lg-12">
+					<div class="modal-header col-lg-12">
+						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
+							style="font-weight: 600">Offer Contract</h2>
+						<button type="button" class="close col-lg-1" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body col-lg-12">
 
-						</div>
-						<div class="form-group contractform">
-							<div class="col-lg-7">
-								<p:outputLabel for="amount"> Amount of annual payment: </p:outputLabel>
-							</div>
-							<div class="col-lg-5">
-								<p:inputText id="amount" required="true" value="#{contractController.amount}"></p:inputText>
-							</div>
+						<div class="form-group ">
+							<div class="form-group contractform">
+								<div class="col-lg-7">
+									<p:outputLabel for="contract-to"
+										value=" Email address of the recipient:"></p:outputLabel>
+								</div>
+								<div class="col-lg-5">
+									<p:inputText id="contract-to" required="true"
+										value="#{contractController.signingPlayerEmail}"></p:inputText>
+								</div>
 
-						</div>
-						<div class="form-group contractform">
-							<div class="col-lg-7">
-								<p:outputLabel for="valid"> Contract will be valid until:</p:outputLabel>
 							</div>
-							<div class="col-lg-5">
-								<p:inputText id="valid" required="true" value="#{contractController.validDate}" placeholder="yyyy-mm-dd"></p:inputText>
-							</div>
-						</div>
-						<div class="col-lg-12">
-							<h:messages />
-							<h:message />
-						</div>
+							<div class="form-group contractform">
+								<div class="col-lg-7">
+									<p:outputLabel for="amount"> Amount of annual payment: </p:outputLabel>
+								</div>
+								<div class="col-lg-5">
+									<p:inputText id="amount" required="true"
+										value="#{contractController.amount}"></p:inputText>
+								</div>
 
-						<div class="form-group contractform">
-							<div class="col-lg-12">
-								<p:outputLabel> Content of the contract:</p:outputLabel>
+							</div>
+							<div class="form-group contractform">
+								<div class="col-lg-7">
+									<p:outputLabel for="valid"> Contract will be valid until:</p:outputLabel>
+								</div>
+								<div class="col-lg-5">
+									<p:inputText id="valid" required="true"
+										value="#{contractController.validDate}"
+										placeholder="yyyy-mm-dd"></p:inputText>
+								</div>
 							</div>
 							<div class="col-lg-12">
-								<p:inputTextarea autoResize="true" class="col-lg-12" rows="15" value="#{contractController.newContract.content}"></p:inputTextarea>
+								<h:messages />
+								<h:message />
 							</div>
+
+							<div class="form-group contractform">
+								<div class="col-lg-12">
+									<p:outputLabel> Content of the contract:</p:outputLabel>
+								</div>
+								<div class="col-lg-12">
+									<p:inputTextarea autoResize="true" class="col-lg-12" rows="15"
+										value="#{contractController.newContract.content}"></p:inputTextarea>
+								</div>
+							</div>
+
+
 						</div>
 
-					
+
+					</div>
+					<div class="modal-footer col-lg-12">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<p:commandButton action="#{contractController.sendContract}"
+							value="Send" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
 					</div>
 
-
 				</div>
-				<div class="modal-footer col-lg-12">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<p:commandButton action="#{contractController.sendContract}" value="Send" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
-				</div>
-				
-			</div>
 			</h:form>
 		</div>
 	</div>
@@ -525,13 +583,11 @@
 
 
 	<!-- REQUIRED JS SCRIPTS -->
-
-	<!-- jQuery 2.2.3 -->
-	<script src="resources/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="resources/js/refresh_modal.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="resources/dist/js/app.min.js"></script>
-
+	<script src="resources/js/jquery.growl.js" type="text/javascript"></script>
 </h:body>
 </html>

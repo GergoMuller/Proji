@@ -3,7 +3,13 @@ package webcontrollers;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,6 +83,11 @@ private final static Logger LOGGER = Logger.getLogger(PlayerController.class.get
 		name = sb.append(" ").append(teamName).toString();
 		newTeam.setName(name);
 		newTeam.setEmail(email);
+	    Date date = Calendar.getInstance().getTime();
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    String now = sdf.format(date);
+
+		
 		newTeam.addRole(Roles.TEAM);
 		return newTeam;
 	}
