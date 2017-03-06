@@ -16,10 +16,11 @@ public class Contract implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name="player_id")
 	private Player signedPlayer;
 	@ManyToOne
-	@JoinColumn(name="team")
+	@JoinColumn(name="team_id")
 	private Team signerTeam;
 	private boolean teamAccepted=false;
 	private boolean playerAccepted=false;
@@ -27,6 +28,8 @@ public class Contract implements Serializable {
 	private double amount;
 	@Temporal(TemporalType.DATE)
 	private Date validDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date sendDate;
 	private boolean seenByPlayer;
 	
 	
@@ -86,6 +89,14 @@ public class Contract implements Serializable {
 	public void setPlayerAccepted(boolean playerAccepted) {
 		this.playerAccepted = playerAccepted;
 	}
+	public Date getSendDate() {
+		return sendDate;
+	}
+	public void setSendDate(Date sendDate) {
+		this.sendDate = sendDate;
+	}
+	
+	
 	
 	
 	

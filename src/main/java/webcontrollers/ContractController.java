@@ -24,7 +24,7 @@ import services.RegistrationService;
 import services.TeamService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class ContractController implements Serializable {
 	
 	@Inject
@@ -65,6 +65,7 @@ public class ContractController implements Serializable {
 			}
 			else{
 				System.out.println("Non-existing email");
+				FacesContext.getCurrentInstance().addMessage("Non-existing email",new FacesMessage( "Non-existing email"));
 			}
 		}
 		
@@ -78,6 +79,7 @@ public class ContractController implements Serializable {
 	
 	public void loadContract(Long id) throws IOException{
 		selectedContract = contractService.getContractById(id);
+		contractService.setContractSeen(selectedContract);
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
 		exc.getFlash().put("contract",selectedContract);
 		exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
@@ -90,6 +92,11 @@ public class ContractController implements Serializable {
         //Ajax.oncomplete("invalidEmail()");
         return false;
     }
+	
+	public String acceptContract(){
+		contractService.acceptContract(selectedContract);
+		return "playerProfile?faces-redirect=true";
+	}
 
 	public void setNewContract(Contract newContract) {
 		this.newContract = newContract;

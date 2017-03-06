@@ -146,7 +146,7 @@ public class TeamController implements Serializable {
 
 	public List<Player> getRoster() {
 		if (roster == null)
-			roster = new ArrayList<Player>(getCurrentTeam().getCurrentPlayers());
+			roster = getCurrentTeam().getCurrentPlayers();
 		return roster;
 	}
 

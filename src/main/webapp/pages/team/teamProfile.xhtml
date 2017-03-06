@@ -233,7 +233,7 @@
 
 			<!-- Main content -->
 			<h:form id="form_signplayer">
-				<section class="content"> <p:dataTable id="table_player"
+				 <p:dataTable id="table_player"
 					value="#{teamController.roster}" var="player">
 					<f:facet name="header">
 					Players
@@ -254,7 +254,7 @@
 						</f:facet>
 						<p:outputLabel value="#{player.email}" />
 					</p:column>
-				</p:dataTable> </section>
+				</p:dataTable> 
 
 				<p:inputText value="#{teamController.toBeSignedPlayer}" />
 				<p:commandButton action="#{teamController.signPlayer}"

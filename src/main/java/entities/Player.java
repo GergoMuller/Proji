@@ -23,8 +23,8 @@ public class Player extends User implements Serializable {
 	private byte[] picture;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
-	@OneToOne(orphanRemoval=true, mappedBy="signedPlayer")
-	private Contract contract;
+	@OneToMany(orphanRemoval=true, mappedBy="signedPlayer")
+	private List<Contract> contract;
 	
 	@ManyToOne
 	@JoinColumn(name="Current_Team")
@@ -60,12 +60,6 @@ public class Player extends User implements Serializable {
 	public void setPosition(PlayerPosition position) {
 		this.position = position;
 	}
-	public Contract getContract() {
-		return contract;
-	}
-	public void setContract(Contract contract) {
-		this.contract = contract;
-	}
 	public String getDescription() {
 		return description;
 	}
@@ -83,6 +77,15 @@ public class Player extends User implements Serializable {
 	}
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
+	}
+
+	public List<Contract> getContract() {
+		return contract;
+	}
+
+	public void setContract(List<Contract> contract) {
+		this.contract = contract;
 	}	
+	
    
 }
