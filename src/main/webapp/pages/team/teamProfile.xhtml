@@ -505,8 +505,8 @@
 					<div class="modal-header col-lg-12">
 						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
 							style="font-weight: 600">Offer Contract</h2>
-						<button type="button" class="close col-lg-1" data-dismiss="modal"
-							aria-label="Close">
+						<button type="button" onclick="clearModal()" class="close col-lg-1" data-dismiss="modal"
+							aria-label="Close"> 
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
@@ -552,7 +552,7 @@
 								<div class="col-lg-12">
 									<p:outputLabel> Content of the contract:</p:outputLabel>
 								</div>
-								<div class="col-lg-12">
+								<div class="col-lg-12" id="div_contractContent">
 									<p:inputTextarea id="contractContent" autoResize="true" class="col-lg-12" rows="15"
 										value="#{contractController.newContract.content}"></p:inputTextarea>
 								</div>
@@ -564,7 +564,7 @@
 
 					</div>
 					<div class="modal-footer col-lg-12">
-						<button type="button" class="btn btn-secondary"
+						<button type="button" onclick="clearModal()" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
 						<p:commandButton  value="Send" class="btn btn-danger" onclick="validateContract()"></p:commandButton>
 						<p:remoteCommand name="checkEmail" actionListener="#{contractController.checkEmail()}" />
