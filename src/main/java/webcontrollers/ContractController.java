@@ -26,7 +26,7 @@ import services.TeamService;
 @Named
 @SessionScoped
 public class ContractController implements Serializable {
-	
+
 	@Inject
 	private SecurityController securityController;
 	@EJB
@@ -35,65 +35,62 @@ public class ContractController implements Serializable {
 	private ContractService contractService;
 	@EJB
 	private RegistrationService regService;
-	
-	
+
 	private Contract newContract;
 	private String signingPlayerEmail;
 	private String validDate;
 	private String amount;
 	private Contract selectedContract;
-	
-	public void sendContract(){
+
+	public void sendContract() {
 		Team currentTeam = securityController.getCurrentTeam();
-		if(currentTeam != null){
+		System.out.println("send contract meghívva: current team = "+currentTeam.getEmail());
+		if (currentTeam != null) {
+			newContract = new Contract();
 			newContract.setSignerTeam(currentTeam);
-			if(checkEmail()){
-				try{
-					contractService.saveContract(newContract, signingPlayerEmail, validDate, amount);
-				} catch (ParseException e) {
-					FacesContext.getCurrentInstance().addMessage("Invalid date format",new FacesMessage( "Invalid date fromat"));
-				} catch(NoResultException e){
-					FacesContext.getCurrentInstance().addMessage("Invalid email-address",new FacesMessage( "Invalid email-address"));
-					System.out.println("NoResultExceptiont caught");
-				} catch(NumberFormatException e){
-					FacesContext.getCurrentInstance().addMessage("Invalid amount",new FacesMessage( "Invalid amount"));
-					System.out.println("NumberFormatException caught");
-				}catch(Exception e){
-					System.out.println("HIBAAAAAAAA");
-					FacesContext.getCurrentInstance().addMessage("Invalid parameters for the contract",new FacesMessage( "Invalid parameters for the contract"));
-				}
-			}
-			else{
-				System.out.println("Non-existing email");
-				FacesContext.getCurrentInstance().addMessage("Non-existing email",new FacesMessage( "Non-existing email"));
+			try {
+				contractService.saveContract(newContract, signingPlayerEmail, validDate, amount);
+			System.out.println("signingPlayerEmail :"+signingPlayerEmail);
+			System.out.println("validDate : "  +validDate);
+			System.out.println("amount : "+amount);
+			} catch (ParseException e) {
+				System.out.println("invalid date format");
+			} catch (NoResultException e) {
+				System.out.println("NoResultExceptiont caught");
+			} catch (NumberFormatException e) {
+				System.out.println("NumberFormatException caught");
+			} catch (Exception e) {
+				System.out.println("HIBAAAAAAAA" + e.getMessage());
+
 			}
 		}
-		
 	}
 
 	public Contract getNewContract() {
-		if(newContract == null)
+		if (newContract == null)
 			newContract = new Contract();
 		return newContract;
 	}
-	
-	public void loadContract(Long id) throws IOException{
+
+	public void loadContract(Long id) throws IOException {
 		selectedContract = contractService.getContractById(id);
 		contractService.setContractSeen(selectedContract);
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
-		exc.getFlash().put("contract",selectedContract);
+		exc.getFlash().put("contract", selectedContract);
 		exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
 	}
-	
+
 	public boolean checkEmail() {
-        if(regService.isEmailExists(signingPlayerEmail)){
-        	return true;
-        }
-        //Ajax.oncomplete("invalidEmail()");
-        return false;
-    }
-	
-	public String acceptContract(){
+		System.out.println("checking email");
+		if (regService.isEmailExists(signingPlayerEmail)) {
+			Ajax.oncomplete("finishContract()");
+			return true;
+		}
+		Ajax.oncomplete("invalidEmail()");
+		return false;
+	}
+
+	public String acceptContract() {
 		contractService.acceptContract(selectedContract);
 		return "playerProfile?faces-redirect=true";
 	}
@@ -128,8 +125,8 @@ public class ContractController implements Serializable {
 
 	public Contract getSelectedContract() {
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
-		return (Contract)exc.getFlash().get("contract");
-		//return selectedContract;
+		return (Contract) exc.getFlash().get("contract");
+		// return selectedContract;
 	}
 
 	public void setSelectedContract(Contract selectedContract) {

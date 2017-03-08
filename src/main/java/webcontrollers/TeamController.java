@@ -44,7 +44,6 @@ public class TeamController implements Serializable {
 	private String teamDate;
 	private List<Player> roster;
 	private String toBeSignedPlayer;
-	private Date currentDate = new Date();
 	private String email;
 	private String password;
 	private String confirmPassword;
@@ -64,21 +63,19 @@ public class TeamController implements Serializable {
 	}
 
 	public void updateEntity() {
-		LOGGER.info("UPDATE MEGHÍVVA");
+		LOGGER.info("k�p: "+teamPicture);
 		Team temp = new Team();
 		temp.setEmail(email);
 		temp.setPassword(password);
-		if(teamPicture != null){
-			byte[] imageContent = teamPicture.getContents();
-			temp.setTeamPicture(imageContent);
-		}
+		uploadPicture();
 		temp.setName(newName);
 		temp.setFoundedIn(saveFoundationDate());
-		teamSrevice.updateTeam(temp, currentTeam.getEmail());
+		teamSrevice.updateTeam(temp, currentTeam);
 		LOGGER.info("UPDATE LEFUTOTT: " + currentTeam.getEmail());
 	}
 
 	public void uploadPicture() {
+		LOGGER.info("k�p update: "+teamPicture);
 		if (teamPicture != null) {
 			System.out.println("kép feltöltés megkezdödött");
 			byte[] imageContent = teamPicture.getContents();
@@ -108,6 +105,7 @@ public class TeamController implements Serializable {
 			}
 			LOGGER.info("Foundation date updated");
 		}
+		teamDate = null;
 		return fundationDate;
 	}
 
@@ -185,11 +183,6 @@ public class TeamController implements Serializable {
 		return toBeSignedPlayer;
 	}
 
-	public Date getCurrentDate() {
-
-		return currentDate;
-	}
-
 	public void setToBeSignedPlayer(String toBeSignedPlayer) {
 		this.toBeSignedPlayer = toBeSignedPlayer;
 	}
@@ -200,6 +193,10 @@ public class TeamController implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date actualTeamDate() {
+		return currentTeam.getFoundedIn();
 	}
 
 	public String getPassword() {
@@ -237,5 +234,4 @@ public class TeamController implements Serializable {
 	public String getCurrentEmail() {
 		return currentTeam.getEmail();
 	}
-
 }

@@ -233,8 +233,8 @@
 
 			<!-- Main content -->
 			<h:form id="form_signplayer">
-				 <p:dataTable id="table_player"
-					value="#{teamController.roster}" var="player">
+				<p:dataTable id="table_player" value="#{teamController.roster}"
+					var="player">
 					<f:facet name="header">
 					Players
 					</f:facet>
@@ -254,7 +254,7 @@
 						</f:facet>
 						<p:outputLabel value="#{player.email}" />
 					</p:column>
-				</p:dataTable> 
+				</p:dataTable>
 
 				<p:inputText value="#{teamController.toBeSignedPlayer}" />
 				<p:commandButton action="#{teamController.signPlayer}"
@@ -323,17 +323,15 @@
 			<div class="tab-pane" id="control-sidebar-settings-tab">
 				<h3 class="control-sidebar-heading">Account settings</h3>
 
+				<div class="form-group">
+					<label class="control-sidebar-subheading"> Upload your
+						teams cover picture </label>
+				</div>
 				<h:form enctype="multipart/form-data">
-					<div class="settings-border form-group">
-						<div class="form-group">
-							<label class="control-sidebar-subheading"> Upload cover
-								picture </label>
-						</div>
-						<p:fileUpload id="file" value="#{teamController.teamPicture}"
-							allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
-						<p:commandButton action="#{teamController.uploadPicture}"
-							class="btn-primary-red" ajax="false" value="Upload cover" />
-					</div>
+					<p:fileUpload id="file" value="#{teamController.teamPicture}"
+						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
+					<p:commandButton action="#{teamController.uploadPicture}"
+						class="btn-primary-red" ajax="false" value="Upload cover" />
 				</h:form>
 
 
@@ -374,7 +372,7 @@
 	<!--Profile Modal -->
 	<div class="modal fade" id="profileModal" role="dialog"
 		data-backdrop="static">
-		
+
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -403,10 +401,9 @@
 								<label id="label_calendar" class="control-label col-sm-4"
 									for="calendar">Team was founded in:</label>
 								<div class="col-sm-8">
-
-									<p:calendar id="calendar" mode="inline"
-										value="#{teamController.teamDate}"
-										maxdate="#{teamController.currentDate}" />
+									<p:inputMask id="date" value="#{teamController.teamDate}"
+										placeholder="#{teamController.actualTeamDate()}"
+										mask="9999-99-99" size="35" />
 								</div>
 							</div>
 
@@ -416,12 +413,8 @@
 									closeSpeed="500" widgetVar="panel_picture"
 									style="margin-bottom:20px">
 
-									<div class="form-group row">
-										<p:fileUpload id="file" value="#{teamController.teamPicture}"
-											allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
-										<p:commandButton action="#{teamController.uploadPicture}"
-											class="btn-primary-red" ajax="false" value="Upload cover" /> 
-									</div>
+									<p:fileUpload id="file" value="#{teamController.teamPicture}"
+										allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 								</p:panel>
 							</div>
 
@@ -430,17 +423,17 @@
 									header="Change your email" toggleable="true" toggleSpeed="500"
 									closeSpeed="500" widgetVar="panel_email"
 									style="margin-bottom:20px">
-	
+
 									<div class="form-group row">
 										<label class="control-label col-sm-4" for="email">Email
 											address:</label>
 										<div class="col-sm-8">
-											<p:inputText id="email" label="email"
-												size="35" value="#{teamController.email}"
+											<p:inputText id="email" label="email" size="35"
+												value="#{teamController.email}"
 												placeholder="#{teamController.currentEmail}" />
 										</div>
 									</div>
-									
+
 								</p:panel>
 							</div>
 
@@ -488,7 +481,7 @@
 								<p:commandButton onclick="update()" value="Save Changes"
 									class="btn btn-info btn-default btn-primary" />
 							</div>
-							
+
 							<p:remoteCommand name="updateEntity"
 								action="#{teamController.updateEntity}" />
 						</h:form>
@@ -500,14 +493,14 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<!-- Contract modal -->
 	<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<h:form>
+			<h:form id="contractForm">
 				<div class="modal-content col-lg-12">
 					<div class="modal-header col-lg-12">
 						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
@@ -517,16 +510,15 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					<div class="modal-body col-lg-12">
-
+					<div class="modal-body col-lg-12" >
 						<div class="form-group ">
-							<div class="form-group contractform">
+							<div class="form-group contractform" >
 								<div class="col-lg-7">
 									<p:outputLabel for="contract-to"
 										value=" Email address of the recipient:"></p:outputLabel>
 								</div>
-								<div class="col-lg-5">
-									<p:inputText id="contract-to" required="true"
+								<div class="col-lg-5" id="div_contract-to" >
+									<p:inputText id="contract-to"
 										value="#{contractController.signingPlayerEmail}"></p:inputText>
 								</div>
 
@@ -535,8 +527,8 @@
 								<div class="col-lg-7">
 									<p:outputLabel for="amount"> Amount of annual payment: </p:outputLabel>
 								</div>
-								<div class="col-lg-5">
-									<p:inputText id="amount" required="true"
+								<div class="col-lg-5" id="div_amount">
+									<p:inputText id="amount" 
 										value="#{contractController.amount}"></p:inputText>
 								</div>
 
@@ -545,10 +537,10 @@
 								<div class="col-lg-7">
 									<p:outputLabel for="valid"> Contract will be valid until:</p:outputLabel>
 								</div>
-								<div class="col-lg-5">
-									<p:inputText id="valid" required="true"
+								<div class="col-lg-5" id="div_valid">
+									 <p:inputMask id="valid" mask="9999-99-99"
 										value="#{contractController.validDate}"
-										placeholder="yyyy-mm-dd"></p:inputText>
+										placeholder="yyyy-mm-dd"></p:inputMask>
 								</div>
 							</div>
 							<div class="col-lg-12">
@@ -561,7 +553,7 @@
 									<p:outputLabel> Content of the contract:</p:outputLabel>
 								</div>
 								<div class="col-lg-12">
-									<p:inputTextarea autoResize="true" class="col-lg-12" rows="15"
+									<p:inputTextarea id="contractContent" autoResize="true" class="col-lg-12" rows="15"
 										value="#{contractController.newContract.content}"></p:inputTextarea>
 								</div>
 							</div>
@@ -574,8 +566,9 @@
 					<div class="modal-footer col-lg-12">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
-						<p:commandButton action="#{contractController.sendContract}"
-							value="Send" class="btn btn-danger"  onclick="hideModal()"></p:commandButton>
+						<p:commandButton  value="Send" class="btn btn-danger" onclick="validateContract()"></p:commandButton>
+						<p:remoteCommand name="checkEmail" actionListener="#{contractController.checkEmail()}" />
+						<p:remoteCommand name="sendContract" actionListener="#{contractController.sendContract()}" />
 					</div>
 
 				</div>
@@ -589,7 +582,7 @@
 
 	<!-- REQUIRED JS SCRIPTS -->
 	<script src="resources/js/refresh_modal.js" type="text/javascript"></script>
-	<script src="resources/dist/js/contract.js" type="text/javascript"></script>
+	<script src="resources/js/contract.js" type="text/javascript"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->

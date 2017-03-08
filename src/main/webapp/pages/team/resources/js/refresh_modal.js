@@ -13,10 +13,11 @@ function update() {
         fail = true;
     }
 	//CHECK OLD PASSWORD!!
+	//CHECK NEW EMAIL
 
 	if (!fail) {
-		$.growl.warning({
-			message : "succesfull update."
+		$.growl.notice({
+			message : "Succesfull update."
 		});
 		updateEntity();
 		$('#profileModal').modal('toggle');
@@ -39,5 +40,6 @@ function refreshModal() {
 						$('#div_picture').find("input").val('').end();
 						$('#div_password').find("input").val('').end();
 						$('#div_teamName').find("input").val('').end();
+						$('#div_calendar').find("input").val('').end();
 					});
 }

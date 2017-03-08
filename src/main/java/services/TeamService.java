@@ -75,13 +75,13 @@ public class TeamService {
 	
 	
 
-	public void updateTeam(Team temp, String email) {
+	public void updateTeam(Team temp, Team currentTeam) {
 		//hashelni a passwordot!!!
-		Team team = getTeamByEmail(email);
-		if (temp.getEmail().length() != 0) {
+		Team team = currentTeam;
+		if (temp.getEmail() != null) {
 			team.setEmail(temp.getEmail());
 		}
-		if (temp.getPassword().length() != 0) {
+		if (temp.getPassword() != null) {
 			try{
 				MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	            byte[] hash = digest.digest(temp.getPassword().getBytes(StandardCharsets.UTF_8));
@@ -91,17 +91,14 @@ public class TeamService {
 				System.out.println("Hiba a hashelésnél");
 			}
 		}
-		if (temp.getTeamPicture() != null) {
-			team.setTeamPicture(temp.getTeamPicture());
-		}
 		if (temp.getFoundedIn() != null) {
 			team.setFoundedIn(temp.getFoundedIn());
 		}
-		if (temp.getName().length() != 0) {
+		if (temp.getName() != null) {
 			team.setName(temp.getName());
 		}
 		teamRepo.save(team);
-		System.out.println("update megtörtént: "+email);
+		System.out.println("update megtörtént: "+currentTeam.getEmail());
 	}
 
 	
