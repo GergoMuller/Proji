@@ -78,10 +78,12 @@ public class TeamService {
 	public void updateTeam(Team temp, Team currentTeam) {
 		//hashelni a passwordot!!!
 		Team team = currentTeam;
-		if (temp.getEmail() != null) {
+		System.out.println("CURRENT TEAM: "+currentTeam.getEmail());
+		if (temp.getEmail() != null && !("").equals(temp.getEmail())) {
+			System.out.println("EMAIL CSERE: "+temp.getEmail());
 			team.setEmail(temp.getEmail());
 		}
-		if (temp.getPassword() != null) {
+		if (temp.getPassword() != null && !("").equals(temp.getPassword())) {
 			try{
 				MessageDigest digest = MessageDigest.getInstance("SHA-256");
 	            byte[] hash = digest.digest(temp.getPassword().getBytes(StandardCharsets.UTF_8));
@@ -91,10 +93,10 @@ public class TeamService {
 				System.out.println("Hiba a hashelésnél");
 			}
 		}
-		if (temp.getFoundedIn() != null) {
+		if (temp.getFoundedIn() != null && !("").equals(temp.getFoundedIn())) {
 			team.setFoundedIn(temp.getFoundedIn());
 		}
-		if (temp.getName() != null) {
+		if (temp.getName() != null && !("").equals(temp.getName())) {
 			team.setName(temp.getName());
 		}
 		teamRepo.save(team);

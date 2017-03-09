@@ -1,3 +1,12 @@
+function openProfileModal(){
+	$('#profileModal').modal('show');
+}
+
+function hideProfileModal(){
+	$('#profileModal').modal('hide');
+	refreshModal();
+}
+
 function update() {
 	this.fail = false;
 	if (document.getElementById('editForm:email').value.length > 0

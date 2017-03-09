@@ -94,8 +94,9 @@ function dateValidator() {
 
 }
 
-function hiedModal() {
-	$('#contractModal').modal('toggle');
+function hideModal() {
+	$('#contractModal').modal('hide');
+	clearModal();
 }
 
 function invalidEmail() {
@@ -142,7 +143,7 @@ function validateContract() {
 function finishContract() {
 	if (!fail) {
 		sendContract();
-		hiedModal();
+		hideModal();
 		clearModal();
 		$.growl.notice({
 			message : "Contract sent"
