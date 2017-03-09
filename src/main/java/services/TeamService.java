@@ -11,6 +11,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
@@ -101,6 +102,16 @@ public class TeamService {
 		}
 		teamRepo.save(team);
 		System.out.println("update megtörtént: "+currentTeam.getEmail());
+	}
+	
+	public List<Team> getTeamNameSearchResult(String searchParam){
+		return teamRepo.findByNameLike(searchParam).stream()
+						.sorted((t1,t2) -> t1.getName().compareTo(t2.getName()))
+						.collect(Collectors.toList());
+	}	
+	
+	public List<Team> getAllTeams(){
+		return teamRepo.findAll();
 	}
 
 	

@@ -74,7 +74,9 @@ public class SecurityController implements Serializable {
         	}
         	exc.redirect(forwardURL);
         }catch(ServletException e){
+        	e.printStackTrace();
         	Ajax.oncomplete("invalid_login()");
+        	
         }  
 	}
 	

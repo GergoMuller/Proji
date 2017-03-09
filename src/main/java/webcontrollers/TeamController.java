@@ -49,6 +49,7 @@ public class TeamController implements Serializable {
 	private String confirmPassword;
 	private String oldPassword;
 	private String newName;
+	private Team displayedTeam;
 
 	@Inject
 	private SecurityController securityControl;
@@ -89,7 +90,7 @@ public class TeamController implements Serializable {
 			LOGGER.info("Picture uploaded");
 		}
 	}
-
+	
 
 	// csak tesztelésre
 	public StreamedContent pic() {
@@ -213,4 +214,15 @@ public class TeamController implements Serializable {
 	public String getCurrentEmail() {
 		return currentTeam.getEmail();
 	}
+
+	public Team getDisplayedTeam() {
+		if(displayedTeam == null)
+			displayedTeam = getCurrentTeam();
+		return displayedTeam;
+	}
+
+	public void setDisplayedTeam(Team displayedTeam) {
+		this.displayedTeam = displayedTeam;
+	}
+	
 }

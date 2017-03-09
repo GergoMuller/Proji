@@ -13,7 +13,7 @@
 <h:head>
 	<meta charset="utf-8" />
 	<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge" />-->
-	<title>AdminLTE 2 | Starter</title>
+	<title>Sport Manager</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -41,14 +41,13 @@
 
 <h:body class="hold-transition skin-blue sidebar-mini">
 
-
 	<div class="wrapper">
 
 		<!-- Main Header -->
 		<header class="main-header"> <!-- Logo --> <a
 			href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
-			<span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
-			<span class="logo-lg"><b>Admin</b>LTE</span>
+			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
+			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
 			role="navigation"> <!-- Sidebar toggle button--> <a href="#"
 			class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span
@@ -193,48 +192,59 @@
 			</ul>
 		</div>
 		</nav> </header>
-		<!-- Left side column. contains the logo and sidebar -->
+		
+		
+		<!-- SEARCH -->
+		
 		<aside class="main-sidebar"> <!-- sidebar: style can be found in sidebar.less -->
 		<section class="sidebar"> <!-- search form (Optional) -->
-		<form action="#" method="get" class="sidebar-form">
+		<h:form id="searchPanel" class="sidebar-form">
 			<div class="input-group">
-				<input type="text" name="q" class="form-control"
+				<p:inputText value="#{searchController.searchedTeamName}" name="q" class="form-control"
 					placeholder="Search..." /> <span class="input-group-btn">
-					<button type="submit" name="search" id="search-btn"
+					<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
 						class="btn btn-flat">
 						<i class="fa fa-search"></i>
 					</button>
+					<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
+					</ui:remove>
+					<p:commandLink  action="#{searchController.searchForTeamName()}" class="btn btn-flat"
+					update="searchPanel"> <i class="fa fa-search"></i> </p:commandLink>
 				</span>
 			</div>
-		</form>
-		<!-- /.search form --> <!-- Sidebar Menu -->
+		
 		<ul class="sidebar-menu">
-			<li class="header">HEADER</li>
-			<!-- Optionally, you can add icons to the links -->
-			<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-			<li><a href="#"><i class="fa fa-link"></i> <span>Another
-						Link</span></a></li>
-			<li class="treeview"><a href="#"><i class="fa fa-link"></i>
-					<span>Multilevel</span> <span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-				</span> </a>
-				<ul class="treeview-menu">
-					<li><a href="#">Link in level 2</a></li>
-					<li><a href="#">Link in level 2</a></li>
-				</ul></li>
+			<li class="header"><b>TEAMS</b></li>
+			<div class="sidebar-menu">
+			<ui:repeat var="team" value="#{searchController.teamSearchResult}">
+				<li class="active">
+					<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
+				 		<span>#{team.name}</span>
+				 	</p:commandLink>
+				 </li>
+			</ui:repeat>  
+			</div>
+			
+			
+			
 		</ul>
-		<!-- /.sidebar-menu --> </section> <!-- /.sidebar --> </aside>
+		</h:form>
+		
+		 </section>  
+		 </aside> 
+		 
 
 		<!-- Content Wrapper. Contains page content -->
+		
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1><h:outputLabel id="mainTeamName" value="#{teamController.currentTeamName}"></h:outputLabel></h1>
+			<h1><h:outputLabel id="mainTeamName" value="#{teamController.displayedTeam}"></h:outputLabel></h1>
 			</section>
 
 			<!-- Main content -->
-			<h:form id="form_signplayer">
-				<p:dataTable id="table_player" value="#{teamController.roster}"
+			<h:form id="form_displayedTeam">
+				<p:dataTable id="table_player" value="#{teamController.displayedTeam.currentPlayers}"
 					var="player">
 					<f:facet name="header">
 					Players
@@ -259,10 +269,11 @@
 
 				<p:inputText value="#{teamController.toBeSignedPlayer}" />
 				<p:commandButton action="#{teamController.signPlayer}"
-					update="form_signplayer" ajax="true" value="Sign player"></p:commandButton>
+					update="form_displayedTeam" ajax="true" value="Sign player"></p:commandButton>
 			</h:form>
 
 		</div>
+		
 		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->

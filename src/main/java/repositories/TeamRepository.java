@@ -17,4 +17,5 @@ public abstract class TeamRepository extends AbstractEntityRepository<Team, Long
 	public abstract List<Team> findByAgeGreaterThanEqualsOrderByNameAsc(int age);
 	public abstract List<Team> findByAgeGreaterThan(int age);
 	public abstract Team findByEmail(String mail);
+	public abstract List<Team>  findByNameLike(String param);
 }
