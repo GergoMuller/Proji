@@ -40,12 +40,10 @@
 						<ul class="menu">
 							<ui:repeat var="sender" value="#{playerController.currentPlayersOffers}">
 							<h:form>
-								<ui:remove><li><a href="#" onclick="loadContract()" data-toggle="modal" data-target="#contractModal"> From the  #{sender.signerTeam.name}</a></li>
-								<p:remoteCommand name="loadContract" action="#{contractController.loadContract}">
-								</p:remoteCommand></ui:remove>
 								<li>	
-									<p:commandLink action="#{contractController.loadContract(sender.id)}" value="#{sender.signerTeam.name}" data-toggle="modal" data-target="#contractModal"/>
-									<ui:remove>FONTOS	 oncomplete="$('#contractModal').modal('show'); return false;" </ui:remove>
+									<p:commandLink action="#{contractController.loadContract(sender.id)}" value="#{sender.signerTeam.name}" oncomplete="$('#contractModal').modal('show')" 
+									update="contractModalParent"/>
+									
 								</li>
 							</h:form>
 							</ui:repeat>
@@ -66,6 +64,7 @@
 </h:form>
 
 <!-- Contract modal -->
+<h:panelGroup id="contractModalParent">
 <div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -116,13 +115,14 @@
 				<div class="modal-footer col-lg-12">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<p:commandButton action="#{contractController.sendContract}" value="Accept contract" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
+					<p:commandButton action="#{contractController.acceptContract}" value="Accept contract" class="btn btn-danger" data-dismiss="modal"></p:commandButton>
 				</div>
 				
 			</div>
 			</h:form>
 		</div>
 	</div>
+</h:panelGroup>
 
 
 <!-- jQuery 2.2.3 -->

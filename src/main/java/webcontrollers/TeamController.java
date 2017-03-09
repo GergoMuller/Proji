@@ -63,7 +63,7 @@ public class TeamController implements Serializable {
 	}
 
 	public void updateEntity() {
-		LOGGER.info("k�p: "+teamPicture);
+		LOGGER.info("k�p: "+teamPicture);
 		Team temp = new Team();
 		temp.setEmail(email);
 		temp.setPassword(password);
@@ -75,7 +75,7 @@ public class TeamController implements Serializable {
 	}
 
 	public void uploadPicture() {
-		LOGGER.info("k�p update: "+teamPicture);
+		LOGGER.info("k�p update: "+teamPicture);
 		if (teamPicture != null) {
 			System.out.println("kép feltöltés megkezdödött");
 			byte[] imageContent = teamPicture.getContents();
@@ -114,10 +114,6 @@ public class TeamController implements Serializable {
 		return currentTeam.getCurrentPlayers().get(0).streamPicture();
 	}
 
-	public void saveEditedTeamInfo() {
-		saveFoundationDate();
-		// többi adat modositasa
-	}
 
 	public String signPlayer() {
 		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);

@@ -541,7 +541,9 @@
 								<div class="col-lg-5" id="div_valid">
 									 <p:inputMask id="valid" mask="9999-99-99"
 										value="#{contractController.validDate}"
-										placeholder="yyyy-mm-dd"></p:inputMask>
+										placeholder="yyyy-mm-dd">
+										<f:convertDateTime pattern="yyyy-mm-dd"/>
+										</p:inputMask>
 								</div>
 							</div>
 							<div class="col-lg-12">

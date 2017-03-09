@@ -3,6 +3,7 @@ package webcontrollers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 
 import javax.ejb.EJB;
@@ -38,8 +39,8 @@ public class ContractController implements Serializable {
 
 	private Contract newContract;
 	private String signingPlayerEmail;
-	private String validDate;
-	private String amount;
+	private Date validDate;
+	private Double amount;
 	private Contract selectedContract;
 
 	public void sendContract() {
@@ -48,19 +49,16 @@ public class ContractController implements Serializable {
 		if (currentTeam != null) {
 			newContract = new Contract();
 			newContract.setSignerTeam(currentTeam);
+			newContract.setValidDate(validDate);
+			newContract.setAmount(amount);
 			try {
-				contractService.saveContract(newContract, signingPlayerEmail, validDate, amount);
-			System.out.println("signingPlayerEmail :"+signingPlayerEmail);
-			System.out.println("validDate : "  +validDate);
-			System.out.println("amount : "+amount);
-			} catch (ParseException e) {
-				System.out.println("invalid date format");
-			} catch (NoResultException e) {
-				System.out.println("NoResultExceptiont caught");
-			} catch (NumberFormatException e) {
-				System.out.println("NumberFormatException caught");
+				contractService.saveContract(newContract, signingPlayerEmail);
+				System.out.println("signingPlayerEmail :"+signingPlayerEmail);
+				System.out.println("validDate : "  +validDate);
+				System.out.println("amount : "+amount);
 			} catch (Exception e) {
 				System.out.println("HIBAAAAAAAA" + e.getMessage());
+				e.printStackTrace();
 
 			}
 		}
@@ -77,7 +75,7 @@ public class ContractController implements Serializable {
 		contractService.setContractSeen(selectedContract);
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
 		exc.getFlash().put("contract", selectedContract);
-		exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
+		//exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
 	}
 
 	public boolean checkEmail() {
@@ -107,19 +105,20 @@ public class ContractController implements Serializable {
 		this.signingPlayerEmail = signingPlayerEmail;
 	}
 
-	public String getValidDate() {
+	
+	public Date getValidDate() {
 		return validDate;
 	}
 
-	public void setValidDate(String validDate) {
+	public void setValidDate(Date validDate) {
 		this.validDate = validDate;
 	}
 
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

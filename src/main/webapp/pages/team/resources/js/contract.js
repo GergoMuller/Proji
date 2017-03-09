@@ -82,9 +82,9 @@ function dateValidator() {
 		return;
 	}
 
-	if (temp_year > now_year
-			|| (temp_year == now_year && temp_month > now_month)
-			|| (temp_year == now_year && temp_month == now_month && temp_day > now_day)) {
+	if (temp_year < now_year
+			|| (temp_year == now_year && temp_month < now_month)
+			|| (temp_year == now_year && temp_month == now_month && temp_day < now_day)) {
 		$.growl.error({
 			message : "The date must be in the past"
 		});

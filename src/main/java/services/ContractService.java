@@ -28,16 +28,10 @@ public class ContractService {
 	@Inject
 	private PlayerRepository playerRepo;
 	
-	public void saveContract(Contract newContract, String signingPlayerEmail, String valid, String amount)
-			throws ParseException, NoResultException, NumberFormatException{
-		
+	public void saveContract(Contract newContract, String signingPlayerEmail) throws NoResultException{ 
+			
 		newContract.setSignedPlayer(playerRepo.findByEmail((signingPlayerEmail)));
-		newContract.setAmount(Double.parseDouble(amount));
 		newContract.setTeamAccepted(true);
-		DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-		Date validDate;
-		validDate = df.parse(valid);
-		newContract.setValidDate(validDate);
 		newContract.setSendDate(new Date());
 		contractRepo.save(newContract);
 	}
