@@ -158,7 +158,7 @@
 					data-toggle="dropdown"> <!-- The user image in the navbar--> <p:graphicImage
 							value="#{teamController.currentTeamsPicture}" class="user-image"
 							alt="Team cover" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs"> <h:outputText
+						<span class="hidden-xs"> <h:outputText id="navBarTeamName"
 								value="#{teamController.currentTeamName}" />
 					</span></a>
 					<ul class="dropdown-menu">
@@ -167,7 +167,7 @@
 								value="#{teamController.currentTeamsPicture}"
 								class="user-image-bigger" alt="Team cover" />
 
-							<p>#{teamController.currentTeamName}</p></li>
+							<p><h:outputLabel value="#{teamController.currentTeamName}"  id="dropDownTeamName"/></p></li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
@@ -229,7 +229,7 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1>#{teamController.currentTeamName}</h1>
+			<h1><h:outputLabel id="mainTeamName" value="#{teamController.currentTeamName}"></h:outputLabel></h1>
 			</section>
 
 			<!-- Main content -->
@@ -335,31 +335,6 @@
 						class="btn-primary-red" ajax="false" value="Upload cover" />
 				</h:form>
 
-
-
-				<h:form>
-					<div id="settings" class="settings-border form-group">
-						<div class="form-group">
-							<label class="control-sidebar-subheading"> Your team was
-								founded in </label>
-						</div>
-						<p:inputText value="#{teamController.teamDate}"
-							placeholder="#{teamController.currentTeamsDate}"></p:inputText>
-						<div class="form-group">
-							<label class="control-sidebar-subheading"> Your team was
-								founded in </label>
-						</div>
-						<p:inputText value="#{teamController.teamDate}"
-							placeholder="#{teamController.currentTeamsDate}"></p:inputText>
-						<p:messages />
-						<p:commandButton action="#{teamController.saveFoundationDate}"
-							class="btn-primary-red" value="Save changes"></p:commandButton>
-					</div>
-				</h:form>
-
-
-
-
 			</div>
 			<!-- /.tab-pane -->
 		</div>
@@ -382,7 +357,7 @@
 					<button type="button" class="close" data-dismiss="modal"
 						onclick="refreshModal()">&times;</button>
 					<h4 class="modal-title">Profile of
-						#{teamController.currentTeamName}</h4>
+						<p:outputLabel id="profileTeamName" value="#{teamController.currentTeamName} "/></h4>
 				</div>
 				<div class="modal-body">
 					<!-- Settings tab content -->
@@ -404,7 +379,10 @@
 								<div class="col-sm-8">
 									<p:inputMask id="date" value="#{teamController.teamDate}"
 										placeholder="#{teamController.actualTeamDate()}"
-										mask="9999-99-99" size="35" />
+										mask="9999-99-99" size="35" >
+										<f:convertDateTime pattern="yyyy-mm-dd"/>		
+									</p:inputMask>
+										
 								</div>
 							</div>
 
@@ -480,17 +458,17 @@
 
 							<div class="form-group row " align="center">
 								<p:commandButton onclick="update()" value="Save Changes"
-									class="btn btn-success btn-primary" />
+									class="btn btn-success btn-primary"  />
 							</div>
 
 							<p:remoteCommand name="updateEntity"
-								action="#{teamController.updateEntity}" />
+								action="#{teamController.updateEntity}" update="navBarTeamName profileTeamName mainTeamName dropDownTeamName" />
 						</h:form>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<p:button type="button" class="btn btn-warning"
-						onclick="hideProfileModal()"  value="Close"></p:button>
+						onclick="hideProfileModal()"  value="Close" ></p:button>
 				</div>
 			</div>
 		</div>

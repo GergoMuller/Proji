@@ -41,7 +41,7 @@ public class TeamController implements Serializable {
 
 	private Team currentTeam;
 	private UploadedFile teamPicture;
-	private String teamDate;
+	private Date teamDate;
 	private List<Player> roster;
 	private String toBeSignedPlayer;
 	private String email;
@@ -69,7 +69,7 @@ public class TeamController implements Serializable {
 		temp.setPassword(password);
 		uploadPicture();
 		temp.setName(newName);
-		temp.setFoundedIn(saveFoundationDate());
+		temp.setFoundedIn(teamDate);
 		teamSrevice.updateTeam(temp, currentTeam);
 		LOGGER.info("UPDATE LEFUTOTT: " + currentTeam.getEmail());
 	}
@@ -90,24 +90,6 @@ public class TeamController implements Serializable {
 		}
 	}
 
-	public Date saveFoundationDate() {
-		Date fundationDate = null;
-		if (teamDate != null) {
-			DateFormat df = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-			try {
-				fundationDate = df.parse(teamDate);
-				// teamSrevice.saveFoundationDate(currentTeam, fundationDate);
-			} catch (ParseException e) {
-				FacesContext.getCurrentInstance().addMessage("Invalid date format",
-						new FacesMessage("Invalid date fromat"));
-				LOGGER.info("parse error");
-
-			}
-			LOGGER.info("Foundation date updated");
-		}
-		teamDate = null;
-		return fundationDate;
-	}
 
 	// csak tesztelésre
 	public StreamedContent pic() {
@@ -167,11 +149,12 @@ public class TeamController implements Serializable {
 		this.teamPicture = teamPicture;
 	}
 
-	public String getTeamDate() {
+	
+	public Date getTeamDate() {
 		return teamDate;
 	}
 
-	public void setTeamDate(String teamDate) {
+	public void setTeamDate(Date teamDate) {
 		this.teamDate = teamDate;
 	}
 
