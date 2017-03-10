@@ -18,4 +18,5 @@ public abstract class PlayerRepository extends AbstractEntityRepository<Player, 
 	public abstract List<Player> findByAgeGreaterThanEqualsOrderByNameAsc(int age);
 	public abstract List<Player> findByAgeGreaterThan(int age);
 	public abstract Player findByEmail(String mail);
+	public abstract List<Player> findByNameLike(String searchParam);
 }

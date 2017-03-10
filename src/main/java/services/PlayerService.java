@@ -54,4 +54,16 @@ public class PlayerService {
 		return contractRepo.findBySignedPlayerEqualAndSeenByPlayerEqual(player,false).size();
 	}
 	
+	public List<Player> getAllPlayers(){
+		return playerRepo.findAll().stream()
+						 .sorted((p1,p2) -> p1.getName().compareTo(p2.getName()))
+						 .collect(Collectors.toList());
+	}
+	
+	public List<Player> getPlayerNameSearchResult(String searchParam){
+		return playerRepo.findByNameLike(searchParam).stream()
+				 		 .sorted((p1,p2) -> p1.getName().compareTo(p2.getName()))
+				 		 .collect(Collectors.toList());
+	}
+	
 }

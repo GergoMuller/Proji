@@ -42,7 +42,6 @@ public class TeamController implements Serializable {
 	private Team currentTeam;
 	private UploadedFile teamPicture;
 	private Date teamDate;
-	private List<Player> roster;
 	private String toBeSignedPlayer;
 	private String email;
 	private String password;
@@ -119,16 +118,6 @@ public class TeamController implements Serializable {
 		if (currentTeam.getFoundedIn() == null)
 			return "yyyy-mm-dd";
 		return currentTeam.getFoundedIn().toString();
-	}
-
-	public List<Player> getRoster() {
-		if (roster == null)
-			roster = getCurrentTeam().getCurrentPlayers();
-		return roster;
-	}
-
-	public void setRoster(List<Player> roster) {
-		this.roster = roster;
 	}
 
 	public Team getCurrentTeam() {

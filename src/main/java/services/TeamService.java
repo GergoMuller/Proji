@@ -106,12 +106,14 @@ public class TeamService {
 	
 	public List<Team> getTeamNameSearchResult(String searchParam){
 		return teamRepo.findByNameLike(searchParam).stream()
-						.sorted((t1,t2) -> t1.getName().compareTo(t2.getName()))
-						.collect(Collectors.toList());
+					   .sorted((t1,t2) -> t1.getName().compareTo(t2.getName()))
+					   .collect(Collectors.toList());
 	}	
 	
 	public List<Team> getAllTeams(){
-		return teamRepo.findAll();
+		return teamRepo.findAll().stream()
+					   .sorted((t1,t2) -> t1.getName().compareTo(t2.getName()))
+					   .collect(Collectors.toList());
 	}
 
 	

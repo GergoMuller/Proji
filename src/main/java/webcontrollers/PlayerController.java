@@ -40,6 +40,7 @@ public class PlayerController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Player currentPlayer;
 	private List<Contract> currentPlayersOffers;
+	private Player displayedPlayer;
 	
 	
 	@EJB
@@ -98,5 +99,17 @@ public class PlayerController implements Serializable{
 	public void setCurrentPlayersOffers(List<Contract> currentPlayersOffers) {
 		this.currentPlayersOffers = currentPlayersOffers;
 	}
+
+	public Player getDisplayedPlayer() {
+		if(displayedPlayer == null){
+			displayedPlayer = getCurrentPlayer();
+		}
+		return displayedPlayer;
+	}
+
+	public void setDisplayedPlayer(Player displayedPlayer) {
+		this.displayedPlayer = displayedPlayer;
+	}
+	
 	
 }

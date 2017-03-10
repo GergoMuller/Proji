@@ -9,6 +9,8 @@ import javax.persistence.*;
 
 import org.primefaces.model.DefaultStreamedContent;
 
+import utilities.PlayerPosition;
+
 
 @Entity
 public class Player extends User implements Serializable {

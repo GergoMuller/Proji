@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -50,8 +51,7 @@
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
 			role="navigation"> <!-- Sidebar toggle button--> <a href="#"
-			class="sidebar-toggle" data-toggle="offcanvas" role="button"> <span
-			class="sr-only">Toggle navigation</span>
+			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-search"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
 		</a> <!-- Navbar Right Menu -->
 
 
@@ -194,46 +194,82 @@
 		</nav> </header>
 		
 		
-		<!-- SEARCH -->
+<!-- SEARCH -->
 		
-		<aside class="main-sidebar"> <!-- sidebar: style can be found in sidebar.less -->
-		<section class="sidebar"> <!-- search form (Optional) -->
-		<h:form id="searchPanel" class="sidebar-form">
-			<div class="input-group">
-				<p:inputText value="#{searchController.searchedTeamName}" name="q" class="form-control"
-					placeholder="Search..." /> <span class="input-group-btn">
-					<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
-						class="btn btn-flat">
-						<i class="fa fa-search"></i>
-					</button>
-					<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-					</ui:remove>
-					<p:commandLink  action="#{searchController.searchForTeamName()}" class="btn btn-flat"
-					update="searchPanel"> <i class="fa fa-search"></i> </p:commandLink>
-				</span>
-			</div>
-		
-		<ul class="sidebar-menu">
-			<li class="header"><b>TEAMS</b></li>
-			<div class="sidebar-menu">
-			<ui:repeat var="team" value="#{searchController.teamSearchResult}">
-				<li class="active">
-					<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
-				 		<span>#{team.name}</span>
-				 	</p:commandLink>
-				 </li>
-			</ui:repeat>  
-			</div>
-			
-			
-			
+	<aside class="main-sidebar control-sidebar-dark"> <!-- sidebar: style can be found in sidebar.less -->
+		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+			<li class="active"><a href="#search-sidebar-team-tab"
+				data-toggle="tab"><i class="glyphicon glyphicon-tower"></i></a></li>
+			<li><a href="#search-sidebar-player-tab" data-toggle="tab"><i
+					class="glyphicon glyphicon-user"></i></a></li>
 		</ul>
-		</h:form>
+		<div class="tab-content">
+		<section id="search-sidebar-team-tab" class="tab-pane active"> 
+			<h:form id="searchPanel" class="sidebar-form">
+				<div class="input-group">
+					<p:inputText value="#{searchController.searchedTeamName}" name="q" class="form-control"
+						placeholder="Search..." /> <span class="input-group-btn">
+						<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
+							class="btn btn-flat">
+							<i class="fa fa-search"></i>
+						</button>
+						<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
+						</ui:remove>
+						<p:commandLink  action="#{searchController.searchForTeamName()}" class="btn btn-flat"
+						update="searchPanel"> <i class="fa fa-search"></i> </p:commandLink>
+					</span>
+				</div>
+			
+				<ul class="sidebar-menu">
+					<li class="header"><b>TEAMS</b></li>
+					<div class="sidebar-menu">
+						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
+							<li class="active">
+								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
+							 		<span>#{team.name}</span>
+							 	</p:commandLink>
+							 </li>
+						</ui:repeat>  
+					</div>
+				</ul>
+			</h:form>
+		 </section> 
 		
-		 </section>  
-		 </aside> 
+		
+		<section id="search-sidebar-player-tab" class="tab-pane"> 
+			<h:form id="searchPanelPlayer" class="sidebar-form">
+				<div class="input-group">
+					<p:inputText value="#{searchController.searchedPlayerName}" name="q" class="form-control"
+						placeholder="Search..." /> <span class="input-group-btn">
+						<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
+							class="btn btn-flat">
+							<i class="fa fa-search"></i>
+						</button>
+						<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
+						</ui:remove>
+						<p:commandLink  action="#{searchController.searchForPlayerName()}" class="btn btn-flat"
+						update="searchPanelPlayer"> <i class="fa fa-search"></i> </p:commandLink>
+					</span>
+				</div>
+			
+				<ul class="sidebar-menu">
+					<li class="header"><b>PLAYERS</b></li>
+					<div class="sidebar-menu">
+					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
+						<li class="active">
+							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
+						 		<span>#{player.name}</span>
+						 	</p:commandLink>
+						 </li>
+					</ui:repeat>  
+					</div>
+				</ul>
+			</h:form>
+		</section>  
+		</div>
+	</aside> 
 		 
-
+	
 		<!-- Content Wrapper. Contains page content -->
 		
 		<div class="content-wrapper">
@@ -282,8 +318,9 @@
 		<!-- Default to the left --> <strong>Copyright &copy; 2016 <a
 			href="#">Company</a>.
 		</strong> All rights reserved. </footer>
+		
 
-		<!-- Control Sidebar -->
+		<!-- CONTROL SIDEBAR -->
 		<aside class="control-sidebar control-sidebar-dark"> <!-- Create the tabs -->
 		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
 			<li class="active"><a href="#control-sidebar-home-tab"
@@ -333,7 +370,7 @@
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
 			<div class="tab-pane" id="control-sidebar-settings-tab">
-				<h3 class="control-sidebar-heading">Account settings</h3>
+				<h3 class="control-sidebar-heading">Search settings</h3>
 
 				<div class="form-group">
 					<label class="control-sidebar-subheading"> Upload your
