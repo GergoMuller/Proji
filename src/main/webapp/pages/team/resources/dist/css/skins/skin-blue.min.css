@@ -1,5 +1,5 @@
 .skin-blue .main-header .navbar {
-	background-color: #3c8dbc
+	background-color: #222d32
 }
 
 .skin-blue .main-header .navbar .nav>li>a {
@@ -10,7 +10,7 @@
 	.skin-blue .main-header .navbar .nav>li>a:focus, .skin-blue .main-header .navbar .nav .open>a,
 	.skin-blue .main-header .navbar .nav .open>a:hover, .skin-blue .main-header .navbar .nav .open>a:focus,
 	.skin-blue .main-header .navbar .nav>.active>a {
-	background: rgba(0, 0, 0, 0.1);
+	background: rgb(35, 58, 58);
 	color: #f6f6f6
 }
 
@@ -28,7 +28,7 @@
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {
-	background-color: #367fa9
+	background-color: #233a3a
 }
 
 @media ( max-width :767px) {
@@ -44,17 +44,17 @@
 }
 
 .skin-blue .main-header .logo {
-	background-color: #367fa9;
-	color: #fff;
+	background-color: #295050; 
+	color: #ffffff;
 	border-bottom: 0 solid transparent
 }
 
 .skin-blue .main-header .logo:hover {
-	background-color: #357ca5
+	background-color: #2e5858
 }
 
 .skin-blue .main-header li.user-header {
-	background-color: #3c8dbc
+	background-color: #222d32
 }
 
 .skin-blue .content-header {

@@ -247,9 +247,6 @@ a:hover, a:active, a:focus {
 	font-family: fontAwesome
 }
 
-.main-header .sidebar-toggle:before {
-	content: "\f0c9"
-}
 
 .main-header .sidebar-toggle:hover {
 	color: #fff
@@ -1218,7 +1215,7 @@ a:hover, a:active, a:focus {
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
 	z-index: 5;
 	color: #fff;
-	color: rgba(255, 255, 255, 0.8);
+	color: rgba(255, 255, 255, 0.);
 	font-size: 17px;
 	margin-top: 10px
 }
@@ -1718,7 +1715,7 @@ deg
 	text-align: center;
 	padding: 3px 0;
 	color: #fff;
-	color: rgba(255, 255, 255, 0.8);
+	color: rgba(255, 255, 255, 0.);
 	display: block;
 	z-index: 10;
 	background: rgba(0, 0, 0, 0.1);
@@ -2594,8 +2591,8 @@ deg
 }
 
 .btn-primary {
-	background-color: #3c8dbc;
-	border-color: #367fa9
+	background-color: #2e5858;
+	border-color: #234343
 }
 
 .btn-primary-red {
@@ -2605,7 +2602,7 @@ deg
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary.hover {
-	background-color: #367fa9
+	background-color: #295050
 }
 
 .btn-success {

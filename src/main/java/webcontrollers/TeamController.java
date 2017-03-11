@@ -109,6 +109,10 @@ public class TeamController implements Serializable {
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
 	}
+	
+	public void loadHome(){
+		displayedTeam = currentTeam;
+	}
 
 	public String getCurrentTeamName() {
 		return getCurrentTeam().getName();

@@ -9,6 +9,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,8 +19,10 @@ import services.PlayerService;
 import services.TeamService;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class SearchController implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	public static final Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
 	@EJB
 	private TeamService teamService;

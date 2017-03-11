@@ -50,9 +50,10 @@
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
-			role="navigation"> <!-- Sidebar toggle button--> <a href="#"
-			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-search"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
-		</a> <!-- Navbar Right Menu -->
+			role="navigation"> <!-- Sidebar toggle button-->
+		 <p:commandLink action="#{teamController.loadHome}" update="form_displayedTeam mainTeamName"
+			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-home"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
+		</p:commandLink> 
 
 
 		<div class="navbar-custom-menu">
@@ -225,7 +226,7 @@
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
 							<li class="active">
-								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
+								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-tower" ></i>
 							 		<span>#{team.name}</span>
 							 	</p:commandLink>
 							 </li>
@@ -257,7 +258,7 @@
 					<div class="sidebar-menu">
 					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
 						<li class="active">
-							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="fa fa-link" ></i>
+							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-user" ></i>
 						 		<span>#{player.name}</span>
 						 	</p:commandLink>
 						 </li>
