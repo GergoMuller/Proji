@@ -401,7 +401,7 @@
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
-			<div class="modal-content">
+			<div class="modal-content dialog-background">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						onclick="refreshModal()">&times;</button>
@@ -507,7 +507,7 @@
 
 							<div class="form-group row " align="center">
 								<p:commandButton onclick="update()" value="Save Changes"
-									class="btn btn-success btn-primary"  />
+									class="btn btn-primary"  />
 							</div>
 
 							<p:remoteCommand name="updateEntity"
@@ -516,7 +516,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<p:button type="button" class="btn btn-warning"
+					<p:button type="button" class="btn btn-cancel"
 						onclick="hideProfileModal()"  value="Close" ></p:button>
 				</div>
 			</div>
@@ -526,10 +526,10 @@
 
 	<!-- Contract modal -->
 	<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
-		data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true" >
 		<div class="modal-dialog" role="document">
 			<h:form id="contractForm">
-				<div class="modal-content col-lg-12">
+				<div class="modal-content col-lg-12 dialog-background">
 					<div class="modal-header col-lg-12">
 						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
 							style="font-weight: 600">Offer Contract</h2>
@@ -594,9 +594,9 @@
 
 					</div>
 					<div class="modal-footer col-lg-12">
-						<p:button type="button" onclick="hideModal()" class="btn btn-warning"
+						<p:button type="button" onclick="hideModal()" class="btn btn-cancel"
 							 value="Close"></p:button>
-						<p:commandButton  value="Send" class="btn btn-success" onclick="validateContract()"></p:commandButton>
+						<p:commandButton  value="Send" class="btn btn-primary" onclick="validateContract()"></p:commandButton>
 						<p:remoteCommand name="checkEmail" actionListener="#{contractController.checkEmail()}" />
 						<p:remoteCommand name="sendContract" actionListener="#{contractController.sendContract()}" />
 					</div>
