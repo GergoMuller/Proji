@@ -37,7 +37,7 @@ public class TeamController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private final static Logger LOGGER = Logger.getLogger(PlayerController.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(TeamController.class.getName());
 
 	private Team currentTeam;
 	private UploadedFile teamPicture;
@@ -53,7 +53,7 @@ public class TeamController implements Serializable {
 	@Inject
 	private SecurityController securityControl;
 	@EJB
-	private TeamService teamSrevice;
+	private TeamService teamService;
 
 	@PostConstruct
 	private void init() {
@@ -70,7 +70,7 @@ public class TeamController implements Serializable {
 		uploadPicture();
 		temp.setName(newName);
 		temp.setFoundedIn(teamDate);
-		teamSrevice.updateTeam(temp, currentTeam);
+		teamService.updateTeam(temp, currentTeam);
 		LOGGER.info("UPDATE LEFUTOTT: " + currentTeam.getEmail());
 	}
 
@@ -79,7 +79,7 @@ public class TeamController implements Serializable {
 		if (teamPicture != null) {
 			System.out.println("kép feltöltés megkezdödött");
 			byte[] imageContent = teamPicture.getContents();
-			teamSrevice.saveImage(currentTeam, imageContent);
+			teamService.saveImage(currentTeam, imageContent);
 			currentTeam = null;
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("teamProfile.xhtml");
@@ -98,7 +98,7 @@ public class TeamController implements Serializable {
 
 
 	public String signPlayer() {
-		teamSrevice.signPlayer(currentTeam, toBeSignedPlayer);
+		teamService.signPlayer(currentTeam, toBeSignedPlayer);
 		toBeSignedPlayer = null;
 		currentTeam = null;
 		return "teamProfile?faces-redirect=true";

@@ -47,10 +47,7 @@ public class ContractController implements Serializable {
 		Team currentTeam = securityController.getCurrentTeam();
 		System.out.println("send contract meghívva: current team = "+currentTeam.getEmail());
 		if (currentTeam != null) {
-			newContract = new Contract();
 			newContract.setSignerTeam(currentTeam);
-			newContract.setValidDate(validDate);
-			newContract.setAmount(amount);
 			try {
 				contractService.saveContract(newContract, signingPlayerEmail);
 				System.out.println("signingPlayerEmail :"+signingPlayerEmail);

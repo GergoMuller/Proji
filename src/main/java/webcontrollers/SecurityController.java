@@ -70,7 +70,7 @@ public class SecurityController implements Serializable {
         		else if(isUserInRole(Roles.TEAM))
         			forwardURL = exc.getRequestContextPath() + "/pages/team/teamProfile.xhtml";
         		else if(isUserInRole(Roles.PLAYER))
-        			forwardURL = exc.getRequestContextPath() + "/playerProfile.xhtml";
+        			forwardURL = exc.getRequestContextPath() + "/pages/player/playerProfile.xhtml";
         	}
         	exc.redirect(forwardURL);
         }catch(ServletException e){

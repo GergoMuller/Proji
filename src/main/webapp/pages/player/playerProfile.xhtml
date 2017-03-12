@@ -14,7 +14,7 @@
 <h:head>
 	<meta charset="utf-8" />
 	<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge" />-->
-	<title>Player Profile</title>
+	<title>Sport Manager</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta
 		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -51,23 +51,42 @@
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
 			role="navigation"> <!-- Sidebar toggle button-->
-		 <p:commandLink action="#{teamController.loadHome}" update="form_displayedTeam mainTeamName"
+		 <p:commandLink action="#{teamController.loadHome}" update="displayedPlayer"
 			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-home"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
 		</p:commandLink> 
 
 
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				<li><a class="contract-btn" href="#" data-toggle="modal"
-					data-target="#contractModal"> <i
-						class="glyphicon glyphicon-paste" aria-hidden="true"></i>
-				</a></li>
-
+				
+				<li class="dropdown messages-menu">
+						<a class="contract-btn dropdown-toggle"
+					data-toggle="dropdown" href="#"  > 
+							 <i class="glyphicon glyphicon-copy" aria-hidden="true"></i>
+							<span class="label label-success"><h:outputText id="unseenMessages" value="#{playerController.numberOfNewContracts}" /></span>
+						</a>
+					<ul class="dropdown-menu dialog-background" style="border-radius: 3%!important;">
+						<li class="header"><h4 style="font-weight: 600">You have #{playerController.numberOfNewContracts} new offers</h4></li>
+						<ul class="menu">
+							<ui:repeat var="sender" value="#{playerController.currentPlayersOffers}">
+							<h:form>
+								<li>	
+									<p:commandLink action="#{contractController.loadContract(sender.id)}" value="#{sender.signerTeam.name}" oncomplete="$('#contractModal').modal('show')" 
+									update="contractModalParent unseenMessages"/>
+									
+								</li>
+							</h:form>
+							</ui:repeat>
+						</ul>
+					</ul>
+				</li>
+				
+				
 				<!-- Messages: style can be found in dropdown.less-->
 				<li class="dropdown messages-menu">
 					<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> <i class="fa fa-envelope-o"></i> <span
-						class="label label-success">3</span>
+						class="label label-warning">3</span>
 				</a>
 					<ul class="dropdown-menu">
 						<li class="header">You have 4 messages</li>
@@ -95,79 +114,26 @@
 						<li class="footer"><a href="#">See All Messages</a></li>
 					</ul>
 				</li>
-				<!-- /.messages-menu -->
-
-				<!-- Notifications Menu -->
-				<li class="dropdown notifications-menu">
-					<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <i class="fa fa-bell-o"></i> <span
-						class="label label-warning">10</span>
-				</a>
-					<ul class="dropdown-menu">
-						<li class="header">You have 10 notifications</li>
-						<li>
-							<!-- Inner Menu: contains the notifications -->
-							<ul class="menu">
-								<li>
-									<!-- start notification --> <a href="#"> <i
-										class="fa fa-users text-aqua"></i> 5 new members joined today
-								</a>
-								</li>
-								<!-- end notification -->
-							</ul>
-						</li>
-						<li class="footer"><a href="#">View all</a></li>
-					</ul>
-				</li>
-				<!-- Tasks Menu -->
-				<li class="dropdown tasks-menu">
-					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <i class="fa fa-flag-o"></i> <span
-						class="label label-danger">9</span>
-				</a>
-					<ul class="dropdown-menu">
-						<li class="header">You have 9 tasks</li>
-						<li>
-							<!-- Inner menu: contains the tasks -->
-							<ul class="menu">
-								<li>
-									<!-- Task item --> <a href="#"> <!-- Task title and progress text -->
-										<h3>
-											Design some buttons <small class="pull-right">20%</small>
-										</h3> <!-- The progress bar -->
-										<div class="progress xs">
-											<!-- Change the css width attribute to simulate progress -->
-											<div class="progress-bar progress-bar-aqua"
-												style="width: 20%" role="progressbar" aria-valuenow="20"
-												aria-valuemin="0" aria-valuemax="100">
-												<span class="sr-only">20% Complete</span>
-											</div>
-										</div>
-								</a>
-								</li>
-								<!-- end task item -->
-							</ul>
-						</li>th
-						<li class="footer"><a href="#">View all tasks</a></li>
-					</ul>
-				</li>
+				
+				
+				
 				<!-- User Account Menu -->
 				<!-- User Account Menu -->
 				<li class="dropdown user user-menu">
-					<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"> <!-- The user image in the navbar--> <p:graphicImage
-							value="#{teamController.currentTeamsPicture}" class="user-image"
-							alt="X" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs"> <h:outputText id="navBarTeamName"
-								value="#{teamController.currentTeamName}" />
-					</span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+					  	<p:graphicImage value="#{playerController.currentPlayersPicture}" class="user-image" alt="X" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+						<span class="hidden-xs"> 
+							<h:outputText id="navBarTeamName" value="#{playerController.currentPlayer.name}" />
+						</span>
+					</a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
-						<li class="user-header"><p:graphicImage
-								value="#{teamController.currentTeamsPicture}"
+						<li class="user-header">
+							<p:graphicImage
+								value="#{playerController.currentPlayersPicture}"
 								class="user-image-bigger" alt="X" />
 
-							<p><h:outputLabel value="#{teamController.currentTeamName}"  id="dropDownTeamName"/></p></li>
+							<p><h:outputLabel value="#{playerController.currentPlayer.name}"  id="dropDownTeamName"/></p></li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
@@ -226,7 +192,7 @@
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
 							<li class="active">
-								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-tower" ></i>
+								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" ><i class="glyphicon glyphicon-tower" ></i>
 							 		<span>#{team.name}</span>
 							 	</p:commandLink>
 							 </li>
@@ -258,7 +224,7 @@
 					<div class="sidebar-menu">
 					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
 						<li class="active">
-							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-user" ></i>
+							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="displayedPlayer"><i class="glyphicon glyphicon-user" ></i>
 						 		<span>#{player.name}</span>
 						 	</p:commandLink>
 						 </li>
@@ -274,39 +240,17 @@
 		<!-- Content Wrapper. Contains page content -->
 		
 		<div class="content-wrapper">
+		<h:panelGroup id="displayedPlayer">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-			<h1><h:outputLabel id="mainTeamName" value="#{teamController.displayedTeam}"></h:outputLabel></h1>
+			<h1><h:outputLabel  value="#{playerController.displayedPlayer.name}"></h:outputLabel></h1>
 			</section>
-
-			<!-- MAIN CONTENT -->
-			<h:form id="form_displayedTeam">
-				<p:dataTable id="table_player" value="#{teamController.displayedTeam.currentPlayers}"
-					var="player">
-					<f:facet name="header">
-					Players
-					</f:facet>
-					<p:column>
-						<p:graphicImage value="#{player.streamPicture()}"
-							class="user-image" alt="User image" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<label>Name</label>
-						</f:facet>
-						<p:outputLabel value="#{player.name}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<label>Email address</label>
-						</f:facet>
-						<p:outputLabel value="#{player.email}" />
-					</p:column>
-				</p:dataTable>
-
-			</h:form>
+		</h:panelGroup>
+			<!-- MAIN CONTENT IN THE MIDDLE -->
+			
 
 		</div>
+		 
 		
 		<!-- /.content-wrapper -->
 
@@ -332,6 +276,7 @@
 			<div class="tab-pane active" id="control-sidebar-home-tab">
 				<h3 class="control-sidebar-heading">Recent Activity</h3>
 				
+				
 			</div>
 			<!-- /.tab-pane -->
 			<!-- Stats tab content -->
@@ -340,16 +285,16 @@
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
 			<div class="tab-pane" id="control-sidebar-settings-tab">
-				<h3 class="control-sidebar-heading">Search settings</h3>
+				<h3 class="control-sidebar-heading">Tab nev amit meg nem tudok</h3>
 
 				<div class="form-group">
 					<label class="control-sidebar-subheading"> Upload your
 						teams cover picture </label>
 				</div>
 				<h:form enctype="multipart/form-data">
-					<p:fileUpload id="file" value="#{teamController.teamPicture}"
+					<p:fileUpload id="file" value="#{playerController.playerPicture}"
 						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
-					<p:commandButton action="#{teamController.uploadPicture}"
+					<p:commandButton action="#{playerController.uploadPicture}"
 						class="btn btn-primary" ajax="false" value="Upload cover" />
 				</h:form>
 
@@ -375,8 +320,10 @@
 					<button type="button" class="close" data-dismiss="modal"
 						onclick="refreshModal()">&times;</button>
 					<h4 class="modal-title">Profile of
-						<p:outputLabel id="profileTeamName" value="#{teamController.currentTeamName} "/></h4>
+						<p:outputLabel id="profileTeamName" value="#{playerController.currentPlayer.name} "/> 
+					</h4> 
 				</div>
+			<ui:remove>
 				<div class="modal-body">
 					<!-- Settings tab content -->
 					<div class="tab-pane" id="control-sidebar-settings-tab">
@@ -480,104 +427,83 @@
 							</div>
 
 							<p:remoteCommand name="updateEntity"
-								action="#{teamController.updateEntity}" update="navBarTeamName profileTeamName mainTeamName dropDownTeamName" />
+								action="#{teamController.updateEntity}" update="navBarTeamName profileTeamName dropDownTeamName" />
 						</h:form>
 					</div>
 				</div>
+				</ui:remove>
 				<div class="modal-footer">
 					<p:button type="button" class="btn btn-cancel"
 						onclick="hideProfileModal()"  value="Close" ></p:button>
 				</div>
 			</div>
+			
 		</div>
 
 	</div>
-
+	
 	<!-- Contract modal -->
-	<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
-		data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<h:panelGroup id="contractModalParent">
+<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
-			<h:form id="contractForm">
-				<div class="modal-content col-lg-12 dialog-background">
-					<div class="modal-header col-lg-12">
-						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
-							style="font-weight: 600">Offer Contract</h2>
-						<button type="button" onclick="clearModal()" class="close col-lg-1" data-dismiss="modal"
-							aria-label="Close"> 
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body col-lg-12" >
-						<div class="form-group ">
-							<div class="form-group contractform" >
-								<div class="col-lg-7">
-									<p:outputLabel for="contract-to"
-										value=" Email address of the recipient:"></p:outputLabel>
-								</div>
-								<div class="col-lg-5" id="div_contract-to" >
-									<p:inputText id="contract-to"
-										value="#{contractController.signingPlayerEmail}"></p:inputText>
-								</div>
-
-							</div>
-							<div class="form-group contractform">
-								<div class="col-lg-7">
-									<p:outputLabel for="amount"> Amount of annual payment: </p:outputLabel>
-								</div>
-								<div class="col-lg-5" id="div_amount">
-									<p:inputText id="amount" 
-										value="#{contractController.newContract.amount}"></p:inputText>
-								</div>
-
-							</div>
-							<div class="form-group contractform">
-								<div class="col-lg-7">
-									<p:outputLabel for="valid"> Contract will be valid until:</p:outputLabel>
-								</div>
-								<div class="col-lg-5" id="div_valid">
-									 <p:inputMask id="valid" mask="9999-99-99"
-										value="#{contractController.newContract.validDate}"
-										placeholder="yyyy-mm-dd">
-										<f:convertDateTime pattern="yyyy-mm-dd"/>
-										</p:inputMask>
-								</div>
-							</div>
+			<h:form>
+			<div class="modal-content col-lg-12 dialog-background">
+				<div class="modal-header col-lg-12">
+					<h2 class="modal-title" id="exampleModalLabel col-lg-11"
+						style="font-weight: 600">Offer from the #{contractController.selectedContract.signerTeam.name}</h2>
+					<button type="button" class="close col-lg-1" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body col-lg-12">
+				
+				<div class="form-group ">
+					
+				 
+						<div class="form-group contractform">
 							<div class="col-lg-12">
-								<h:messages />
-								<h:message />
+								<p:outputLabel > Amount of annual payment: <b>#{contractController.selectedContract.amount} $</b> </p:outputLabel>
 							</div>
-
-							<div class="form-group contractform">
-								<div class="col-lg-12">
-									<p:outputLabel> Content of the contract:</p:outputLabel>
-								</div>
-								<div class="col-lg-12" id="div_contractContent">
-									<p:inputTextarea id="contractContent" autoResize="true" class="col-lg-12" rows="15"
-										value="#{contractController.newContract.content}"></p:inputTextarea>
-								</div>
-							</div>
-
+							
 
 						</div>
+						<div class="form-group contractform">
+							<div class="col-lg-12">
+								<p:outputLabel > Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b></p:outputLabel>
+							</div>
+							
+						</div>
+						<div class="col-lg-12">
+							<h:messages />
+							<h:message />
+						</div>
 
+						<div class="form-group contractform">
+							<div class="col-lg-12">
+								<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
+							</div>
+						</div>
 
+					
 					</div>
-					<div class="modal-footer col-lg-12">
-						<p:button type="button" onclick="hideModal()" class="btn btn-secondary pull-left"
-							 value="Close"></p:button>
-						<p:commandButton  value="Send" class="btn btn-primary" onclick="validateContract()"></p:commandButton>
-						<p:remoteCommand name="checkEmail" actionListener="#{contractController.checkEmail()}" />
-						<p:remoteCommand name="sendContract" actionListener="#{contractController.sendContract()}" />
-					</div>
+
 
 				</div>
+				<div class="modal-footer col-lg-12">
+					<button type="button" class="btn btn-secondary pull-left"
+						data-dismiss="modal">Close</button>
+					<p:commandButton action="#{contractController.acceptContract}" value="Accept contract" class="btn btn-primary" data-dismiss="modal"></p:commandButton>
+				</div>
+				
+			</div>
 			</h:form>
 		</div>
 	</div>
+</h:panelGroup>
 
-
-
-
+	
 
 	<!-- REQUIRED JS SCRIPTS -->
 	<script src="resources/js/refresh_modal.js" type="text/javascript"></script>

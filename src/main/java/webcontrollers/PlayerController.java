@@ -24,6 +24,7 @@ import org.omnifaces.util.Ajax;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 import entities.Contract;
 import entities.Player;
@@ -36,11 +37,12 @@ import utilities.Roles;
 @SessionScoped
 public class PlayerController implements Serializable{
 	
-	
+	private final static Logger LOGGER	= Logger.getLogger(PlayerController.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Player currentPlayer;
 	private List<Contract> currentPlayersOffers;
 	private Player displayedPlayer;
+	private UploadedFile playerPicture;
 	
 	
 	@EJB
@@ -55,11 +57,24 @@ public class PlayerController implements Serializable{
 		currentPlayer = securityControl.getCurrentPlayer();
 	}
 	
-	public void uploadFile(FileUploadEvent event) throws IOException{
-		byte[] imageContent = event.getFile().getContents();
-		playerService.saveImage(currentPlayer, imageContent);
-		currentPlayer = null;
-		FacesContext.getCurrentInstance().getExternalContext().redirect("playerProfile.xhtml");
+	public void uploadPicture() {
+		LOGGER.info("k�p update: "+playerPicture);
+		if (playerPicture != null) {
+			LOGGER.info("kép feltöltés megkezdödött");
+			byte[] imageContent = playerPicture.getContents();
+			playerService.saveImage(currentPlayer, imageContent);
+			currentPlayer = null;
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("playerProfile.xhtml");
+			} catch (IOException e) {
+				LOGGER.severe(("Redirect error in teamcontroller"));
+			}
+			LOGGER.info("Picture uploaded");
+		}
+	}
+	
+	public void loadHome(){
+		displayedPlayer = currentPlayer;
 	}
 	
 	public int getNumberOfNewContracts(){
@@ -73,10 +88,6 @@ public class PlayerController implements Serializable{
 			currentPlayer = securityControl.getCurrentPlayer();
 		}
 		return currentPlayer;
-	}
-	
-	public String getCurrentPlayersName(){			
-		return getCurrentPlayer().getName();
 	}
 	
 	public StreamedContent getCurrentPlayersPicture(){		
@@ -109,6 +120,14 @@ public class PlayerController implements Serializable{
 
 	public void setDisplayedPlayer(Player displayedPlayer) {
 		this.displayedPlayer = displayedPlayer;
+	}
+
+	public UploadedFile getPlayerPicture() {
+		return playerPicture;
+	}
+
+	public void setPlayerPicture(UploadedFile playerPicture) {
+		this.playerPicture = playerPicture;
 	}
 	
 	
