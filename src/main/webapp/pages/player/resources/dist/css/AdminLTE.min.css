@@ -2564,6 +2564,8 @@ deg
 	overflow: hidden
 }
 
+
+
 .btn.btn-file>input[type='file'] {
 	position: absolute;
 	top: 0;
@@ -2598,6 +2600,20 @@ deg
 .btn-cancel {
 	background-color: #c0c0c0;
 	border-color: #808080
+}
+.btn-danger {
+	background-color: #800000!important;
+	border-color: #6f0000!important
+}
+
+.accepted-label{
+	color: #387c60;
+	font-size: medium;
+}
+
+.rejected-label{
+	color: #800000;
+	font-size: medium;
 }
 
 .dialog-background {

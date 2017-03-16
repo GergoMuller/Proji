@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 
+import org.omnifaces.cdi.ViewScoped;
 import org.omnifaces.util.Ajax;
 
 import entities.Contract;
@@ -23,9 +24,10 @@ import entities.Team;
 import services.ContractService;
 import services.RegistrationService;
 import services.TeamService;
+import utilities.InvalidContractOperationException;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class ContractController implements Serializable {
 
 	@Inject
@@ -72,7 +74,6 @@ public class ContractController implements Serializable {
 		contractService.setContractSeen(selectedContract);
 		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
 		exc.getFlash().put("contract", selectedContract);
-		//exc.redirect(exc.getRequestContextPath() + "/contract.xhtml");
 	}
 
 	public boolean checkEmail() {
@@ -84,10 +85,30 @@ public class ContractController implements Serializable {
 		Ajax.oncomplete("invalidEmail()");
 		return false;
 	}
+	
+	public void rejecttContract(){
+		contractService.rejectContract(selectedContract);
+		selectedContract = contractService.getContractById(selectedContract.getId());
+	}
+	
+	public boolean isContractRejected(){
+		if(selectedContract == null)
+			return true;
+		return !selectedContract.isTeamAccepted();
+	}
+	public boolean isContractAccepted(){
+		if(selectedContract == null)
+			return true;
+		return selectedContract.isTeamAccepted() && selectedContract.isPlayerAccepted();
+	}
 
-	public String acceptContract() {
+	public void acceptContract() {
+		try{
 		contractService.acceptContract(selectedContract);
-		return "playerProfile?faces-redirect=true";
+		selectedContract = contractService.getContractById(selectedContract.getId());
+		}catch(Exception ex){
+			Ajax.oncomplete("$.growl.error({message: 'You already have an ACTIVE cntract!'})");
+		}
 	}
 
 	public void setNewContract(Contract newContract) {

@@ -17,6 +17,7 @@ import entities.Player;
 import repositories.ContractRepository;
 import repositories.PlayerRepository;
 import repositories.TeamRepository;
+import utilities.InvalidContractOperationException;
 
 @Stateless
 public class ContractService {
@@ -48,7 +49,8 @@ public class ContractService {
 			System.out.println("Player signed");
 		}
 		else{
-			System.out.println("This team already has a valid contract");
+			System.out.println("You already has a valid contract");
+			throw new InvalidContractOperationException("You already have an active");
 		}
 	}
 	
@@ -70,5 +72,10 @@ public class ContractService {
 		contracts.sort((c1,c2) -> c1.getSendDate().compareTo(c2.getSendDate()));
 		Collections.reverse(contracts);
 		return contracts;
+	}
+	
+	public void rejectContract(Contract rejectedContract){
+		rejectedContract.setTeamAccepted(false);
+		contractRepo.save(rejectedContract);
 	}
 }

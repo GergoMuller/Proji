@@ -494,7 +494,12 @@
 				<div class="modal-footer col-lg-12">
 					<button type="button" class="btn btn-secondary pull-left"
 						data-dismiss="modal">Close</button>
-					<p:commandButton action="#{contractController.acceptContract}" value="Accept contract" class="btn btn-primary" data-dismiss="modal"></p:commandButton>
+					<h:outputLabel   rendered="#{contractController.contractAccepted}" class="accepted-label"/>
+					<h:outputLabel value="This contract has been REJECTED"  rendered="#{contractController.contractRejected}" class="rejected-label"/>
+					<p:commandButton action="#{contractController.rejecttContract}" value="Rejcet" class="btn btn-danger" 
+						update="contractModalParent" data-dismiss="modal" rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}" ></p:commandButton>
+					<p:commandButton action="#{contractController.acceptContract}" value="Accept" class="btn btn-primary" 
+						data-dismiss="modal" rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
 				</div>
 				
 			</div>
