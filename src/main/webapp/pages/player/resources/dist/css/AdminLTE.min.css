@@ -2629,6 +2629,17 @@ deg
 	border-color: #c0c0c0!important;
 }
 
+.box-picture{
+	height: 200px;
+	width:  180px;
+	border-radius: 10px;
+}
+
+.team-box-teamname{
+	margin-top: 50px;
+	font-size: 30px;
+}
+
 .btn-primary-red {
 	background-color: #6f1121;
 	border-color: #000000;

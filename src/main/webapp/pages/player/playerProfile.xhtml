@@ -239,13 +239,14 @@
 	<!-- MAIN CONTENT IN THE MIDDLE ********************************************************** -->
 	
 	<div class="content-wrapper">
+	<h:panelGroup id="displayedPlayer">
 	    <section class="content-header">
-	      	<h:panelGroup id="displayedPlayer">
+	      	
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 				<h1><h:outputLabel  value="#{playerController.displayedPlayer.name}"></h:outputLabel></h1>
 				</section>
-			</h:panelGroup>
+			
 	    </section>
 	    
 	    <section class="content">
@@ -258,6 +259,28 @@
 		    	<div class="col-md-4">
 		    		<div class="tile box box-yellow">
 		    		 	Some other data
+		    		</div>
+		    	</div>
+	    	</div>
+	    	<div class="row">
+		    	<div class="col-md-2">
+		    		<div class="tile box box-red">
+		    		 	Data0
+		    		</div>
+		    	</div>
+		    	<div class="col-md-8">
+		    		<div class="tile box box-green">
+		    		 	<div class="box-header with-border">
+		    		 		<h3 class="box-title"><b>Current Team</b></h3>
+		    		 	</div>
+		    		 	<div class="box-body no-padding">
+		    		 		<div class="col-md-6">
+		    		 			<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam != null ? playerController.displayedPlayer.currentTeam.name : 'Free agent' }</label>
+		    		 		</div>
+		    		 		<div class="col-md-6">
+		    		 			<p:graphicImage value="#{playerController.displayedPlayersTeamsPicture}" class="box-picture" alt=""></p:graphicImage>
+		    		 		</div>
+		    		 	</div>
 		    		</div>
 		    	</div>
 	    	</div>
@@ -280,7 +303,7 @@
 	    	</div>
 	    	
 	    </section>
-	    
+	</h:panelGroup>
 	</div>
 		
 		

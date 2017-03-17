@@ -96,6 +96,21 @@ public class PlayerController implements Serializable{
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentPlayer().getPicture()));
 	}
 	
+	public StreamedContent getDisplayedPlayersPicture(){		
+		if(getDisplayedPlayer().getPicture() == null)
+			return null;
+		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getPicture()));
+	}
+	
+	public StreamedContent getDisplayedPlayersTeamsPicture(){		
+		if(getDisplayedPlayer().getPicture() == null)
+			return null;
+		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.
+												getCurrentTeam().getTeamPicture()));
+	}
+	
+	
+	
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
 	}
