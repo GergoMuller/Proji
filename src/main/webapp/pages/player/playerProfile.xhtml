@@ -65,7 +65,7 @@
 							 <i class="glyphicon glyphicon-copy" aria-hidden="true"></i>
 							<span class="label label-success"><h:outputText id="unseenMessages" value="#{playerController.numberOfNewContracts}" /></span>
 						</a>
-					<ul class="dropdown-menu dialog-background" style="border-radius: 3%!important;">
+					<ul class="dropdown-menu" style="border-radius: 3px!important;">
 						<li class="header"><h4 style="font-weight: 600">You have #{playerController.numberOfNewContracts} new offers</h4></li>
 						<ul class="menu">
 							<ui:repeat var="sender" value="#{playerController.currentPlayersOffers}">
@@ -236,23 +236,58 @@
 		</div>
 	</aside> 
 		 
+	<!-- MAIN CONTENT IN THE MIDDLE ********************************************************** -->
 	
-		<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper">
+	    <section class="content-header">
+	      	<h:panelGroup id="displayedPlayer">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+				<h1><h:outputLabel  value="#{playerController.displayedPlayer.name}"></h:outputLabel></h1>
+				</section>
+			</h:panelGroup>
+	    </section>
+	    
+	    <section class="content">
+	    	<div class="row">
+		    	<div class="col-md-8">
+		    		<div class="tile box box-red">
+		    		 	Profie
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<div class="tile box box-yellow">
+		    		 	Some other data
+		    		</div>
+		    	</div>
+	    	</div>
+	    	<div class="row">
+		    	<div class="col-md-4">
+		    		<div class="tile box box-green">
+		    		 	Data1
+		    		</div>
+		    	</div>
+		    	<div class="col-md-3">
+		    		<div class="tile box box-default">
+		    		 	Data2
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<div class="tile box box-blue">
+		    		 	Data3
+		    		</div>
+		    	</div>
+	    	</div>
+	    	
+	    </section>
+	    
+	</div>
 		
-		<div class="content-wrapper">
-		<h:panelGroup id="displayedPlayer">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-			<h1><h:outputLabel  value="#{playerController.displayedPlayer.name}"></h:outputLabel></h1>
-			</section>
-		</h:panelGroup>
-			<!-- MAIN CONTENT IN THE MIDDLE -->
-			
-
-		</div>
+		
+		
 		 
 		
-		<!-- /.content-wrapper -->
+		<!-- MAIN END****************************************************************************** -->
 
 		<!-- Main Footer -->
 		<footer class="main-footer"> <!-- To the right -->

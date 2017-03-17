@@ -2595,16 +2595,69 @@ deg
 	border-color: #234343
 }
 
-.btn-cancel {
-	background-color: #c0c0c0;
-	border-color: #808080
+.btn-danger {
+	background-color: #800000;
+	border-color: #6f0000
+}
+
+.tile{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 1px;
+	padding: 20px;
+	min-height: 300px;
+}
+
+.box {
+	position: relative;
+	border-radius: 3px;
+	background: #ffffff;
+	border-top: 5px solid #d2d6de;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1)
+}
+
+.box.box-blue {
+	border-top-color: #004d99
+}
+
+.box.box-red {
+	border-top-color: #990000
+}
+
+.box.box-yellow {
+	border-top-color: #f39c12
+}
+
+.box.box-green {
+	border-top-color: #006c6c
+}
+
+.box.box-default {
+	border-top-color: #323743
+}
+
+.accepted-label{
+	color: #387c60;
+	font-size: medium;
+}
+
+.rejected-label{
+	color: #800000;
+	font-size: medium;
 }
 
 .dialog-background {
 	background: #ecf0f5; 
-	border-radius: 2% !important;
-	border-width: 5px;
-	border-color: #2e5858 !important;
+	border-radius: 5px !important;
+	border-width: 2px !important;
+	border-color: #c0c0c0!important;
+}
+
+.btn-cancel {
+	background-color: #c0c0c0;
+	border-color: #808080
 }
 
 .btn-primary-red {

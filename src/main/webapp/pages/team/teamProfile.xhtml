@@ -51,7 +51,7 @@
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
 			role="navigation"> <!-- Sidebar toggle button-->
-		 <p:commandLink action="#{teamController.loadHome}" update="form_displayedTeam mainTeamName"
+		 <p:commandLink action="#{teamController.loadHome}" update="mainTeamName"
 			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-home"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
 		</p:commandLink> 
 
@@ -226,7 +226,7 @@
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
 							<li class="active">
-								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-tower" ></i>
+								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="mainTeamName"><i class="glyphicon glyphicon-tower" ></i>
 							 		<span>#{team.name}</span>
 							 	</p:commandLink>
 							 </li>
@@ -258,7 +258,7 @@
 					<div class="sidebar-menu">
 					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
 						<li class="active">
-							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="form_displayedTeam mainTeamName"><i class="glyphicon glyphicon-user" ></i>
+							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="mainTeamName"><i class="glyphicon glyphicon-user" ></i>
 						 		<span>#{player.name}</span>
 						 	</p:commandLink>
 						 </li>
@@ -271,46 +271,55 @@
 	</aside> 
 		 
 	
-		<!-- Content Wrapper. Contains page content -->
+<!-- MAIN CONTENT **********************************************-->
 		
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-			<h1><h:outputLabel id="mainTeamName" value="#{teamController.displayedTeam}"></h:outputLabel></h1>
-			</section>
-
-			<!-- MAIN CONTENT -->
-			<h:form id="form_displayedTeam">
-				<p:dataTable id="table_player" value="#{teamController.displayedTeam.currentPlayers}"
-					var="player">
-					<f:facet name="header">
-					Players
-					</f:facet>
-					<p:column>
-						<p:graphicImage value="#{player.streamPicture()}"
-							class="user-image" alt="User image" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<label>Name</label>
-						</f:facet>
-						<p:outputLabel value="#{player.name}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<label>Email address</label>
-						</f:facet>
-						<p:outputLabel value="#{player.email}" />
-					</p:column>
-				</p:dataTable>
-
-			</h:form>
-
-		</div>
+	    <section class="content-header">
+	      	<h:panelGroup id="mainTeamName">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+				<h1><h:outputLabel  value="#{teamController.displayedTeam.name}"></h:outputLabel></h1>
+				</section>
+			</h:panelGroup>
+	    </section>
+	    
+	    <section class="content">
+	    	<div class="row">
+		    	<div class="col-md-8">
+		    		<div class="tile box box-red">
+		    		 	Profie
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<div class="tile box box-yellow">
+		    		 	Some other data
+		    		</div>
+		    	</div>
+	    	</div>
+	    	<div class="row">
+		    	<div class="col-md-4">
+		    		<div class="tile box box-green">
+		    		 	Data1
+		    		</div>
+		    	</div>
+		    	<div class="col-md-3">
+		    		<div class="tile box box-default">
+		    		 	Data2
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<div class="tile box box-blue">
+		    		 	Data3
+		    		</div>
+		    	</div>
+	    	</div>
+	    	
+	    </section>
+	    
+	</div>
 		
-		<!-- /.content-wrapper -->
-
-		<!-- Main Footer -->
+		
+<!-- MAIN END *********************************************************** -->
 		<footer class="main-footer"> <!-- To the right -->
 		<div class="pull-right hidden-xs">Anything you want</div>
 		<!-- Default to the left --> <strong>Copyright &copy; 2016 <a
