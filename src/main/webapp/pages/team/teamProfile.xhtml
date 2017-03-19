@@ -487,7 +487,7 @@
 								<p:commandButton onclick="update()" value="Save Changes"
 									class="btn btn-primary"  />
 							</div>
-
+							<p:remoteCommand name="checkEmail" actionListener="#{playerController.checkEmail}" />
 							<p:remoteCommand name="updateEntity"
 								action="#{teamController.updateEntity}" update="navBarTeamName profileTeamName mainTeamName dropDownTeamName" />
 						</h:form>

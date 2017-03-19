@@ -50,38 +50,42 @@
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
-			role="navigation"> <!-- Sidebar toggle button-->
-		 <p:commandLink action="#{teamController.loadHome}" update="displayedPlayer"
-			class="sidebar-toggle"  role="button"> <i class="glyphicon glyphicon-home"></i> <!-- a-ba ->  data-toggle="offcanvas" -->
-		</p:commandLink> 
+			role="navigation"> <!-- Sidebar toggle button--> <p:commandLink
+			action="#{teamController.loadHome}" update="displayedPlayer"
+			class="sidebar-toggle" role="button">
+			<i class="glyphicon glyphicon-home"></i>
+			<!-- a-ba ->  data-toggle="offcanvas" -->
+		</p:commandLink>
 
 
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				
-				<li class="dropdown messages-menu">
-						<a class="contract-btn dropdown-toggle"
-					data-toggle="dropdown" href="#"  > 
-							 <i class="glyphicon glyphicon-copy" aria-hidden="true"></i>
-							<span class="label label-success"><h:outputText id="unseenMessages" value="#{playerController.numberOfNewContracts}" /></span>
-						</a>
-					<ul class="dropdown-menu" style="border-radius: 3px!important;">
-						<li class="header"><h4 style="font-weight: 600">You have #{playerController.numberOfNewContracts} new offers</h4></li>
+
+				<li class="dropdown messages-menu"><a
+					class="contract-btn dropdown-toggle" data-toggle="dropdown"
+					href="#"> <i class="glyphicon glyphicon-copy"
+						aria-hidden="true"></i> <span class="label label-success"><h:outputText
+								id="unseenMessages"
+								value="#{playerController.numberOfNewContracts}" /></span>
+				</a>
+					<ul class="dropdown-menu" style="border-radius: 3px !important;">
+						<li class="header"><h4 style="font-weight: 600">You have
+								#{playerController.numberOfNewContracts} new offers</h4></li>
 						<ul class="menu">
-							<ui:repeat var="sender" value="#{playerController.currentPlayersOffers}">
-							<h:form>
-								<li>	
-									<p:commandLink action="#{contractController.loadContract(sender.id)}" value="#{sender.signerTeam.name}" oncomplete="$('#contractModal').modal('show')" 
-									update="contractModalParent unseenMessages"/>
-									
-								</li>
-							</h:form>
+							<ui:repeat var="sender"
+								value="#{playerController.currentPlayersOffers}">
+								<h:form>
+									<li><p:commandLink
+											action="#{contractController.loadContract(sender.id)}"
+											value="#{sender.signerTeam.name}"
+											oncomplete="$('#contractModal').modal('show')"
+											update="contractModalParent unseenMessages" /></li>
+								</h:form>
 							</ui:repeat>
 						</ul>
-					</ul>
-				</li>
-				
-				
+					</ul></li>
+
+
 				<!-- Messages: style can be found in dropdown.less-->
 				<li class="dropdown messages-menu">
 					<!-- Menu toggle button --> <a href="#" class="dropdown-toggle"
@@ -114,34 +118,35 @@
 						<li class="footer"><a href="#">See All Messages</a></li>
 					</ul>
 				</li>
-				
-				
-				
+
+
+
 				<!-- User Account Menu -->
 				<!-- User Account Menu -->
-				<li class="dropdown user user-menu">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-					  	<p:graphicImage value="#{playerController.currentPlayersPicture}" class="user-image" alt="X" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-						<span class="hidden-xs"> 
-							<h:outputText id="navBarTeamName" value="#{playerController.currentPlayer.name}" />
-						</span>
-					</a>
+				<li class="dropdown user user-menu"><a href="#"
+					class="dropdown-toggle" data-toggle="dropdown"> <p:graphicImage
+							value="#{playerController.currentPlayersPicture}"
+							class="user-image" alt="X" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+						<span class="hidden-xs"> <h:outputText id="navBarTeamName"
+								value="#{playerController.currentPlayer.name}" />
+					</span>
+				</a>
 					<ul class="dropdown-menu">
 						<!-- The user image in the menu -->
-						<li class="user-header">
-							<p:graphicImage
+						<li class="user-header"><p:graphicImage
 								value="#{playerController.currentPlayersPicture}"
 								class="user-image-bigger" alt="X" />
 
-							<p><h:outputLabel value="#{playerController.currentPlayer.name}"  id="dropDownTeamName"/></p></li>
+							<p>
+								<h:outputLabel value="#{playerController.currentPlayer.name}"
+									id="dropDownTeamName" />
+							</p></li>
 						<!-- Menu Footer-->
 						<li class="user-footer">
 							<div class="pull-left">
 								<form method="post">
-									<p:commandButton type="button"
-										onclick="openProfileModal()"
-										class="btn btn-primary btn-block btn-large"
-										value="Profile"></p:commandButton>
+									<p:commandButton type="button" onclick="openProfileModal()"
+										class="btn btn-primary btn-block btn-large" value="Profile"></p:commandButton>
 								</form>
 							</div>
 							<div class="pull-right">
@@ -151,19 +156,18 @@
 								</h:form>
 							</div>
 						</li>
-					</ul>
-				</li>
+					</ul></li>
 				<!-- Control Sidebar Toggle Button -->
 				<li><a href="#" data-toggle="control-sidebar"><i
 						class="fa fa-gears"></i></a></li>
 			</ul>
 		</div>
 		</nav> </header>
-		
-		
-<!-- SEARCH -->
-		
-	<aside class="main-sidebar control-sidebar-dark"> <!-- sidebar: style can be found in sidebar.less -->
+
+
+		<!-- SEARCH -->
+
+		<aside class="main-sidebar control-sidebar-dark"> <!-- sidebar: style can be found in sidebar.less -->
 		<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
 			<li class="active"><a href="#search-sidebar-team-tab"
 				data-toggle="tab"><i class="glyphicon glyphicon-tower"></i></a></li>
@@ -171,145 +175,143 @@
 					class="glyphicon glyphicon-user"></i></a></li>
 		</ul>
 		<div class="tab-content">
-		<section id="search-sidebar-team-tab" class="tab-pane active"> 
+			<section id="search-sidebar-team-tab" class="tab-pane active">
 			<h:form id="searchPanel" class="sidebar-form">
 				<div class="input-group">
-					<p:inputText value="#{searchController.searchedTeamName}" name="q" class="form-control"
-						placeholder="Search..." /> <span class="input-group-btn">
-						<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
-							class="btn btn-flat">
+					<p:inputText value="#{searchController.searchedTeamName}" name="q"
+						class="form-control" placeholder="Search..." />
+					<span class="input-group-btn"> <ui:remove>
+							<button onclick="search()" type="submit" name="search"
+								id="search-btn" class="btn btn-flat">
+								<i class="fa fa-search"></i>
+							</button>
+							<p:remoteCommand name="search"
+								action="#{searchController.searchForTeamName()}"></p:remoteCommand>
+						</ui:remove> <p:commandLink action="#{searchController.searchForTeamName()}"
+							class="btn btn-flat" update="searchPanel">
 							<i class="fa fa-search"></i>
-						</button>
-						<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-						</ui:remove>
-						<p:commandLink  action="#{searchController.searchForTeamName()}" class="btn btn-flat"
-						update="searchPanel"> <i class="fa fa-search"></i> </p:commandLink>
+						</p:commandLink>
 					</span>
 				</div>
-			
+
 				<ul class="sidebar-menu">
 					<li class="header"><b>TEAMS</b></li>
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
-							<li class="active">
-								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" ><i class="glyphicon glyphicon-tower" ></i>
-							 		<span>#{team.name}</span>
-							 	</p:commandLink>
-							 </li>
-						</ui:repeat>  
+							<li class="active"><p:commandLink
+									action="#{searchController.selectTeamFromSearchResults()}">
+									<i class="glyphicon glyphicon-tower"></i>
+									<span>#{team.name}</span>
+								</p:commandLink></li>
+						</ui:repeat>
 					</div>
 				</ul>
-			</h:form>
-		 </section> 
-		
-		
-		<section id="search-sidebar-player-tab" class="tab-pane"> 
-			<h:form id="searchPanelPlayer" class="sidebar-form">
+			</h:form> </section>
+
+
+			<section id="search-sidebar-player-tab" class="tab-pane"> <h:form
+				id="searchPanelPlayer" class="sidebar-form">
 				<div class="input-group">
-					<p:inputText value="#{searchController.searchedPlayerName}" name="q" class="form-control"
-						placeholder="Search..." /> <span class="input-group-btn">
-						<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
-							class="btn btn-flat">
+					<p:inputText value="#{searchController.searchedPlayerName}"
+						name="q" class="form-control" placeholder="Search..." />
+					<span class="input-group-btn"> <ui:remove>
+							<button onclick="search()" type="submit" name="search"
+								id="search-btn" class="btn btn-flat">
+								<i class="fa fa-search"></i>
+							</button>
+							<p:remoteCommand name="search"
+								action="#{searchController.searchForTeamName()}"></p:remoteCommand>
+						</ui:remove> <p:commandLink action="#{searchController.searchForPlayerName()}"
+							class="btn btn-flat" update="searchPanelPlayer">
 							<i class="fa fa-search"></i>
-						</button>
-						<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-						</ui:remove>
-						<p:commandLink  action="#{searchController.searchForPlayerName()}" class="btn btn-flat"
-						update="searchPanelPlayer"> <i class="fa fa-search"></i> </p:commandLink>
+						</p:commandLink>
 					</span>
 				</div>
-			
+
 				<ul class="sidebar-menu">
 					<li class="header"><b>PLAYERS</b></li>
 					<div class="sidebar-menu">
-					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
-						<li class="active">
-							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="displayedPlayer"><i class="glyphicon glyphicon-user" ></i>
-						 		<span>#{player.name}</span>
-						 	</p:commandLink>
-						 </li>
-					</ui:repeat>  
+						<ui:repeat var="player"
+							value="#{searchController.playerSearchResult}">
+							<li class="active"><p:commandLink
+									action="#{searchController.selectPlayerFromSearchResults()}"
+									update="displayedPlayer">
+									<i class="glyphicon glyphicon-user"></i>
+									<span>#{player.name}</span>
+								</p:commandLink></li>
+						</ui:repeat>
 					</div>
 				</ul>
-			</h:form>
-		</section>  
+			</h:form> </section>
 		</div>
-	</aside> 
-		 
-	<!-- MAIN CONTENT IN THE MIDDLE ********************************************************** -->
-	
-	<div class="content-wrapper">
-	<h:panelGroup id="displayedPlayer">
-	    <section class="content-header">
-	      	
-				<!-- Content Header (Page header) -->
+		</aside>
+
+		<!-- MAIN CONTENT IN THE MIDDLE ********************************************************** -->
+
+		<div class="content-wrapper">
+			<h:panelGroup id="displayedPlayer">
+				<section class="content-header"> <!-- Content Header (Page header) -->
 				<section class="content-header">
-				<h1><h:outputLabel  value="#{playerController.displayedPlayer.name}"></h:outputLabel></h1>
+				<h1>
+					<h:outputLabel value="#{playerController.displayedPlayer.name}"></h:outputLabel>
+				</h1>
+				</section> </section>
+
+				<section class="content">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="tile box box-red">Profie</div>
+					</div>
+					<div class="col-md-4">
+						<div class="tile box box-yellow">Some other data</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="tile box box-red">Data0</div>
+					</div>
+					<div class="col-md-8">
+						<div class="tile box box-green">
+							<div class="box-header with-border">
+								<h3 class="box-title">
+									<b>Current Team</b>
+								</h3>
+							</div>
+							<div class="box-body no-padding">
+								<div class="col-md-6">
+									<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam
+										!= null ? playerController.displayedPlayer.currentTeam.name :
+										'Free agent' }</label>
+								</div>
+								<div class="col-md-6">
+									<p:graphicImage
+										value="#{playerController.displayedPlayersTeamsPicture}"
+										class="box-picture" alt=""></p:graphicImage>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="tile box box-green">Data1</div>
+					</div>
+					<div class="col-md-3">
+						<div class="tile box box-default">Data2</div>
+					</div>
+					<div class="col-md-4">
+						<div class="tile box box-blue">Data3</div>
+					</div>
+				</div>
+
 				</section>
-			
-	    </section>
-	    
-	    <section class="content">
-	    	<div class="row">
-		    	<div class="col-md-8">
-		    		<div class="tile box box-red">
-		    		 	Profie
-		    		</div>
-		    	</div>
-		    	<div class="col-md-4">
-		    		<div class="tile box box-yellow">
-		    		 	Some other data
-		    		</div>
-		    	</div>
-	    	</div>
-	    	<div class="row">
-		    	<div class="col-md-2">
-		    		<div class="tile box box-red">
-		    		 	Data0
-		    		</div>
-		    	</div>
-		    	<div class="col-md-8">
-		    		<div class="tile box box-green">
-		    		 	<div class="box-header with-border">
-		    		 		<h3 class="box-title"><b>Current Team</b></h3>
-		    		 	</div>
-		    		 	<div class="box-body no-padding">
-		    		 		<div class="col-md-6">
-		    		 			<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam != null ? playerController.displayedPlayer.currentTeam.name : 'Free agent' }</label>
-		    		 		</div>
-		    		 		<div class="col-md-6">
-		    		 			<p:graphicImage value="#{playerController.displayedPlayersTeamsPicture}" class="box-picture" alt=""></p:graphicImage>
-		    		 		</div>
-		    		 	</div>
-		    		</div>
-		    	</div>
-	    	</div>
-	    	<div class="row">
-		    	<div class="col-md-4">
-		    		<div class="tile box box-green">
-		    		 	Data1
-		    		</div>
-		    	</div>
-		    	<div class="col-md-3">
-		    		<div class="tile box box-default">
-		    		 	Data2
-		    		</div>
-		    	</div>
-		    	<div class="col-md-4">
-		    		<div class="tile box box-blue">
-		    		 	Data3
-		    		</div>
-		    	</div>
-	    	</div>
-	    	
-	    </section>
-	</h:panelGroup>
-	</div>
-		
-		
-		
-		 
-		
+			</h:panelGroup>
+		</div>
+
+
+
+
+
 		<!-- MAIN END****************************************************************************** -->
 
 		<!-- Main Footer -->
@@ -318,7 +320,7 @@
 		<!-- Default to the left --> <strong>Copyright &copy; 2016 <a
 			href="#">Company</a>.
 		</strong> All rights reserved. </footer>
-		
+
 
 		<!-- CONTROL SIDEBAR -->
 		<aside class="control-sidebar control-sidebar-dark"> <!-- Create the tabs -->
@@ -333,8 +335,8 @@
 			<!-- Home tab content -->
 			<div class="tab-pane active" id="control-sidebar-home-tab">
 				<h3 class="control-sidebar-heading">Recent Activity</h3>
-				
-				
+
+
 			</div>
 			<!-- /.tab-pane -->
 			<!-- Stats tab content -->
@@ -377,35 +379,36 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						onclick="refreshModal()">&times;</button>
-					<h4 class="modal-title">Profile of
-						<p:outputLabel id="profileTeamName" value="#{playerController.currentPlayer.name} "/> 
-					</h4> 
+					<h4 class="modal-title">
+						Profile of
+						<p:outputLabel id="profilePlayerName"
+							value="#{playerController.currentPlayer.name} " />
+					</h4>
 				</div>
-			<ui:remove>
+
 				<div class="modal-body">
 					<!-- Settings tab content -->
 					<div class="tab-pane" id="control-sidebar-settings-tab">
 						<h:form id="editForm" role="form" class="form-horizontal">
-							<div class="form-group row" id="div_teamName">
-								<label id="label_teamName" class="control-label col-sm-4"
-									for="teamName">Team name:</label>
+							<div class="form-group row" id="div_playerName">
+								<label id="label_PlayerName" class="control-label col-sm-4"
+									for="playerName">Player name:</label>
 								<div class="col-sm-8">
-									<p:inputText id="teamName" value="#{teamController.newName}"
-										size="35" label="teamName"
-										placeholder="#{teamController.currentTeamName}" />
+									<p:inputText id="playerName" value="#{playerController.name}"
+										size="35" label="playerName"
+										placeholder="#{playerController.currentName}" />
 								</div>
 							</div>
 
 							<div class="form-group row" id="div_calendar">
 								<label id="label_calendar" class="control-label col-sm-4"
-									for="calendar">Team was founded in:</label>
+									for="date">Birth date:</label>
 								<div class="col-sm-8">
-									<p:inputMask id="date" value="#{teamController.teamDate}"
-										placeholder="#{teamController.actualTeamDate()}"
-										mask="9999-99-99" size="35" >
-										<f:convertDateTime pattern="yyyy-mm-dd"/>		
+									<p:inputMask id="date" value="#{playerController.birthDate}"
+										mask="9999-99-99" size="35">
+										<f:convertDateTime pattern="yyyy-mm-dd" />
 									</p:inputMask>
-										
+
 								</div>
 							</div>
 
@@ -415,7 +418,8 @@
 									closeSpeed="500" widgetVar="panel_picture"
 									style="margin-bottom:20px">
 
-									<p:fileUpload id="file" value="#{teamController.teamPicture}"
+									<p:fileUpload id="file"
+										value="#{playerController.playerPicture}"
 										allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 								</p:panel>
 							</div>
@@ -431,8 +435,8 @@
 											address:</label>
 										<div class="col-sm-8">
 											<p:inputText id="email" label="email" size="35"
-												value="#{teamController.email}"
-												placeholder="#{teamController.currentEmail}" />
+												value="#{playerController.email}"
+												placeholder="#{playerController.currentEmail}" />
 										</div>
 									</div>
 
@@ -450,7 +454,7 @@
 											password:</label>
 										<div class="col-sm-8">
 											<p:password id="old_password"
-												value="#{teamController.oldPassword}" size="35"
+												value="#{playerController.oldPassword}" size="35"
 												label="Old password" placeholder="Your old password" />
 										</div>
 									</div>
@@ -460,7 +464,7 @@
 											Password:</label>
 										<div class="col-sm-8">
 											<p:password id="new_password"
-												value="#{teamController.password}" size="35"
+												value="#{playerController.password}" size="35"
 												label="password"
 												placeholder="Enter your password ( min. 6 caracters)" />
 										</div>
@@ -471,7 +475,7 @@
 											password again:</label>
 										<div class="col-sm-8">
 											<p:password id="confirmPassword"
-												value="#{teamController.confirmPassword}" size="35"
+												value="#{playerController.confirmPassword}" size="35"
 												placeholder="Enter your password" />
 										</div>
 									</div>
@@ -481,96 +485,107 @@
 
 							<div class="form-group row " align="center">
 								<p:commandButton onclick="update()" value="Save Changes"
-									class="btn btn-primary"  />
+									class="btn btn-primary" />
 							</div>
-
+							<p:remoteCommand name="checkPassword"
+								action="#{playerController.checkPassword}" />
+							<p:remoteCommand name="checkEmail"
+								action="#{playerController.checkEmail}" />
 							<p:remoteCommand name="updateEntity"
-								action="#{teamController.updateEntity}" update="navBarTeamName profileTeamName dropDownTeamName" />
+								action="#{playerController.updateEntity}" />
 						</h:form>
 					</div>
 				</div>
-				</ui:remove>
 				<div class="modal-footer">
 					<p:button type="button" class="btn btn-cancel"
-						onclick="hideProfileModal()"  value="Close" ></p:button>
+						onclick="hideProfileModal()" value="Close"></p:button>
 				</div>
 			</div>
-			
+
 		</div>
 
 	</div>
-	
+
 	<!-- Contract modal -->
-<h:panelGroup id="contractModalParent">
-<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<h:form>
-			<div class="modal-content col-lg-12 dialog-background">
-				<div class="modal-header col-lg-12">
-					<h2 class="modal-title" id="exampleModalLabel col-lg-11"
-						style="font-weight: 600">Offer from the #{contractController.selectedContract.signerTeam.name}</h2>
-					<button type="button" class="close col-lg-1" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body col-lg-12">
-				
-				<div class="form-group ">
-					
-				 
-						<div class="form-group contractform">
-							<div class="col-lg-12">
-								<p:outputLabel > Amount of annual payment: <b>#{contractController.selectedContract.amount} $</b> </p:outputLabel>
+	<h:panelGroup id="contractModalParent">
+		<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<h:form>
+					<div class="modal-content col-lg-12 dialog-background">
+						<div class="modal-header col-lg-12">
+							<h2 class="modal-title" id="exampleModalLabel col-lg-11"
+								style="font-weight: 600">Offer from the
+								#{contractController.selectedContract.signerTeam.name}</h2>
+							<button type="button" class="close col-lg-1" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body col-lg-12">
+
+							<div class="form-group ">
+
+
+								<div class="form-group contractform">
+									<div class="col-lg-12">
+										<p:outputLabel> Amount of annual payment: <b>#{contractController.selectedContract.amount}
+												$</b>
+										</p:outputLabel>
+									</div>
+
+
+								</div>
+								<div class="form-group contractform">
+									<div class="col-lg-12">
+										<p:outputLabel> Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b>
+										</p:outputLabel>
+									</div>
+
+								</div>
+								<div class="col-lg-12">
+									<h:messages />
+									<h:message />
+								</div>
+
+								<div class="form-group contractform">
+									<div class="col-lg-12">
+										<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
+									</div>
+								</div>
+
+
 							</div>
-							
+
 
 						</div>
-						<div class="form-group contractform">
-							<div class="col-lg-12">
-								<p:outputLabel > Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b></p:outputLabel>
-							</div>
-							
-						</div>
-						<div class="col-lg-12">
-							<h:messages />
-							<h:message />
+						<div class="modal-footer col-lg-12">
+							<button type="button" class="btn btn-secondary pull-left"
+								data-dismiss="modal">Close</button>
+							<h:outputLabel rendered="#{contractController.contractAccepted}"
+								class="accepted-label" />
+							<h:outputLabel value="This contract has been REJECTED"
+								rendered="#{contractController.contractRejected}"
+								class="rejected-label" />
+							<p:commandButton action="#{contractController.rejecttContract}"
+								value="Rejcet" class="btn btn-danger"
+								update="contractModalParent" data-dismiss="modal"
+								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
+							<p:commandButton action="#{contractController.acceptContract}"
+								value="Accept" class="btn btn-primary" data-dismiss="modal"
+								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
 						</div>
 
-						<div class="form-group contractform">
-							<div class="col-lg-12">
-								<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
-							</div>
-						</div>
-
-					
 					</div>
-
-
-				</div>
-				<div class="modal-footer col-lg-12">
-					<button type="button" class="btn btn-secondary pull-left"
-						data-dismiss="modal">Close</button>
-					<h:outputLabel   rendered="#{contractController.contractAccepted}" class="accepted-label"/>
-					<h:outputLabel value="This contract has been REJECTED"  rendered="#{contractController.contractRejected}" class="rejected-label"/>
-					<p:commandButton action="#{contractController.rejecttContract}" value="Rejcet" class="btn btn-danger" 
-						update="contractModalParent" data-dismiss="modal" rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}" ></p:commandButton>
-					<p:commandButton action="#{contractController.acceptContract}" value="Accept" class="btn btn-primary" 
-						data-dismiss="modal" rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
-				</div>
-				
+				</h:form>
 			</div>
-			</h:form>
 		</div>
-	</div>
-</h:panelGroup>
+	</h:panelGroup>
 
-	
+
 
 	<!-- REQUIRED JS SCRIPTS -->
 	<script src="resources/js/refresh_modal.js" type="text/javascript"></script>
-	<script src="resources/js/contract.js" type="text/javascript"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
