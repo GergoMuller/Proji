@@ -41,25 +41,17 @@ public class ContractController implements Serializable {
 
 	private Contract newContract;
 	private String signingPlayerEmail;
-	private Date validDate;
-	private Double amount;
 	private Contract selectedContract;
 
 	public void sendContract() {
 		Team currentTeam = securityController.getCurrentTeam();
 		System.out.println("send contract meghívva: current team = "+currentTeam.getEmail());
-		if (currentTeam != null) {
-			newContract.setSignerTeam(currentTeam);
-			try {
-				contractService.saveContract(newContract, signingPlayerEmail);
-				System.out.println("signingPlayerEmail :"+signingPlayerEmail);
-				System.out.println("validDate : "  +validDate);
-				System.out.println("amount : "+amount);
-			} catch (Exception e) {
-				System.out.println("HIBAAAAAAAA" + e.getMessage());
-				e.printStackTrace();
-
-			}
+		newContract.setSignerTeam(currentTeam);
+		try {
+			contractService.saveContract(newContract, signingPlayerEmail);
+		} catch (Exception e) {
+			System.out.println("HIBA  nincs ilyen jatekos" + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -121,23 +113,6 @@ public class ContractController implements Serializable {
 
 	public void setSigningPlayerEmail(String signingPlayerEmail) {
 		this.signingPlayerEmail = signingPlayerEmail;
-	}
-
-	
-	public Date getValidDate() {
-		return validDate;
-	}
-
-	public void setValidDate(Date validDate) {
-		this.validDate = validDate;
-	}
-
-	public Double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Double amount) {
-		this.amount = amount;
 	}
 
 	public Contract getSelectedContract() {

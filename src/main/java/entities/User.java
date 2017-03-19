@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -25,6 +26,9 @@ public class User implements Serializable {
 	protected String password;
 	@ElementCollection(fetch=FetchType.EAGER)
 	protected Set<String> roles = new HashSet<>(); 
+	@OneToMany(mappedBy="to")
+	private List<Message> inbox;
+	
 	
 	@Override
 	public String toString(){
@@ -65,6 +69,14 @@ public class User implements Serializable {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Message> getInbox() {
+		return inbox;
+	}
+
+	public void setInbox(List<Message> inbox) {
+		this.inbox = inbox;
 	}
 
 	@Override

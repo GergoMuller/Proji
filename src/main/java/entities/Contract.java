@@ -24,6 +24,7 @@ public class Contract implements Serializable {
 	private Team signerTeam;
 	private boolean teamAccepted=false;
 	private boolean playerAccepted=false;
+	@Lob
 	private String content;
 	private double amount;
 	@Temporal(TemporalType.DATE)

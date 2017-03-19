@@ -734,8 +734,8 @@ a:hover, a:active, a:focus {
 
 .control-sidebar-bg, .control-sidebar {
 	top: 0;
-	right: -560px;
-	width: 560px;
+	right: -300px;
+	width: 300px;
 	-webkit-transition: right .3s ease-in-out;
 	-o-transition: right .3s ease-in-out;
 	transition: right .3s ease-in-out
@@ -2580,7 +2580,16 @@ deg
 	margin-bottom: 10px;
 	margin-right: 1px;
 	padding: 20px;
-	min-height: 300px;
+	min-height: 200px;
+}
+
+.tile-profile{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 1px;
+	padding: 20px;
+	min-height: 400px;
 }
 
 .box {
@@ -2622,6 +2631,13 @@ deg
 	font-size: medium;
 }
 
+.border-gray{
+	border-top: 2px solid #f4f4f4;
+	border-bottom: 2px solid #f4f4f4;
+	border-radius: 3px;
+	margin: 6px 30px;
+}
+
 .dialog-background {
 	background: #ecf0f5; 
 	border-radius: 5px !important;
@@ -2630,14 +2646,26 @@ deg
 }
 
 .box-picture{
-	height: 200px;
-	width:  180px;
-	border-radius: 10px;
+	height: 180px;
+	width:  220px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 15px;
+}
+
+.box-picture-team{
+	height: 180px;
+	width:  220px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: -5px;
 }
 
 .team-box-teamname{
 	margin-top: 50px;
-	font-size: 30px;
+	font-size: 20px;
 }
 
 .btn-primary-red {
@@ -2653,6 +2681,10 @@ deg
 .btn-success {
 	background-color: #00a65a;
 	border-color: #008d4c
+}
+
+.profile-data{
+	margin: 5px 0px;
 }
 
 .btn-success:hover, .btn-success:active, .btn-success.hover {

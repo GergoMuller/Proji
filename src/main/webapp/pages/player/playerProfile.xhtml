@@ -259,48 +259,89 @@
 
 				<section class="content">
 				<div class="row">
-					<div class="col-md-8">
-						<div class="tile box box-red">Profie</div>
+					<div class="col-md-7">
+						<div class="tile-profile box box-red">
+							<div class="box-header with-border">
+								<h3 class="box-title">
+									<b>#{playerController.displayedPlayer.name}</b>
+								</h3>
+							</div>
+							<div class="box-body no-padding">
+								<div class="row">
+									<div class="col-md-5">
+										<p:graphicImage
+											value="#{playerController.displayedPlayersPicture}"
+											class="box-picture" alt="">
+										</p:graphicImage>
+									</div>
+									<div class="col-md-7">
+										<div class="col-md-4">
+											<label class="profile-data">Age:</label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{playerController.displayedPlayer.age}" class="profile-data"/>
+										</div>
+										<div class="col-md-4">
+											<label class="profile-data">Position: </label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{playerController.displayedPlayer.position != null ? playerController.displayedPlayer.position : 'No position set'}" class="profile-data"/>
+										</div>
+										<div class="col-md-4">
+											<label class="profile-data">E-mail: </label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{playerController.displayedPlayer.email}" class="profile-data"/>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+										<div class="border-gray">
+											<h:outputLabel value="#{playerController.displayedPlayer.description}" class="profile-data"/>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="tile box box-yellow">Some other data</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-2">
-						<div class="tile box box-red">Data0</div>
-					</div>
-					<div class="col-md-8">
-						<div class="tile box box-green">
+					<div class="col-md-5">
+						<div class="tile-profile box box-green">
 							<div class="box-header with-border">
 								<h3 class="box-title">
 									<b>Current Team</b>
 								</h3>
 							</div>
 							<div class="box-body no-padding">
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam
 										!= null ? playerController.displayedPlayer.currentTeam.name :
 										'Free agent' }</label>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-7">
 									<p:graphicImage
 										value="#{playerController.displayedPlayersTeamsPicture}"
-										class="box-picture" alt=""></p:graphicImage>
+										class="box-picture-team" alt="">
+									</p:graphicImage>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<div class="tile box box-green">Data1</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-7">
 						<div class="tile box box-default">Data2</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<div class="tile box box-blue">Data3</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="tile box box-yellow">Data2</div>
 					</div>
 				</div>
 
@@ -355,7 +396,7 @@
 					<p:fileUpload id="file" value="#{playerController.playerPicture}"
 						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 					<p:commandButton action="#{playerController.uploadPicture}"
-						class="btn btn-primary" ajax="false" value="Upload cover" />
+						class="btn btn-primary" ajax="false" value="Upload cover" update="displayedPlayer" />
 				</h:form>
 
 			</div>
@@ -497,8 +538,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<p:button type="button" class="btn btn-cancel"
-						onclick="hideProfileModal()" value="Close"></p:button>
+					<p:commandButton type="button" class="btn btn-cancel"
+						onclick="hideProfileModal()" value="Close" update="displayedPlayer"></p:commandButton>
 				</div>
 			</div>
 
@@ -563,7 +604,7 @@
 							<button type="button" class="btn btn-secondary pull-left"
 								data-dismiss="modal">Close</button>
 							<h:outputLabel rendered="#{contractController.contractAccepted}"
-								class="accepted-label" />
+								class="accepted-label" value="This contract has ben ACCEPTED"/>
 							<h:outputLabel value="This contract has been REJECTED"
 								rendered="#{contractController.contractRejected}"
 								class="rejected-label" />
@@ -573,7 +614,8 @@
 								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
 							<p:commandButton action="#{contractController.acceptContract}"
 								value="Accept" class="btn btn-primary" data-dismiss="modal"
-								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
+								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"
+								update="displayedPlayer"></p:commandButton>
 						</div>
 
 					</div>

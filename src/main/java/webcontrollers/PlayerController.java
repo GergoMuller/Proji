@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omg.DynamicAny.DynAnySeqHelper;
 import org.omnifaces.util.Ajax;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -34,6 +35,10 @@ import services.ContractService;
 import services.PlayerService;
 import services.RegistrationService;
 import utilities.Roles;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 @Named
 @SessionScoped
@@ -75,8 +80,12 @@ public class PlayerController implements Serializable {
 		temp.setPassword(password);
 		uploadPicture();
 		temp.setName(name);
-		// birthdate bõl kiszmáolni az age -t különben automatikusan 0
-		temp.setAge(0);
+		LocalDate now = LocalDate.now();
+		LocalDate birth = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Long diff = ChronoUnit.YEARS.between(birth, now);
+		diff--;
+		System.out.println(diff);
+		temp.setAge(diff.intValue());
 		playerService.updatePlayer(temp, currentPlayer);
 		LOGGER.info("UPDATE LEFUTOTT: " + currentPlayer.getEmail());
 	}
@@ -123,7 +132,8 @@ public class PlayerController implements Serializable {
 	}
 
 	public int getNumberOfNewContracts() {
-		return playerService.numberOfNewContracts(currentPlayer);
+		//return playerService.numberOfNewContracts(currentPlayer);
+		return (int)currentPlayer.getContract().stream().filter(c -> c.isSeenByPlayer()== false).count();
 	}
 
 	public Player getCurrentPlayer() {
@@ -159,6 +169,8 @@ public class PlayerController implements Serializable {
 		if (currentPlayersOffers == null)
 			currentPlayersOffers = contractService.getPlayersContracts(currentPlayer);
 		return currentPlayersOffers;
+//		currentPlayersOffers=currentPlayer.getContract();
+//		return currentPlayersOffers;
 	}
 
 	public void setCurrentPlayersOffers(List<Contract> currentPlayersOffers) {
