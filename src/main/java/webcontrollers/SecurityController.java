@@ -84,8 +84,6 @@ public class SecurityController implements Serializable {
 		ExternalContext exc =FacesContext.getCurrentInstance().getExternalContext();
 		exc.invalidateSession();
 		exc.redirect(exc.getRequestContextPath() + "/index.xhtml");
-		
-		//return "index?faces-redirect=true";
 	}
 	
 	public String getUserEmail() {
@@ -101,6 +99,7 @@ public class SecurityController implements Serializable {
 		else
 			return null;
 	}
+	
 	
 	public Team getCurrentTeam(){
 	if(isUserInRole(Roles.TEAM))

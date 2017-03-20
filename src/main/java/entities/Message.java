@@ -22,6 +22,8 @@ public class Message implements Serializable {
 	private String content;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date sentTime;
+	private boolean seenByUser;
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,6 +53,12 @@ public class Message implements Serializable {
 	}
 	public void setSentTime(Date sentTime) {
 		this.sentTime = sentTime;
+	}
+	public boolean isSeenByUser() {
+		return seenByUser;
+	}
+	public void setSeenByUser(boolean seenByUser) {
+		this.seenByUser = seenByUser;
 	}
 	
 	

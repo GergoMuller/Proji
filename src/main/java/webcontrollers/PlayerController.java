@@ -135,6 +135,10 @@ public class PlayerController implements Serializable {
 		//return playerService.numberOfNewContracts(currentPlayer);
 		return (int)currentPlayer.getContract().stream().filter(c -> c.isSeenByPlayer()== false).count();
 	}
+	
+	public int getNumberOfUnseenMessages(){
+		return new Long(currentPlayer.getInbox().stream().filter( m -> !m.isSeenByUser()).count()).intValue();
+	}
 
 	public Player getCurrentPlayer() {
 		if (currentPlayer == null) {
