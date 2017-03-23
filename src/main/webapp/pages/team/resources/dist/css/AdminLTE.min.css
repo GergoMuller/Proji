@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 a {
-	color: #3c8dbc
+	color: #408080
 }
 
 a:hover, a:active, a:focus {
@@ -2592,7 +2592,7 @@ deg
 
 .btn-primary {
 	background-color: #2e5858;
-	border-color: #234343
+	border-color: #234343;
 }
 
 .btn-danger {
@@ -2675,6 +2675,10 @@ deg
 	background-color: #6f1121;
 	border-color: #000000;
 	margin-top: 10px
+}
+
+.white { 
+	color: #ffffff;
 }
 
 .btn-primary:hover, .btn-primary:active, .btn-primary.hover {

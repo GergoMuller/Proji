@@ -132,8 +132,8 @@ public class PlayerController implements Serializable {
 	}
 
 	public int getNumberOfNewContracts() {
-		//return playerService.numberOfNewContracts(currentPlayer);
-		return (int)currentPlayer.getContract().stream().filter(c -> c.isSeenByPlayer()== false).count();
+		return playerService.numberOfNewContracts(currentPlayer);
+		//return (int)currentPlayer.getContract().stream().filter(c -> c.isSeenByPlayer()== false).count();
 	}
 	
 	public int getNumberOfUnseenMessages(){
@@ -162,6 +162,7 @@ public class PlayerController implements Serializable {
 	public StreamedContent getDisplayedPlayersTeamsPicture() {
 		if (getDisplayedPlayer().getPicture() == null)
 			return null;
+		System.out.println(displayedPlayer.getCurrentTeam().getName() + displayedPlayer.getCurrentTeam().getTeamPicture().length);
 		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getCurrentTeam().getTeamPicture()));
 	}
 
@@ -170,8 +171,7 @@ public class PlayerController implements Serializable {
 	}
 
 	public List<Contract> getCurrentPlayersOffers() {
-		if (currentPlayersOffers == null)
-			currentPlayersOffers = contractService.getPlayersContracts(currentPlayer);
+		currentPlayersOffers = contractService.getPlayersContracts(currentPlayer);
 		return currentPlayersOffers;
 //		currentPlayersOffers=currentPlayer.getContract();
 //		return currentPlayersOffers;

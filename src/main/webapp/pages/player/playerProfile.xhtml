@@ -50,8 +50,9 @@
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
-			role="navigation"> <!-- Sidebar toggle button--> <p:commandLink
-			action="#{teamController.loadHome}" update="displayedPlayer"
+			role="navigation"> <!-- Sidebar toggle button--> 
+		<p:commandLink
+			action="#{playerController.loadHome()}" update="displayedPlayer"
 			class="sidebar-toggle" role="button">
 			<i class="glyphicon glyphicon-home"></i>
 			<!-- a-ba ->  data-toggle="offcanvas" -->
@@ -180,14 +181,8 @@
 				<div class="input-group">
 					<p:inputText value="#{searchController.searchedTeamName}" name="q"
 						class="form-control" placeholder="Search..." />
-					<span class="input-group-btn"> <ui:remove>
-							<button onclick="search()" type="submit" name="search"
-								id="search-btn" class="btn btn-flat">
-								<i class="fa fa-search"></i>
-							</button>
-							<p:remoteCommand name="search"
-								action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-						</ui:remove> <p:commandLink action="#{searchController.searchForTeamName()}"
+					<span class="input-group-btn">
+						 <p:commandLink action="#{searchController.searchForTeamName()}"
 							class="btn btn-flat" update="searchPanel">
 							<i class="fa fa-search"></i>
 						</p:commandLink>
@@ -198,10 +193,11 @@
 					<li class="header"><b>TEAMS</b></li>
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
-							<li class="active"><p:commandLink
+							<li >
+								<p:commandLink
 									action="#{searchController.selectTeamFromSearchResults()}">
-									<i class="glyphicon glyphicon-tower"></i>
-									<span>#{team.name}</span>
+									<i class="glyphicon glyphicon-tower" style="color: white"></i>
+									<span class="white" style="color: white">#{team.name}</span>
 								</p:commandLink></li>
 						</ui:repeat>
 					</div>
@@ -214,14 +210,8 @@
 				<div class="input-group">
 					<p:inputText value="#{searchController.searchedPlayerName}"
 						name="q" class="form-control" placeholder="Search..." />
-					<span class="input-group-btn"> <ui:remove>
-							<button onclick="search()" type="submit" name="search"
-								id="search-btn" class="btn btn-flat">
-								<i class="fa fa-search"></i>
-							</button>
-							<p:remoteCommand name="search"
-								action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-						</ui:remove> <p:commandLink action="#{searchController.searchForPlayerName()}"
+					<span class="input-group-btn"> 
+						 <p:commandLink action="#{searchController.searchForPlayerName()}"
 							class="btn btn-flat" update="searchPanelPlayer">
 							<i class="fa fa-search"></i>
 						</p:commandLink>
@@ -233,11 +223,11 @@
 					<div class="sidebar-menu">
 						<ui:repeat var="player"
 							value="#{searchController.playerSearchResult}">
-							<li class="active"><p:commandLink
+							<li><p:commandLink
 									action="#{searchController.selectPlayerFromSearchResults()}"
 									update="displayedPlayer">
-									<i class="glyphicon glyphicon-user"></i>
-									<span>#{player.name}</span>
+									<i class="glyphicon glyphicon-user" style="color: white"></i>
+									<span  style="color: #fff">#{player.name}</span>
 								</p:commandLink></li>
 						</ui:repeat>
 					</div>
@@ -271,7 +261,7 @@
 									<div class="col-md-5">
 										<p:graphicImage
 											value="#{playerController.displayedPlayersPicture}"
-											class="box-picture" alt="">
+											class="box-picture" alt="-">
 										</p:graphicImage>
 									</div>
 									<div class="col-md-7">
@@ -608,12 +598,12 @@
 							<h:outputLabel value="This contract has been REJECTED"
 								rendered="#{contractController.contractRejected}"
 								class="rejected-label" />
-							<p:commandButton action="#{contractController.rejecttContract}"
+							<p:commandButton action="#{contractController.rejectContract}"
 								value="Rejcet" class="btn btn-danger"
-								update="contractModalParent" data-dismiss="modal"
+								update="contractModalParent" 
 								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
 							<p:commandButton action="#{contractController.acceptContract}"
-								value="Accept" class="btn btn-primary" data-dismiss="modal"
+								value="Accept" class="btn btn-primary"
 								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"
 								update="displayedPlayer"></p:commandButton>
 						</div>

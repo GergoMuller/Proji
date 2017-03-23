@@ -7,16 +7,18 @@ import java.util.Date;
 import java.util.logging.Level;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 
-import org.omnifaces.cdi.ViewScoped;
+
 import org.omnifaces.util.Ajax;
 
 import entities.Contract;
@@ -78,7 +80,7 @@ public class ContractController implements Serializable {
 		return false;
 	}
 	
-	public void rejecttContract(){
+	public void rejectContract(){
 		contractService.rejectContract(selectedContract);
 		selectedContract = contractService.getContractById(selectedContract.getId());
 	}
@@ -96,9 +98,9 @@ public class ContractController implements Serializable {
 
 	public void acceptContract() {
 		try{
-		contractService.acceptContract(selectedContract);
-		selectedContract = contractService.getContractById(selectedContract.getId());
-		}catch(Exception ex){
+			contractService.acceptContract(selectedContract);
+			selectedContract = contractService.getContractById(selectedContract.getId());
+		}catch(EJBException ex){
 			Ajax.oncomplete("$.growl.error({message: 'You already have an ACTIVE cntract!'})");
 		}
 	}
@@ -116,9 +118,9 @@ public class ContractController implements Serializable {
 	}
 
 	public Contract getSelectedContract() {
-		ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
-		return (Contract) exc.getFlash().get("contract");
-		// return selectedContract;
+		//ExternalContext exc = FacesContext.getCurrentInstance().getExternalContext();
+		//return (Contract) exc.getFlash().get("contract");
+		return selectedContract;
 	}
 
 	public void setSelectedContract(Contract selectedContract) {
