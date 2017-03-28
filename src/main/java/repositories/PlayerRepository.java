@@ -9,6 +9,7 @@ import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Repository;
 
 import entities.Player;
+import entities.Team;
 import entities.User;
 
 @Repository
@@ -19,4 +20,5 @@ public abstract class PlayerRepository extends AbstractEntityRepository<Player, 
 	public abstract List<Player> findByAgeGreaterThan(int age);
 	public abstract Player findByEmail(String mail);
 	public abstract List<Player> findByNameLike(String searchParam);
+	public abstract List<Player> findByCurrentTeam(Team team);
 }

@@ -41,8 +41,8 @@ public class Player extends User implements Serializable {
 	private List<Team> previousTeams;
 	
 	
-	
-	public DefaultStreamedContent streamPicture(){
+	@Transient
+	public DefaultStreamedContent getStreamPicture(){
 		if(picture == null)
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(picture));
@@ -92,6 +92,4 @@ public class Player extends User implements Serializable {
 	public void setContract(List<Contract> contract) {
 		this.contract = contract;
 	}	
-	
-   
 }

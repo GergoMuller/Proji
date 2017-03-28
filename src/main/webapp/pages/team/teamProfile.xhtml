@@ -274,28 +274,17 @@
 <!-- MAIN CONTENT **********************************************-->
 		
 		<div class="content-wrapper">
+		<h:panelGroup id="mainTeamName">
 	    <section class="content-header">
-	      	<h:panelGroup id="mainTeamName">
+	      	
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
-				<h1><h:outputLabel  value="#{teamController.displayedTeam.name}"></h:outputLabel></h1>
+				<h1><h:outputLabel value="#{teamController.displayedTeam.name}"></h:outputLabel></h1>
 				</section>
-			</h:panelGroup>
+			
 	    </section>
 	    
 	    <section class="content">
-	    	<div class="row">
-		    	<div class="col-md-8">
-		    		<div class="tile box box-red">
-		    		 	Profie
-		    		</div>
-		    	</div>
-		    	<div class="col-md-4">
-		    		<div class="tile box box-yellow">
-		    		 	Some other data
-		    		</div>
-		    	</div>
-	    	</div>
 	    	<div class="row">
 		    	<div class="col-md-4">
 		    		<div class="tile box box-green">
@@ -314,7 +303,69 @@
 		    	</div>
 	    	</div>
 	    	
+	    	<h1 style="font: x-large;">ROSTER</h1>
+	    	<div id="roster">
+	    		<ui:repeat var="player" value="#{teamController.roster}">
+			    	<div class="row">
+				    	<div class="col-md-10">
+				    		<div class="tile-roster box box-red">
+								<div class="box-body no-padding">
+									<div class="col-md-4">
+										<p:graphicImage value="#{player.streamPicture}" 
+											class="roster-pic"
+											alt="-"/>
+									</div>
+									<div class="col-md-4">
+										<div class="row">
+											<div class="col-md-12 roster-name">
+												<label>#{player.name} </label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<label>#{player.description} </label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="row">
+											<div class="col-md-12">
+												<label>Email: #{player.email}</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<label>Age: #{player.age}</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<label>Position: #{player.position}</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<label>Previous team:</label>
+												<h:outputLabel rendered="#{!player.previousTeams.isEmpty()}" >#{player.previousTeams.get(0)}</h:outputLabel>
+											</div>
+										</div>
+									</div>
+								</div>
+				    		 	
+				    		</div>
+				    		<div></div>
+				    	</div>	
+				    	<div class="col-md-2">
+				    		<div class="tile-roster box box-yellow">
+		    		 			Stats
+		    				</div>
+				    	</div>
+			    	</div>
+		    	</ui:repeat>
+	    	</div>
+	    	
 	    </section>
+	    </h:panelGroup>
 	    
 	</div>
 		

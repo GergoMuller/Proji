@@ -115,6 +115,10 @@ public class TeamService {
 					   .sorted((t1,t2) -> t1.getName().compareTo(t2.getName()))
 					   .collect(Collectors.toList());
 	}
+	
+	public List<Player> getRoster(Team team){
+		return playerRepo.findByCurrentTeam(team);
+	}
 
 	
 	

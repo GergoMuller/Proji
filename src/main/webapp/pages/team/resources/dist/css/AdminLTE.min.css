@@ -2595,6 +2595,22 @@ deg
 	border-color: #234343;
 }
 
+.roster-pic{
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 15px;
+}
+
+.roster-name{
+	font-size: 20px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid #f4f4f4;
+	
+}
+
 .btn-danger {
 	background-color: #800000;
 	border-color: #6f0000
@@ -2607,6 +2623,15 @@ deg
 	margin-right: 1px;
 	padding: 20px;
 	min-height: 300px;
+}
+
+.tile-roster{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 1px;
+	padding: 20px;
+	min-height: 100px;
 }
 
 .box {

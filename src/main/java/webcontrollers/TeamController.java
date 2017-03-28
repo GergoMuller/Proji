@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -90,13 +91,6 @@ public class TeamController implements Serializable {
 		}
 	}
 	
-
-	// csak tesztelésre
-	public StreamedContent pic() {
-		return currentTeam.getCurrentPlayers().get(0).streamPicture();
-	}
-
-
 	public String signPlayer() {
 		teamService.signPlayer(currentTeam, toBeSignedPlayer);
 		toBeSignedPlayer = null;
@@ -109,6 +103,23 @@ public class TeamController implements Serializable {
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
 	}
+	//Probaltam meghekkelni a rendszert
+	public DefaultStreamedContent getTeamsPicture(long id) {
+		Optional<Player> oPlayer  = currentTeam.getCurrentPlayers()
+									.stream()
+									.filter(p -> p.getId() == id)
+									.findFirst();
+		System.out.println(oPlayer.get().getName());
+		if(oPlayer.isPresent()){
+			Player player = oPlayer.get();
+			if(player.getPicture() != null)
+				return new DefaultStreamedContent(new ByteArrayInputStream(player.getPicture()));
+			else
+				return getCurrentTeamsPicture();
+			}
+		else
+			return null;
+	}
 	
 	public void loadHome(){
 		displayedTeam = currentTeam;
@@ -116,6 +127,10 @@ public class TeamController implements Serializable {
 
 	public String getCurrentTeamName() {
 		return getCurrentTeam().getName();
+	}
+	
+	public List<Player> getRoster(){
+		return teamService.getRoster(displayedTeam);
 	}
 
 	public String getCurrentTeamsDate() {
