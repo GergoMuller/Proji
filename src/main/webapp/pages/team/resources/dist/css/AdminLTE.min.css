@@ -2595,6 +2595,20 @@ deg
 	border-color: #234343;
 }
 
+.parallax{
+	background-image: url('../../../resources/images/nfl.jpg');
+	background-attachment: fixed;
+	background-position: center; 
+}
+
+.box .box-text{
+	opacity: 1;
+}
+
+.middle{
+	padding-left: 40%;
+}
+
 .tile-profile{
 	background-color: #fff;
 	margin-top: 10px;
@@ -2622,7 +2636,7 @@ deg
 
 .box-picture-team{
 	height: 180px;
-	width:  220px;
+	width:  200px;
 	border-radius: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -2664,6 +2678,7 @@ deg
 	min-height: 300px;
 }
 
+
 .tile-roster{
 	background-color: #fff;
 	margin-top: 10px;
@@ -2675,11 +2690,12 @@ deg
 
 .box {
 	position: relative;
-	border-radius: 3px;
+	border-radius: 0px;
 	background: #ffffff;
 	border-top: 5px solid #d2d6de;
 	width: 100%;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1)
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	opacity: 0.95;
 }
 
 .box.box-blue {
@@ -2722,7 +2738,7 @@ deg
 .box-picture{
 	height: 200px;
 	width:  180px;
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 .team-box-teamname{

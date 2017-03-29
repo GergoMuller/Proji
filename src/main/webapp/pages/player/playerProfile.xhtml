@@ -28,7 +28,7 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 	<!-- Theme style -->
-	<link rel="stylesheet" href="resources/dist/css/AdminLTE.min.css" />
+	<link rel="stylesheet" href="../team/resources/dist/css/AdminLTE.min.css" />
 
 	<link href="resources/css/jquery.growl.css" rel="stylesheet"
 		type="text/css" />
@@ -45,7 +45,8 @@
 	<div class="wrapper">
 
 		<!-- Main Header -->
-		<header class="main-header"> <!-- Logo --> <a
+		<header class="main-header"> <!-- Logo --> 
+		<a data-toggle="offcanvas"
 			href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><b>Sport</b>Manager</span>
@@ -238,217 +239,8 @@
 		</aside>
 		
 <!-- MAIN CONTENT TEAM**********************************************-->
-<div class="content-wrapper">
-	<h:panelGroup id="mainContent">
-		<h:panelGroup id="mainTeamName" rendered="#{!playerController.playerSelected}">
-		
-		    <section class="content-header">
-		      	
-					<!-- Content Header (Page header) -->
-					<section class="content-header">
-					<h1><h:outputLabel value="#{playerController.displayedTeam.name}"></h:outputLabel></h1>
-					</section>
-				
-		    </section>
-		    
-		    <section class="content">
-		    	<div class="row">
-			    	<div class="col-md-4">
-			    		<div class="tile box box-green">
-			    		 	Data1
-			    		</div>
-			    	</div>
-			    	<div class="col-md-3">
-			    		<div class="tile box box-default">
-			    		 	Data2
-			    		</div>
-			    	</div>
-			    	<div class="col-md-4">
-			    		<div class="tile box box-blue">
-			    		 	Data3
-			    		</div>
-			    	</div>
-		    	</div>
-		    	
-		    	<h1 style="font: x-large;">ROSTER</h1>
-		    	<div id="roster">
-		    		<ui:repeat var="player" value="#{playerController.displayedTeam.currentPlayers}">
-				    	<div class="row">
-					    	<div class="col-md-10">
-					    		<div class="tile-roster box box-red">
-									<div class="box-body no-padding">
-										<div class="col-md-4">
-											<p:graphicImage value="#{player.streamPicture}" 
-												class="roster-pic"
-												alt="-"/>
-										</div>
-										<div class="col-md-4">
-											<div class="row">
-												<div class="col-md-12 roster-name">
-													<label>#{player.name} </label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<label>#{player.description} </label>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="row">
-												<div class="col-md-12">
-													<label>Email: #{player.email}</label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<label>Age: #{player.age}</label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<label>Position: #{player.position}</label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<label>Previous team:</label>
-													<h:outputLabel rendered="#{!player.previousTeams.isEmpty()}" >
-														#{player.previousTeams.get(0)}
-													</h:outputLabel>
-													
-												</div>
-											</div>
-										</div>
-									</div>
-					    		 	
-					    		</div>
-					    		<div></div>
-					    	</div>	
-					    	<div class="col-md-2">
-					    		<div class="tile-roster box box-yellow">
-			    		 			Stats
-			    				</div>
-					    	</div>
-				    	</div>
-			    	</ui:repeat>
-		    	</div>
-		    </section>
-		
-		</h:panelGroup>
-			
-		
-<!-- MAIN Team END *********************************************************** -->
-
-<!-- MAIN CONTENT PLAYER ********************************************************** -->
-
-		
-			<h:panelGroup id="displayedPlayer" rendered="#{playerController.playerSelected}">
-				<section class="content-header"> <!-- Content Header (Page header) -->
-				<section class="content-header">
-				<h1>
-					<h:outputLabel value="#{playerController.displayedPlayer.name}"></h:outputLabel>
-				</h1>
-				</section> </section>
-
-				<section class="content">
-				<div class="row">
-					<div class="col-md-7">
-						<div class="tile-profile box box-red">
-							<div class="box-header with-border">
-								<h3 class="box-title">
-									<b>#{playerController.displayedPlayer.name}</b>
-								</h3>
-							</div>
-							<div class="box-body no-padding">
-								<div class="row">
-									<div class="col-md-5">
-										<p:graphicImage
-											value="#{playerController.displayedPlayersPicture}"
-											class="box-picture" alt="-">
-										</p:graphicImage>
-									</div>
-									<div class="col-md-7">
-										<div class="col-md-4">
-											<label class="profile-data">Age:</label>
-										</div>
-										<div class="col-md-8">
-											<h:outputLabel value="#{playerController.displayedPlayer.age}" class="profile-data"/>
-										</div>
-										<div class="col-md-4">
-											<label class="profile-data">Position: </label>
-										</div>
-										<div class="col-md-8">
-											<h:outputLabel value="#{playerController.displayedPlayer.position != null ? playerController.displayedPlayer.position : 'No position set'}" class="profile-data"/>
-										</div>
-										<div class="col-md-4">
-											<label class="profile-data">E-mail: </label>
-										</div>
-										<div class="col-md-8">
-											<h:outputLabel value="#{playerController.displayedPlayer.email}" class="profile-data"/>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-										<div class="border-gray">
-											<h:outputLabel value="#{playerController.displayedPlayer.description}" class="profile-data"/>
-										</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-5">
-						<div class="tile-profile box box-green">
-							<div class="box-header with-border">
-								<h3 class="box-title">
-									<b>Current Team</b>
-								</h3>
-							</div>
-							<div class="box-body no-padding">
-								<div class="col-md-5">
-									<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam
-										!= null ? playerController.displayedPlayer.currentTeam.name :
-										'Free agent' }</label>
-								</div>
-								<div class="col-md-7">
-									<p:graphicImage
-										value="#{playerController.displayedPlayersTeamsPicture}"
-										class="box-picture-team" alt="">
-									</p:graphicImage>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-3">
-						<div class="tile box box-green">Data1</div>
-					</div>
-					<div class="col-md-7">
-						<div class="tile box box-default">Data2</div>
-					</div>
-					<div class="col-md-2">
-						<div class="tile box box-blue">Data3</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="tile box box-yellow">Data2</div>
-					</div>
-				</div>
-
-			</section>
-		</h:panelGroup>
-	</h:panelGroup>
-</div>
-
-
-
-
-
-		<!-- MAIN END****************************************************************************** -->
+	<ui:include src="mainContent.xhtml" />
+<!-- MAIN END****************************************************************************** -->
 
 		<!-- Main Footer -->
 		<footer class="main-footer"> <!-- To the right -->
