@@ -225,8 +225,10 @@
 					<li class="header"><b>TEAMS</b></li>
 					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
-							<li class="active">
-								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" update="mainTeamName"><i class="glyphicon glyphicon-tower" ></i>
+							<li >
+								<p:commandLink action="#{searchController.selectTeamFromSearchResults()}" 
+									update="mainContent" style="color: white">
+									<i class="glyphicon glyphicon-tower" ></i>
 							 		<span>#{team.name}</span>
 							 	</p:commandLink>
 							 </li>
@@ -257,8 +259,10 @@
 					<li class="header"><b>PLAYERS</b></li>
 					<div class="sidebar-menu">
 					<ui:repeat var="player" value="#{searchController.playerSearchResult}">
-						<li class="active">
-							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" update="mainTeamName"><i class="glyphicon glyphicon-user" ></i>
+						<li>
+							<p:commandLink action="#{searchController.selectPlayerFromSearchResults()}" 
+								update="mainContent" style="color: white">
+								<i class="glyphicon glyphicon-user" ></i>
 						 		<span>#{player.name}</span>
 						 	</p:commandLink>
 						 </li>
@@ -271,10 +275,10 @@
 	</aside> 
 		 
 	
-<!-- MAIN CONTENT **********************************************-->
-		
-		<div class="content-wrapper">
-		<h:panelGroup id="mainTeamName">
+<!-- MAIN CONTENT TEAM**********************************************-->
+<h:panelGroup id="mainContent">
+	<h:panelGroup id="mainTeamName" rendered="#{teamController.teamDisplayed}">
+	<div class="content-wrapper">
 	    <section class="content-header">
 	      	
 				<!-- Content Header (Page header) -->
@@ -363,14 +367,119 @@
 			    	</div>
 		    	</ui:repeat>
 	    	</div>
-	    	
 	    </section>
-	    </h:panelGroup>
-	    
 	</div>
+	</h:panelGroup>
 		
 		
-<!-- MAIN END *********************************************************** -->
+<!-- MAIN Team END *********************************************************** -->
+
+<!-- MAIN PLAYER ************************************************************* -->
+		<h:panelGroup id="displayedPlayer" rendered="#{!teamController.teamDisplayed}">
+			<div class="content-wrapper">
+				<section class="content-header"> <!-- Content Header (Page header) -->
+				<section class="content-header">
+				<h1>
+					<h:outputLabel value="#{teamController.displayedPlayer.name}"></h:outputLabel>
+				</h1>
+				</section> </section>
+
+				<section class="content">
+				<div class="row">
+					<div class="col-md-7">
+						<div class="tile-profile box box-red">
+							<div class="box-header with-border">
+								<h3 class="box-title">
+									<b>#{teamrController.displayedPlayer.name}</b>
+								</h3>
+							</div>
+							<div class="box-body no-padding">
+								<div class="row">
+									<div class="col-md-5">
+										<p:graphicImage
+											value="#{teamController.displayedPlayersPicture}"
+											class="box-picture" alt="-">
+										</p:graphicImage>
+									</div>
+									<div class="col-md-7">
+										<div class="col-md-4">
+											<label class="profile-data">Age:</label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{teamController.displayedPlayer.age}" class="profile-data"/>
+										</div>
+										<div class="col-md-4">
+											<label class="profile-data">Position: </label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{teamController.displayedPlayer.position != null ? playerController.displayedPlayer.position : 'No position set'}" class="profile-data"/>
+										</div>
+										<div class="col-md-4">
+											<label class="profile-data">E-mail: </label>
+										</div>
+										<div class="col-md-8">
+											<h:outputLabel value="#{teamController.displayedPlayer.email}" class="profile-data"/>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+										<div class="border-gray">
+											<h:outputLabel value="#{teamController.displayedPlayer.description}" class="profile-data"/>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="tile-profile box box-green">
+							<div class="box-header with-border">
+								<h3 class="box-title">
+									<b>Current Team</b>
+								</h3>
+							</div>
+							<div class="box-body no-padding">
+								<div class="col-md-5">
+									<label class="team-box-teamname">#{teamController.displayedPlayer.currentTeam
+										!= null ? playerController.displayedPlayer.currentTeam.name :
+										'Free agent' }</label>
+								</div>
+								<div class="col-md-7">
+									<p:graphicImage
+										value="#{teamController.displayedPlayersTeamsPicture}"
+										class="box-picture-team" alt="">
+									</p:graphicImage>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="tile box box-green">Data1</div>
+					</div>
+					<div class="col-md-7">
+						<div class="tile box box-default">Data2</div>
+					</div>
+					<div class="col-md-2">
+						<div class="tile box box-blue">Data3</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="tile box box-yellow">Data2</div>
+					</div>
+				</div>
+
+				</section>
+			</div>
+		</h:panelGroup>
+	</h:panelGroup>
+
+
+		<!-- MAIN PLAYER END****************************************************************************** -->
+
 		<footer class="main-footer"> <!-- To the right -->
 		<div class="pull-right hidden-xs">Anything you want</div>
 		<!-- Default to the left --> <strong>Copyright &copy; 2016 <a

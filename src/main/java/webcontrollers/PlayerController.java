@@ -160,7 +160,7 @@ public class PlayerController implements Serializable {
 	}
 
 	public StreamedContent getDisplayedPlayersTeamsPicture() {
-		if (getDisplayedPlayer().getPicture() == null)
+		if (getDisplayedPlayer().getCurrentTeam().getTeamPicture() == null)
 			return null;
 		System.out.println(displayedPlayer.getCurrentTeam().getName() + displayedPlayer.getCurrentTeam().getTeamPicture().length);
 		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getCurrentTeam().getTeamPicture()));

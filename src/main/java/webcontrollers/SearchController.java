@@ -17,6 +17,7 @@ import entities.Player;
 import entities.Team;
 import services.PlayerService;
 import services.TeamService;
+import utilities.Roles;
 
 @Named
 @ViewScoped
@@ -32,6 +33,8 @@ public class SearchController implements Serializable {
 	private TeamController teamController;
 	@Inject
 	private PlayerController playerController;
+	@Inject
+	private SecurityController securityController;
 	
 	private DataModel<Team> teamSearchResult;
 	private DataModel<Player> playerSearchResult;
@@ -61,11 +64,17 @@ public class SearchController implements Serializable {
 	
 	public void selectTeamFromSearchResults(){
 		teamController.setDisplayedTeam(teamSearchResult.getRowData());
+		teamController.setTeamDisplayed(true);
 		LOGGER.info(teamSearchResult.getRowData().getName() + " selected from the list");
 	}
 	
 	public void selectPlayerFromSearchResults(){
-		playerController.setDisplayedPlayer(playerSearchResult.getRowData());
+		if(securityController.isUserInRole(Roles.TEAM)){
+			teamController.setDisplayedPlayer(playerSearchResult.getRowData());
+			teamController.setTeamDisplayed(false);
+		}
+		else	
+			playerController.setDisplayedPlayer(playerSearchResult.getRowData());
 		LOGGER.info(playerSearchResult.getRowData().getName() + " selected from the list");
 	}
 

@@ -2595,6 +2595,45 @@ deg
 	border-color: #234343;
 }
 
+.tile-profile{
+	background-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 1px;
+	padding: 20px;
+	min-height: 400px;
+}
+
+.border-gray{
+	border-top: 2px solid #f4f4f4;
+	border-bottom: 2px solid #f4f4f4;
+	border-radius: 3px;
+	margin: 6px 30px;
+}
+
+.box-picture{
+	height: 180px;
+	width:  220px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 15px;
+}
+
+.box-picture-team{
+	height: 180px;
+	width:  220px;
+	border-radius: 5px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: -5px;
+}
+
+.team-box-teamname{
+	margin-top: 50px;
+	font-size: 20px;
+}
+
 .roster-pic{
 	width: 50px;
 	height: 50px;

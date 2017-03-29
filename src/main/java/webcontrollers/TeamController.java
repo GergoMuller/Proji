@@ -50,6 +50,8 @@ public class TeamController implements Serializable {
 	private String oldPassword;
 	private String newName;
 	private Team displayedTeam;
+	private Player displayedPlayer;
+	private boolean teamDisplayed = true;
 
 	@Inject
 	private SecurityController securityControl;
@@ -123,6 +125,7 @@ public class TeamController implements Serializable {
 	
 	public void loadHome(){
 		displayedTeam = currentTeam;
+		teamDisplayed = true;
 	}
 
 	public String getCurrentTeamName() {
@@ -137,6 +140,19 @@ public class TeamController implements Serializable {
 		if (currentTeam.getFoundedIn() == null)
 			return "yyyy-mm-dd";
 		return currentTeam.getFoundedIn().toString();
+	}
+	
+	public StreamedContent getDisplayedPlayersPicture() {
+		if (displayedPlayer == null || displayedPlayer.getPicture() == null)
+			return null;
+		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getPicture()));
+	}
+
+	public StreamedContent getDisplayedPlayersTeamsPicture() {
+		if (displayedPlayer == null || displayedPlayer.getCurrentTeam().getTeamPicture() == null)
+			return null;
+		System.out.println(displayedPlayer.getCurrentTeam().getName() + displayedPlayer.getCurrentTeam().getTeamPicture().length);
+		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getCurrentTeam().getTeamPicture()));
 	}
 
 	public Team getCurrentTeam() {
@@ -232,5 +248,23 @@ public class TeamController implements Serializable {
 	public void setDisplayedTeam(Team displayedTeam) {
 		this.displayedTeam = displayedTeam;
 	}
+
+	public Player getDisplayedPlayer() {
+		return displayedPlayer;
+	}
+
+	public void setDisplayedPlayer(Player displayedPlayer) {
+		this.displayedPlayer = displayedPlayer;
+	}
+
+	public boolean isTeamDisplayed() {
+		return teamDisplayed;
+	}
+
+	public void setTeamDisplayed(boolean isTeamDisplayed) {
+		this.teamDisplayed = isTeamDisplayed;
+	}
+	
+	
 	
 }
