@@ -58,6 +58,8 @@ public class PlayerController implements Serializable {
 	private String oldPassword;
 	private Date birthDate;
 	private UploadedFile teamPicture;
+	private Team displayedTeam;
+	private boolean playerSelected = true;
 
 	@EJB
 	private PlayerService playerService;
@@ -129,6 +131,7 @@ public class PlayerController implements Serializable {
 
 	public void loadHome() {
 		displayedPlayer = currentPlayer;
+		playerSelected = true;
 	}
 
 	public int getNumberOfNewContracts() {
@@ -263,4 +266,22 @@ public class PlayerController implements Serializable {
 	public String getCurrentEmail() {
 		return currentPlayer.getEmail();
 	}
+
+	public Team getDisplayedTeam() {
+		return displayedTeam;
+	}
+
+	public void setDisplayedTeam(Team displayedTeam) {
+		this.displayedTeam = displayedTeam;
+	}
+
+	public boolean isPlayerSelected() {
+		return playerSelected;
+	}
+
+	public void setPlayerSelected(boolean playerSelected) {
+		this.playerSelected = playerSelected;
+	}
+	
+	
 }

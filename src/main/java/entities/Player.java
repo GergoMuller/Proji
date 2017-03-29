@@ -36,7 +36,7 @@ public class Player extends User implements Serializable {
 	@JoinColumn(name="Current_Team")
 	private Team currentTeam;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="previousteam_player")
 	private List<Team> previousTeams;
 	

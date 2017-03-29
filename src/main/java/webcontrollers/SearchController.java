@@ -63,8 +63,14 @@ public class SearchController implements Serializable {
 	}
 	
 	public void selectTeamFromSearchResults(){
-		teamController.setDisplayedTeam(teamSearchResult.getRowData());
-		teamController.setTeamDisplayed(true);
+		if(securityController.isUserInRole(Roles.TEAM)){
+			teamController.setDisplayedTeam(teamSearchResult.getRowData());
+			teamController.setTeamDisplayed(true);
+		}
+		else{
+			playerController.setDisplayedTeam(teamSearchResult.getRowData());
+			playerController.setPlayerSelected(false);
+		}
 		LOGGER.info(teamSearchResult.getRowData().getName() + " selected from the list");
 	}
 	
@@ -73,9 +79,11 @@ public class SearchController implements Serializable {
 			teamController.setDisplayedPlayer(playerSearchResult.getRowData());
 			teamController.setTeamDisplayed(false);
 		}
-		else	
+		else{
 			playerController.setDisplayedPlayer(playerSearchResult.getRowData());
+			playerController.setPlayerSelected(true);
 		LOGGER.info(playerSearchResult.getRowData().getName() + " selected from the list");
+		}
 	}
 
 	public void setTeamSearchResult(DataModel<Team> teamSearchResult) {
