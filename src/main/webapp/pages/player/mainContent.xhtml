@@ -8,6 +8,7 @@
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:of="http://omnifaces.org/functions">
 
+<ui:composition>
 <div class="content-wrapper parallax">
 	<h:panelGroup id="mainContent">
 		<h:panelGroup id="mainTeamName" rendered="#{!playerController.playerSelected}">
@@ -42,7 +43,7 @@
 			    	</div>
 		    	</div>
 		    	
-		    	<h1 style="font: x-large;">ROSTER</h1>
+		    	<h1 class="middle" style="font: x-large; color: white;">ROSTER</h1>
 		    	<div id="roster">
 		    		<ui:repeat var="player" value="#{playerController.displayedTeam.currentPlayers}">
 				    	<div class="row">
@@ -118,7 +119,7 @@
 			<h:panelGroup id="displayedPlayer" rendered="#{playerController.playerSelected}">
 				<section class="content-header"> <!-- Content Header (Page header) -->
 				<section class="content-header">
-				<h1>
+				<h1 class="middle" style="color: white">
 					<h:outputLabel value="#{playerController.displayedPlayer.name}"></h:outputLabel>
 				</h1>
 				</section> </section>
@@ -215,5 +216,6 @@
 		</h:panelGroup>
 	</h:panelGroup>
 </div>
+</ui:composition>
 
 </html>
