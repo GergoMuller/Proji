@@ -27,6 +27,8 @@ public class Team extends User implements Serializable {
 	private List<Contract> contracts;
 	@OneToMany(mappedBy="winnerTeam") 
 	private List<Match> wonMatches;
+	@ManyToOne
+	private TeamGroup group;
 	@Lob
 	private byte[] teamPicture;
 	

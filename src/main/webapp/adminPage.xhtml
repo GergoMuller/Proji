@@ -8,6 +8,12 @@
 <body>
 	<h1>Admin page</h1>
 	<h:form>
+		<h:commandButton value="GNERATE NEW SEASON" action="#{leagueController.createSeason()}"
+		style="min-height: 80px;
+			   min-width: 400px;
+			   color: #fff;
+			   background-color: #ff0000	"/>
+		<br/>
 		<h:commandButton action="#{securityController.logOut}" value="Log out" />
 	</h:form>
 </body>
