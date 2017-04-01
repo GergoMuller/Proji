@@ -2595,10 +2595,20 @@ deg
 	border-color: #234343;
 }
 
+.fixed-header{
+	position: fixed;
+	width: 100%;
+}
+
+.fixed{
+	position: fixed;
+}
+
 .parallax{
 	background-image: url('../../../resources/images/nfl.jpg');
 	background-attachment: fixed;
 	background-position: center; 
+	margin-top: 50px;
 }
 
 .box .box-text{
@@ -2606,7 +2616,7 @@ deg
 }
 
 .middle{
-	padding-left: 40%;
+	padding-left: 35%;
 }
 
 .tile-profile{

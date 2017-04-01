@@ -45,7 +45,7 @@
 	<div class="wrapper">
 
 		<!-- Main Header -->
-		<header class="main-header"> <!-- Logo --> 
+		<header class="main-header fixed-header"> <!-- Logo --> 
 		<a data-toggle="offcanvas"
 			href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
@@ -211,12 +211,6 @@
 				<div class="input-group">
 					<p:inputText value="#{searchController.searchedTeamName}" name="q" class="form-control"
 						placeholder="Search..." /> <span class="input-group-btn">
-						<ui:remove><button onclick="search()"  type="submit" name="search" id="search-btn"
-							class="btn btn-flat">
-							<i class="fa fa-search"></i>
-						</button>
-						<p:remoteCommand name="search" action="#{searchController.searchForTeamName()}"></p:remoteCommand>
-						</ui:remove>
 						<p:commandLink  action="#{searchController.searchForTeamName()}" class="btn btn-flat"
 						update="searchPanel"> <i class="fa fa-search"></i> </p:commandLink>
 					</span>
