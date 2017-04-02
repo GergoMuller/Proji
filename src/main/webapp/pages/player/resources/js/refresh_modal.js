@@ -109,5 +109,7 @@ function refreshModal() {
 						$('#div_password').find("input").val('').end();
 						$('#div_playerName').find("input").val('').end();
 						$('#div_calendar').find("input").val('').end();
+						$('#div_playerPosition').find("input").val('').end();
+						document.getElementById("editForm:playerDescription").value = "";
 					});
 }

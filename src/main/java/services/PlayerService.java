@@ -36,6 +36,7 @@ public class PlayerService {
 	
 	public void updatePlayer(Player temp, Player currentPlayer) {
 		System.out.println("cserélendõ név: "+temp.getName());
+		System.out.println(temp.getPosition() +"    :    "+ temp.getDescription());
 		//hashelni a passwordot!!!
 		Player team = currentPlayer;
 		System.out.println("CURRENT TEAM: "+currentPlayer.getEmail());
@@ -59,6 +60,13 @@ public class PlayerService {
 		if (temp.getName() != null && !("").equals(temp.getName())) {
 			team.setName(temp.getName());
 		}
+		if (temp.getPosition()!= null && !("").equals(temp.getPosition())) {
+			team.setPosition(temp.getPosition());
+		}
+		if (temp.getDescription()!= null && !("").equals(temp.getDescription())) {
+			team.setDescription(temp.getDescription());
+		}
+		
 		playerRepo.save(team);
 		System.out.println("update megtörtént: "+team.getEmail());
 	}

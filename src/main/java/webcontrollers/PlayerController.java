@@ -34,6 +34,7 @@ import entities.Team;
 import services.ContractService;
 import services.PlayerService;
 import services.RegistrationService;
+import utilities.PlayerPosition;
 import utilities.Roles;
 
 import java.time.LocalDate;
@@ -60,7 +61,10 @@ public class PlayerController implements Serializable {
 	private UploadedFile teamPicture;
 	private Team displayedTeam;
 	private boolean playerSelected = true;
-
+	private PlayerPosition position;
+	private String description;
+	private PlayerPosition[] positions;
+	
 	@EJB
 	private PlayerService playerService;
 	@Inject
@@ -82,12 +86,16 @@ public class PlayerController implements Serializable {
 		temp.setPassword(password);
 		uploadPicture();
 		temp.setName(name);
+		temp.setPosition(position);
+		temp.setDescription(description);
 		LocalDate now = LocalDate.now();
-		LocalDate birth = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		Long diff = ChronoUnit.YEARS.between(birth, now);
-		diff--;
-		System.out.println(diff);
-		temp.setAge(diff.intValue());
+		if (birthDate!=null) {
+			LocalDate birth = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			Long diff = ChronoUnit.YEARS.between(birth, now);
+			diff--;
+			System.out.println(diff);
+			temp.setAge(diff.intValue());
+		}
 		playerService.updatePlayer(temp, currentPlayer);
 		LOGGER.info("UPDATE LEFUTOTT: " + currentPlayer.getEmail());
 	}
@@ -149,7 +157,7 @@ public class PlayerController implements Serializable {
 		}
 		return currentPlayer;
 	}
-
+	
 	public StreamedContent getCurrentPlayersPicture() {
 		if (getCurrentPlayer().getPicture() == null)
 			return null;
@@ -173,6 +181,7 @@ public class PlayerController implements Serializable {
 		this.currentPlayer = currentPlayer;
 	}
 
+	
 	public List<Contract> getCurrentPlayersOffers() {
 		currentPlayersOffers = contractService.getPlayersContracts(currentPlayer);
 		return currentPlayersOffers;
@@ -281,6 +290,30 @@ public class PlayerController implements Serializable {
 
 	public void setPlayerSelected(boolean playerSelected) {
 		this.playerSelected = playerSelected;
+	}
+
+	public PlayerPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(PlayerPosition position) {
+		this.position = position;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public PlayerPosition[] getPositions() {
+		return PlayerPosition.values();
+	}
+
+	public void setPositions(PlayerPosition[] positions) {
+		this.positions = positions;
 	}
 	
 	

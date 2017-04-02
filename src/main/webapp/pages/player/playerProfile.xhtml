@@ -28,7 +28,8 @@
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 	<!-- Theme style -->
-	<link rel="stylesheet" href="../team/resources/dist/css/AdminLTE.min.css" />
+	<link rel="stylesheet"
+		href="../team/resources/dist/css/AdminLTE.min.css" />
 
 	<link href="resources/css/jquery.growl.css" rel="stylesheet"
 		type="text/css" />
@@ -45,14 +46,12 @@
 	<div class="wrapper">
 
 		<!-- Main Header -->
-		<header class="main-header fixed-header"> <!-- Logo --> 
-		<a data-toggle="offcanvas"
-			href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+		<header class="main-header fixed-header"> <!-- Logo --> <a
+			data-toggle="offcanvas" href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
 			<span class="logo-mini"><b>S</b>M</span> <!-- logo for regular state and mobile devices -->
 			<span class="logo-lg"><b>Sport</b>Manager</span>
 		</a> <!-- Header Navbar --> <nav class="navbar navbar-static-top"
-			role="navigation"> <!-- Sidebar toggle button--> 
-		<p:commandLink
+			role="navigation"> <!-- Sidebar toggle button--> <p:commandLink
 			action="#{playerController.loadHome()}" update="mainContent"
 			class="sidebar-toggle" role="button">
 			<i class="glyphicon glyphicon-home"></i>
@@ -182,8 +181,8 @@
 				<div class="input-group">
 					<p:inputText value="#{searchController.searchedTeamName}" name="q"
 						class="form-control" placeholder="Search..." />
-					<span class="input-group-btn">
-						 <p:commandLink action="#{searchController.searchForTeamName()}"
+					<span class="input-group-btn"> <p:commandLink
+							action="#{searchController.searchForTeamName()}"
 							class="btn btn-flat" update="searchPanel">
 							<i class="fa fa-search"></i>
 						</p:commandLink>
@@ -192,10 +191,9 @@
 
 				<ul class="sidebar-menu">
 					<li class="header"><b>TEAMS</b></li>
-					<div class="sidebar-menu" >
+					<div class="sidebar-menu">
 						<ui:repeat var="team" value="#{searchController.teamSearchResult}">
-							<li >
-								<p:commandLink
+							<li><p:commandLink
 									action="#{searchController.selectTeamFromSearchResults()}"
 									update="mainContent">
 									<i class="glyphicon glyphicon-tower" style="color: white"></i>
@@ -212,8 +210,8 @@
 				<div class="input-group">
 					<p:inputText value="#{searchController.searchedPlayerName}"
 						name="q" class="form-control" placeholder="Search..." />
-					<span class="input-group-btn"> 
-						 <p:commandLink action="#{searchController.searchForPlayerName()}"
+					<span class="input-group-btn"> <p:commandLink
+							action="#{searchController.searchForPlayerName()}"
 							class="btn btn-flat" update="searchPanelPlayer">
 							<i class="fa fa-search"></i>
 						</p:commandLink>
@@ -229,7 +227,7 @@
 									action="#{searchController.selectPlayerFromSearchResults()}"
 									update="mainContent">
 									<i class="glyphicon glyphicon-user" style="color: white"></i>
-									<span  style="color: #fff">#{player.name}</span>
+									<span style="color: #fff">#{player.name}</span>
 								</p:commandLink></li>
 						</ui:repeat>
 					</div>
@@ -237,10 +235,10 @@
 			</h:form> </section>
 		</div>
 		</aside>
-		
-<!-- MAIN CONTENT TEAM**********************************************-->
-	<ui:include src="mainContent.xhtml" />
-<!-- MAIN END****************************************************************************** -->
+
+		<!-- MAIN CONTENT TEAM**********************************************-->
+		<ui:include src="mainContent.xhtml" />
+		<!-- MAIN END****************************************************************************** -->
 
 		<!-- Main Footer -->
 		<footer class="main-footer"> <!-- To the right -->
@@ -283,7 +281,8 @@
 					<p:fileUpload id="file" value="#{playerController.playerPicture}"
 						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 					<p:commandButton action="#{playerController.uploadPicture}"
-						class="btn btn-primary" ajax="false" value="Upload cover" update="displayedPlayer" />
+						class="btn btn-primary" ajax="false" value="Upload cover"
+						update="displayedPlayer" />
 				</h:form>
 
 			</div>
@@ -318,6 +317,7 @@
 					<!-- Settings tab content -->
 					<div class="tab-pane" id="control-sidebar-settings-tab">
 						<h:form id="editForm" role="form" class="form-horizontal">
+
 							<div class="form-group row" id="div_playerName">
 								<label id="label_PlayerName" class="control-label col-sm-4"
 									for="playerName">Player name:</label>
@@ -337,6 +337,19 @@
 										<f:convertDateTime pattern="yyyy-mm-dd" />
 									</p:inputMask>
 
+								</div>
+							</div>
+
+							<div class="form-group row" id="div_playerPosition">
+								<label id="label_playerPosition" class="control-label col-sm-4"
+									for="playerPosition">Position: </label>
+								<div class="col-sm-8">
+									<h:selectOneMenu id="playerPosition"
+										value="#{playerController.position}">
+										<f:selectItem itemLabel="Select position" itemValue="no"
+											noSelectionOption="false" />
+										<f:selectItems value="#{playerController.positions}" />
+									</h:selectOneMenu>
 								</div>
 							</div>
 
@@ -410,6 +423,17 @@
 								</p:panel>
 							</div>
 
+								<div class="form-group row" id="div_playerDescription">
+								<div class="col-lg-12">
+									<p:outputLabel>Description: </p:outputLabel>
+								</div>
+								<div class="col-lg-12" >
+									<p:inputTextarea id="playerDescription" autoResize="true"
+										class="col-lg-12" rows="15"
+										value="#{playerController.description}"></p:inputTextarea>
+								</div>
+							</div>
+
 
 							<div class="form-group row " align="center">
 								<p:commandButton onclick="update()" value="Save Changes"
@@ -426,7 +450,8 @@
 				</div>
 				<div class="modal-footer">
 					<p:commandButton type="button" class="btn btn-cancel"
-						onclick="hideProfileModal()" value="Close" update="displayedPlayer"></p:commandButton>
+						onclick="hideProfileModal()" value="Close"
+						update="displayedPlayer"></p:commandButton>
 				</div>
 			</div>
 
@@ -435,80 +460,80 @@
 	</div>
 
 	<!-- Contract modal -->
-	
-		<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<h:form id="contractModalParent">
-					<div class="modal-content col-lg-12 dialog-background">
-						<div class="modal-header col-lg-12">
-							<h2 class="modal-title" id="exampleModalLabel col-lg-11"
-								style="font-weight: 600">Offer from the
-								#{contractController.selectedContract.signerTeam.name}</h2>
-							<button type="button" class="close col-lg-1" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body col-lg-12">
 
-							<div class="form-group ">
+	<div class="modal fade" id="contractModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<h:form id="contractModalParent">
+				<div class="modal-content col-lg-12 dialog-background">
+					<div class="modal-header col-lg-12">
+						<h2 class="modal-title" id="exampleModalLabel col-lg-11"
+							style="font-weight: 600">Offer from the
+							#{contractController.selectedContract.signerTeam.name}</h2>
+						<button type="button" class="close col-lg-1" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body col-lg-12">
 
-
-								<div class="form-group contractform">
-									<div class="col-lg-12">
-										<p:outputLabel> Amount of annual payment: <b>#{contractController.selectedContract.amount}
-												$</b>
-										</p:outputLabel>
-									</div>
+						<div class="form-group ">
 
 
-								</div>
-								<div class="form-group contractform">
-									<div class="col-lg-12">
-										<p:outputLabel> Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b>
-										</p:outputLabel>
-									</div>
-
-								</div>
+							<div class="form-group contractform">
 								<div class="col-lg-12">
-									<h:messages />
-									<h:message />
-								</div>
-
-								<div class="form-group contractform">
-									<div class="col-lg-12">
-										<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
-									</div>
+									<p:outputLabel> Amount of annual payment: <b>#{contractController.selectedContract.amount}
+											$</b>
+									</p:outputLabel>
 								</div>
 
 
 							</div>
+							<div class="form-group contractform">
+								<div class="col-lg-12">
+									<p:outputLabel> Contract will be valid until: <b>#{contractController.selectedContract.validDate}</b>
+									</p:outputLabel>
+								</div>
+
+							</div>
+							<div class="col-lg-12">
+								<h:messages />
+								<h:message />
+							</div>
+
+							<div class="form-group contractform">
+								<div class="col-lg-12">
+									<p:outputLabel> #{contractController.selectedContract.content} </p:outputLabel>
+								</div>
+							</div>
 
 
 						</div>
-						<div class="modal-footer col-lg-12">
-							<button type="button" class="btn btn-secondary pull-left"
-								data-dismiss="modal">Close</button>
-							<h:outputLabel rendered="#{contractController.contractAccepted}"
-								class="accepted-label" value="This contract has ben ACCEPTED"/>
-							<h:outputLabel value="This contract has been REJECTED"
-								rendered="#{contractController.contractRejected}"
-								class="rejected-label" />
-							<p:commandButton action="#{contractController.rejectContract}"
-								value="Rejcet" class="btn btn-danger"
-								update="contractModalParent" 
-								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
-							<p:commandButton action="#{contractController.acceptContract}"
-								value="Accept" class="btn btn-primary"
-								rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"
-								update="displayedPlayer contractModalParent"></p:commandButton>
-						</div>
+
 
 					</div>
-				</h:form>
-			</div>
+					<div class="modal-footer col-lg-12">
+						<button type="button" class="btn btn-secondary pull-left"
+							data-dismiss="modal">Close</button>
+						<h:outputLabel rendered="#{contractController.contractAccepted}"
+							class="accepted-label" value="This contract has ben ACCEPTED" />
+						<h:outputLabel value="This contract has been REJECTED"
+							rendered="#{contractController.contractRejected}"
+							class="rejected-label" />
+						<p:commandButton action="#{contractController.rejectContract}"
+							value="Rejcet" class="btn btn-danger"
+							update="contractModalParent"
+							rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"></p:commandButton>
+						<p:commandButton action="#{contractController.acceptContract}"
+							value="Accept" class="btn btn-primary"
+							rendered="#{(not contractController.contractRejected) and (not contractController.contractAccepted)}"
+							update="displayedPlayer contractModalParent"></p:commandButton>
+					</div>
+
+				</div>
+			</h:form>
 		</div>
+	</div>
 
 
 
