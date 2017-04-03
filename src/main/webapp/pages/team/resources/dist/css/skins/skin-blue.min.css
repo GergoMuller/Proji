@@ -1,5 +1,5 @@
 .skin-blue .main-header .navbar {
-	background-color: #222d32
+	background-color: rgba(34,45,50,0.95);
 }
 
 .skin-blue .main-header .navbar .nav>li>a {
@@ -62,7 +62,7 @@
 }
 
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-	background-color: #222d32
+	background-color: rgba(34,45,50,0.9)
 }
 
 .skin-blue .user-panel>.info, .skin-blue .user-panel>.info>a {

@@ -63,7 +63,7 @@ public class PlayerController implements Serializable {
 	private boolean playerSelected = true;
 	private PlayerPosition position;
 	private String description;
-	private PlayerPosition[] positions;
+	
 	
 	@EJB
 	private PlayerService playerService;
@@ -311,10 +311,4 @@ public class PlayerController implements Serializable {
 	public PlayerPosition[] getPositions() {
 		return PlayerPosition.values();
 	}
-
-	public void setPositions(PlayerPosition[] positions) {
-		this.positions = positions;
-	}
-	
-	
 }
