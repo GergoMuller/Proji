@@ -29,7 +29,7 @@ public class Player extends User implements Serializable {
 	private byte[] picture;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
-	@OneToMany(orphanRemoval=true, mappedBy="signedPlayer")
+	@OneToMany(mappedBy="signedPlayer") //majd orphan removal
 	private List<Contract> contract;
 	
 	@ManyToOne

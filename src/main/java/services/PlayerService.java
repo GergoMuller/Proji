@@ -37,7 +37,6 @@ public class PlayerService {
 	public void updatePlayer(Player temp, Player currentPlayer) {
 		System.out.println("cserélendõ név: "+temp.getName());
 		System.out.println(temp.getPosition() +"    :    "+ temp.getDescription());
-		//hashelni a passwordot!!!
 		Player team = currentPlayer;
 		System.out.println("CURRENT TEAM: "+currentPlayer.getEmail());
 		if (temp.getEmail() != null && !("").equals(temp.getEmail())) {
@@ -104,6 +103,10 @@ public class PlayerService {
 		return playerRepo.findByNameLike(searchParam).stream()
 				 		 .sorted((p1,p2) -> p1.getName().compareTo(p2.getName()))
 				 		 .collect(Collectors.toList());
+	}
+	
+	public Player getPlayerById(long id){
+		return playerRepo.findBy(id);
 	}
 	
 }
