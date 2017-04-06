@@ -50,7 +50,7 @@ public class LeagueService {
 			week.setSeason(newSeason);
 			week.setWeekCount(i++);
 		}
-		league.getSeasons().add(seasonRepo.save(newSeason));
+		league.getSeasons().add(newSeason);
 		leagueRepo.save(league);
 		
 	}

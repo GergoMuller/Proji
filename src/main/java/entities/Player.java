@@ -9,6 +9,7 @@ import java.time.Year;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.omg.DynamicAny.DynAnySeqHelper;
 import org.primefaces.model.DefaultStreamedContent;
@@ -29,6 +30,7 @@ public class Player extends User implements Serializable {
 	private byte[] picture;
 	@Enumerated(EnumType.STRING)
 	private PlayerPosition position;
+
 	@OneToMany(mappedBy="signedPlayer") //majd orphan removal
 	private List<Contract> contract;
 	
@@ -40,14 +42,14 @@ public class Player extends User implements Serializable {
 	@JoinTable(name="previousteam_player")
 	private List<Team> previousTeams;
 	
-	
+	@XmlTransient
 	@Transient
 	public DefaultStreamedContent getStreamPicture(){
 		if(picture == null)
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(picture));
 	}
-	
+	@XmlTransient
 	public byte[] getPicture() {
 		return picture;
 	}
@@ -72,6 +74,7 @@ public class Player extends User implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@XmlTransient
 	public List<Team> getPreviousTeams() {
 		return previousTeams;
 	}
@@ -84,7 +87,7 @@ public class Player extends User implements Serializable {
 	public void setCurrentTeam(Team currentTeam) {
 		this.currentTeam = currentTeam;
 	}
-
+	@XmlTransient
 	public List<Contract> getContract() {
 		return contract;
 	}

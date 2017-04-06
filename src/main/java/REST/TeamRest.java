@@ -16,14 +16,13 @@ import services.TeamService;
 @Stateless
 @LocalBean
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/team")
+@Path("/teams")
 public class TeamRest {
 	
 	@EJB
 	private TeamService teamService;
 
 	@GET
-	@Path("/all-teams")
 	public List<Team> getAllTeams(){
 		return teamService.getAllTeams();
 	}

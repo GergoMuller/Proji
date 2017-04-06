@@ -149,7 +149,7 @@ public class TeamController implements Serializable {
 	}
 
 	public StreamedContent getDisplayedPlayersTeamsPicture() {
-		if (displayedPlayer == null || displayedPlayer.getCurrentTeam().getTeamPicture() == null)
+		if (displayedPlayer == null || displayedPlayer.getCurrentTeam() == null || displayedPlayer.getCurrentTeam().getTeamPicture() == null)
 			return null;
 		System.out.println(displayedPlayer.getCurrentTeam().getName() + displayedPlayer.getCurrentTeam().getTeamPicture().length);
 		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getCurrentTeam().getTeamPicture()));

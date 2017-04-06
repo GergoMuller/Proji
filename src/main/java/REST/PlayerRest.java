@@ -15,26 +15,25 @@ import javax.ws.rs.core.MediaType;
 import entities.Player;
 import services.PlayerService;
 
-@Stateless
-@LocalBean
+
 @Produces(MediaType.APPLICATION_JSON)
-@Path("/player")
+@Path("/players")
 public class PlayerRest {
 	
 	@EJB
 	private PlayerService playerService;
 	
 	@GET
-	@Path("/all-players")
 	public List<Player> getAllPlayers(){
 		return playerService.getAllPlayers();
 	}
 	
 	@GET
 	@Path("/{name}")
-	public List<String> getByName(@PathParam("name") String name){
+	public List<Player> getByName(@PathParam("name") String name){
 		List<Player> players = playerService.getPlayerNameSearchResult("%" + name + "%");
-		return players.stream().map(p -> p.getEmail()).collect(Collectors.toList());
+		return players;
+				//players.stream().map(p -> p.getEmail()).collect(Collectors.toList());
 	}
 
 }

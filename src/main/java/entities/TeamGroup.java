@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 import utilities.GroupName;
 
@@ -14,6 +15,7 @@ public class TeamGroup implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	@XmlTransient
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;

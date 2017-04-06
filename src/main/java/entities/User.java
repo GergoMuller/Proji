@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -39,13 +40,14 @@ public class User implements Serializable {
 	public void addRole(String role){
 		roles.add(role);
 	}
-	
+	@XmlTransient
 	public Set<String> getRoles() {
 		return roles;
 	}
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
+	@XmlTransient
 	public Long getId() {
 		return id;
 	}
@@ -64,13 +66,14 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@XmlTransient
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	@XmlTransient
 	public List<Message> getInbox() {
 		return inbox;
 	}

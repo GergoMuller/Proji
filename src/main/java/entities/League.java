@@ -17,9 +17,9 @@ public class League implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@OneToMany(mappedBy="league", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy="league", fetch=FetchType.EAGER, cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private List<TeamGroup> groups;
-	@OneToMany
+	@OneToMany(cascade={CascadeType.MERGE})
 	@JoinColumn(name ="league")
 	private List<Season> seasons;
 	private String name;

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -16,9 +17,11 @@ public class Contract implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name="player_id")
 	private Player signedPlayer;
+	@XmlTransient
 	@ManyToOne
 	@JoinColumn(name="team_id")
 	private Team signerTeam;

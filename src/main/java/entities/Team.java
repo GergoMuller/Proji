@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @Entity
@@ -33,19 +34,21 @@ public class Team extends User implements Serializable {
 	private byte[] teamPicture;
 	
 	
-	
+	@XmlTransient
 	public byte[] getTeamPicture() {
 		return teamPicture;
 	}
 	public void setTeamPicture(byte[] teamPicture) {
 		this.teamPicture = teamPicture;
 	}
+	@XmlTransient
 	public List<Match> getWonMatches() {
 		return wonMatches;
 	}
 	public void setWonMatches(List<Match> wonMatches) {
 		this.wonMatches = wonMatches;
 	}
+	@XmlTransient
 	public List<Contract> getContracts() {
 		return contracts;
 	}
@@ -70,12 +73,14 @@ public class Team extends User implements Serializable {
 	public void setFoundedIn(Date foundedIn) {
 		this.foundedIn = foundedIn;
 	}
+	@XmlTransient
 	public List<Player> getCurrentPlayers() {
 		return currentPlayers;
 	}
 	public void setCurrentPlayers(List<Player> currentPlayers) {
 		this.currentPlayers = currentPlayers;
 	}
+	@XmlTransient
 	public List<Player> getPreviousPlayers() {
 		return previousPlayers;
 	}
