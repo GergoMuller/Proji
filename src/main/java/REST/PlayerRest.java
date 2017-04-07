@@ -35,5 +35,12 @@ public class PlayerRest {
 		return players;
 				//players.stream().map(p -> p.getEmail()).collect(Collectors.toList());
 	}
+	
+	@GET
+	@Path("/id/{teamId}")
+	public List<Player> getByTeamId(@PathParam("teamId") long teamId){
+		List<Player> players = playerService.getPlayersByTeamId(teamId);
+		return players;
+	}
 
 }

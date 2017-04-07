@@ -12,20 +12,21 @@ import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 public class RestApplication extends Application {
 	
 	private Set<Object> singletons = new HashSet<Object>();
+	private Set<Class<?>> classes = new HashSet<>();
 
 	public RestApplication() {
 		CorsFilter corsFilter = new CorsFilter();
 		corsFilter.getAllowedOrigins().add("*");
         corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
         singletons.add(corsFilter);
-
+        
+        classes.add(PlayerRest.class);
+		classes.add(TeamRest.class);
 	}
 	
 	@Override
 	public Set<Class<?>> getClasses() {
-		Set<Class<?>> classes = new HashSet<>();
-		classes.add(PlayerRest.class);
-		return classes;
+			return classes;
 	}
 
 	@Override

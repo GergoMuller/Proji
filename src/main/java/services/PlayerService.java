@@ -109,4 +109,9 @@ public class PlayerService {
 		return playerRepo.findBy(id);
 	}
 	
+	public List<Player> getPlayersByTeamId(long id){
+		Team team = (Team)userRepo.findBy(id);
+		return playerRepo.findByCurrentTeam(team);
+	}
+	
 }

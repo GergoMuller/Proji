@@ -13,8 +13,7 @@ import javax.ws.rs.core.MediaType;
 import entities.Team;
 import services.TeamService;
 
-@Stateless
-@LocalBean
+
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/teams")
 public class TeamRest {

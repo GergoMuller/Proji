@@ -73,7 +73,7 @@ public class Team extends User implements Serializable {
 	public void setFoundedIn(Date foundedIn) {
 		this.foundedIn = foundedIn;
 	}
-	@XmlTransient
+	
 	public List<Player> getCurrentPlayers() {
 		return currentPlayers;
 	}
