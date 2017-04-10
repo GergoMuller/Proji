@@ -19,7 +19,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -30,6 +30,7 @@ import org.primefaces.model.UploadedFile;
 
 import entities.Player;
 import entities.Team;
+import services.PlayerService;
 import services.TeamService;
 
 @Named
@@ -57,6 +58,8 @@ public class TeamController implements Serializable {
 	private SecurityController securityControl;
 	@EJB
 	private TeamService teamService;
+	@EJB
+	private PlayerService playerService;
 
 	@PostConstruct
 	private void init() {
@@ -105,22 +108,15 @@ public class TeamController implements Serializable {
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(getCurrentTeam().getTeamPicture()));
 	}
-	//Probaltam meghekkelni a rendszert
-	public DefaultStreamedContent getTeamsPicture(long id) {
-		Optional<Player> oPlayer  = currentTeam.getCurrentPlayers()
-									.stream()
-									.filter(p -> p.getId() == id)
-									.findFirst();
-		System.out.println(oPlayer.get().getName());
-		if(oPlayer.isPresent()){
-			Player player = oPlayer.get();
-			if(player.getPicture() != null)
-				return new DefaultStreamedContent(new ByteArrayInputStream(player.getPicture()));
-			else
-				return getCurrentTeamsPicture();
-			}
-		else
-			return null;
+	
+	public StreamedContent getRosterImage(){
+		 FacesContext context = FacesContext.getCurrentInstance();
+	     if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+	    	 return new DefaultStreamedContent();
+	     }
+	     long id =Long.parseLong(context.getExternalContext().getRequestParameterMap().get("playerId"));
+	     Player player = playerService.getPlayerById(id);
+	     return new DefaultStreamedContent(new ByteArrayInputStream(player.getPicture()));
 	}
 	
 	public void loadHome(){

@@ -17,7 +17,9 @@ import javax.batch.api.partition.PartitionAnalyzer;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -175,6 +177,16 @@ public class PlayerController implements Serializable {
 			return null;
 		System.out.println(displayedPlayer.getCurrentTeam().getName() + displayedPlayer.getCurrentTeam().getTeamPicture().length);
 		return new DefaultStreamedContent(new ByteArrayInputStream(displayedPlayer.getCurrentTeam().getTeamPicture()));
+	}
+	
+	public StreamedContent getRosterImage(){
+		 FacesContext context = FacesContext.getCurrentInstance();
+	     if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+	    	 return new DefaultStreamedContent();
+	     }
+	     long id =Long.parseLong(context.getExternalContext().getRequestParameterMap().get("playerId"));
+	     Player player = playerService.getPlayerById(id);
+	     return new DefaultStreamedContent(new ByteArrayInputStream(player.getPicture()));
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {

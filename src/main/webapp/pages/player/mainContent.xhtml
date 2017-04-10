@@ -52,9 +52,10 @@
 					    		<div class="tile-roster box box-red">
 									<div class="box-body no-padding">
 										<div class="col-md-4">
-											<p:graphicImage value="#{player.streamPicture}" 
-												class="roster-pic"
-												alt="-"/>
+											<p:graphicImage value="#{playerController.rosterImage}" 
+												class="roster-pic" alt="-">
+												<f:param name="playerId" value="#{player.id}"/>
+											</p:graphicImage>
 										</div>
 										<div class="col-md-4">
 											<div class="row">
