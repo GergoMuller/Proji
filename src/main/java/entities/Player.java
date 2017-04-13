@@ -49,7 +49,7 @@ public class Player extends User implements Serializable {
 			return null;
 		return new DefaultStreamedContent(new ByteArrayInputStream(picture));
 	}
-	@XmlTransient
+	
 	public byte[] getPicture() {
 		return picture;
 	}
@@ -95,5 +95,10 @@ public class Player extends User implements Serializable {
 
 	public void setContract(List<Contract> contract) {
 		this.contract = contract;
-	}	
+	}
+	
+	@Transient
+	public Team getPreviousTeam(){
+		return previousTeams.get(previousTeams.size()-1);
+	}
 }

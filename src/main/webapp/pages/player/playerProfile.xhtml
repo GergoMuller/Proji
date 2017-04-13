@@ -270,20 +270,27 @@
 				Content</div>
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
-			<div class="tab-pane" id="control-sidebar-settings-tab">
+			<div class="tab-pane content" id="control-sidebar-settings-tab">
 				<h3 class="control-sidebar-heading">Tab nev amit meg nem tudok</h3>
 
-				<div class="form-group">
+				<div class="form-group col-md-10">
 					<label class="control-sidebar-subheading"> Upload your
 						teams cover picture </label>
 				</div>
-				<h:form enctype="multipart/form-data">
-					<p:fileUpload id="file" value="#{playerController.playerPicture}"
-						allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
-					<p:commandButton action="#{playerController.uploadPicture}"
-						class="btn btn-primary" ajax="false" value="Upload cover"
-						update="displayedPlayer" />
-				</h:form>
+				<div class="col-md-10">
+					<h:form enctype="multipart/form-data">
+						<p:fileUpload id="file" value="#{playerController.playerPicture}"
+							allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
+						<p:commandButton action="#{playerController.uploadPicture}"
+							class="btn btn-primary" ajax="false" value="Upload cover"
+							update="displayedPlayer" />
+					</h:form>
+				</div>
+				<div class="col-md-10" style="margin-top: 20px">
+					<p:commandButton class="btn btn-danger" action="#{playerController.terminateContract()}"
+					 value="terminate active contract" update="mainContent"/>
+				</div>
+				
 
 			</div>
 			<!-- /.tab-pane -->

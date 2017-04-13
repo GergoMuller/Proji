@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -142,6 +143,11 @@ public class PlayerController implements Serializable {
 	public void loadHome() {
 		displayedPlayer = currentPlayer;
 		playerSelected = true;
+	}
+	
+	public void terminateContract(){
+		
+		contractService.terminateContract(currentPlayer);
 	}
 
 	public int getNumberOfNewContracts() {
