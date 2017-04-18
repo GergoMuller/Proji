@@ -6,7 +6,9 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import entities.TeamGroup;
 import services.LeagueService;
+import utilities.GroupName;
 
 @Named
 @RequestScoped
@@ -19,5 +21,9 @@ public class LeagueController {
 	public void createSeason(){
 		LOGGER.info("createSeason() called");
 		leagueService.generateSeasonForLeague("Division 1");
+	}
+	
+	public GroupName[] getGroups(){
+		return GroupName.values();
 	}
 }

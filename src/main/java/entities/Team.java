@@ -87,5 +87,13 @@ public class Team extends User implements Serializable {
 	public void setPreviousPlayers(List<Player> previousPlayers) {
 		this.previousPlayers = previousPlayers;
 	}
+	public TeamGroup getGroup() {
+		return group;
+	}
+	public void setGroup(TeamGroup group) {
+		this.group = group;
+	}
+	
+	
 	
 }

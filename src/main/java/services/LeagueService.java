@@ -15,8 +15,10 @@ import entities.League;
 import entities.Season;
 import entities.TeamGroup;
 import entities.Week;
+import repositories.GroupRepository;
 import repositories.LeagueRepository;
 import repositories.SeasonRepository;
+import utilities.GroupName;
 import webcontrollers.LeagueController;
 
 @Stateless
@@ -28,6 +30,8 @@ public class LeagueService {
 	private LeagueRepository leagueRepo;
 	@Inject
 	private SeasonRepository seasonRepo;
+	@Inject
+	private GroupRepository groupRepo;
 	
 	public void generateSeasonForLeague(String leagueName){
 		LOGGER.info("league service was called");
@@ -61,5 +65,10 @@ public class LeagueService {
 			sum += group.getTeams().size();
 		}
 		return sum;
+	}
+	
+	public TeamGroup getByName(String name){
+		GroupName gName =  GroupName.valueOf(name);
+		return groupRepo.findByNameEqual(gName);
 	}
 }

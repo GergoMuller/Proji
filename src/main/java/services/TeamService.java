@@ -100,6 +100,10 @@ public class TeamService {
 		if (temp.getName() != null && !("").equals(temp.getName())) {
 			team.setName(temp.getName());
 		}
+		if(temp.getGroup() != null){
+			currentTeam.setGroup(temp.getGroup());
+			System.out.println(currentTeam.getGroup().getName());
+		}
 		teamRepo.save(team);
 		System.out.println("update megtörtént: "+currentTeam.getEmail());
 	}

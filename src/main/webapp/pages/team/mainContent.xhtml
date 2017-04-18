@@ -16,8 +16,8 @@
 	      	
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
-				<h1 class="middle" style="color: white; font-size: 30px;">
-					<h:outputLabel value="#{teamController.displayedTeam.name}"></h:outputLabel>
+				<h1 class="middle">
+					<h:outputLabel class="team-main-title" value="#{teamController.displayedTeam.name}"></h:outputLabel>
 				</h1>
 				</section>
 			
@@ -27,7 +27,9 @@
 	    	<div class="row">
 		    	<div class="col-md-4">
 		    		<div class="tile box box-green">
-		    		 	Data1
+		    		 	<p:outputLabel value="#{teamController.displayedTeam.group.name}"> </p:outputLabel>
+		    		 	<br></br>
+		    		 	<p:outputLabel value="#{teamController.displayedTeam.group.league.name}"> </p:outputLabel>
 		    		</div>
 		    	</div>
 		    	<div class="col-md-3">
@@ -42,7 +44,7 @@
 		    	</div>
 	    	</div>
 	    	
-	    	<h1 class="middle" style="font: x-large; color: white">ROSTER</h1>
+	    	<h1 class="middle team-main-title">ROSTER</h1>
 	    	<div id="roster">
 	    		<ui:repeat var="player" value="#{teamController.roster}">
 			    	<div class="row">
@@ -114,7 +116,7 @@
 				<section class="content-header"> <!-- Content Header (Page header) -->
 				<section class="content-header">
 				<h1 class="middle" style="color: white">
-					<h:outputLabel value="#{teamController.displayedPlayer.name}"></h:outputLabel>
+					<h:outputLabel class="team-main-title" value="#{teamController.displayedPlayer.name}"></h:outputLabel>
 				</h1>
 				</section> </section>
 
@@ -176,7 +178,7 @@
 							<div class="box-body no-padding">
 								<div class="col-md-5">
 									<label class="team-box-teamname">#{teamController.displayedPlayer.currentTeam
-										!= null ? playerController.displayedPlayer.currentTeam.name :
+										!= null ? teamController.displayedPlayer.currentTeam.name :
 										'Free agent' }</label>
 								</div>
 								<div class="col-md-7">

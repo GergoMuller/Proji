@@ -305,7 +305,7 @@
 			<!-- /.tab-pane -->
 			<!-- Settings tab content -->
 			<div class="tab-pane" id="control-sidebar-settings-tab">
-				<h3 class="control-sidebar-heading">Search settings</h3>
+				<h3 class="control-sidebar-heading">Settings</h3>
 
 				<div class="form-group">
 					<label class="control-sidebar-subheading"> Upload your
@@ -317,6 +317,8 @@
 					<p:commandButton action="#{teamController.uploadPicture}"
 						class="btn btn-primary" ajax="false" value="Upload cover" />
 				</h:form>
+				
+				
 
 			</div>
 			<!-- /.tab-pane -->
@@ -368,6 +370,19 @@
 										
 								</div>
 							</div>
+							
+							<div class="form-group row" id="div_playerPosition">
+								<label id="label_playerPosition" class="control-label col-sm-4"
+									for="playerPosition">Position: </label>
+								<div class="col-sm-8">
+									<h:selectOneMenu id="playerPosition"
+										value="#{teamController.groupName}">
+										<f:selectItem itemLabel="Select group" itemValue="no"
+											noSelectionOption="false" />
+										<f:selectItems value="#{leagueController.groups}" />
+									</h:selectOneMenu>
+								</div>
+							</div>
 
 							<div id="div_picture">
 								<p:panel collapsed="true" id="toggleable_picture"
@@ -379,7 +394,7 @@
 										allowTypes="/(\.|\/)(png|jpg)$/" mode="simple" ajax="false" />
 								</p:panel>
 							</div>
-
+							
 							<div>
 								<p:panel collapsed="true" id="toggleable_email"
 									header="Change your email" toggleable="true" toggleSpeed="500"

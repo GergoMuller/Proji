@@ -141,7 +141,7 @@ public class PlayerController implements Serializable {
 	}
 
 	public void loadHome() {
-		displayedPlayer = currentPlayer;
+		displayedPlayer = currentPlayer; 
 		playerSelected = true;
 	}
 	

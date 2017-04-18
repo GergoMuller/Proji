@@ -98,6 +98,7 @@ public class Player extends User implements Serializable {
 	}
 	
 	@Transient
+	@XmlTransient
 	public Team getPreviousTeam(){
 		return previousTeams.get(previousTeams.size()-1);
 	}

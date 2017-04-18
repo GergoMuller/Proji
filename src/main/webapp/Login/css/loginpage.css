@@ -56,6 +56,16 @@
 	border-radius: 5px;
 }
 
+.continoue-link{
+	color: white; 
+	margin-top: 170px;
+	margin-left: 80px;
+}
+
+.continoue-link:hover{
+	color: white;
+}
+
 .btn:hover {
 	color: #333333;
 	text-decoration: none;

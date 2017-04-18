@@ -30,6 +30,8 @@ import org.primefaces.model.UploadedFile;
 
 import entities.Player;
 import entities.Team;
+import entities.TeamGroup;
+import services.LeagueService;
 import services.PlayerService;
 import services.TeamService;
 
@@ -52,6 +54,7 @@ public class TeamController implements Serializable {
 	private String newName;
 	private Team displayedTeam;
 	private Player displayedPlayer;
+	private String groupName;
 	private boolean teamDisplayed = true;
 
 	@Inject
@@ -60,6 +63,8 @@ public class TeamController implements Serializable {
 	private TeamService teamService;
 	@EJB
 	private PlayerService playerService;
+	@EJB
+	private LeagueService leagueService;
 
 	@PostConstruct
 	private void init() {
@@ -73,6 +78,8 @@ public class TeamController implements Serializable {
 		Team temp = new Team();
 		temp.setEmail(email);
 		temp.setPassword(password);
+		TeamGroup group = leagueService.getByName(groupName);
+		temp.setGroup(group);
 		uploadPicture();
 		temp.setName(newName);
 		temp.setFoundedIn(teamDate);
@@ -259,6 +266,14 @@ public class TeamController implements Serializable {
 
 	public void setTeamDisplayed(boolean isTeamDisplayed) {
 		this.teamDisplayed = isTeamDisplayed;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
 	}
 	
 	

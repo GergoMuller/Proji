@@ -18,8 +18,8 @@
 		      	
 					<!-- Content Header (Page header) -->
 					<section class="content-header">
-					<h1 class="middle" style="font-size: 40px; color: white;">
-						<h:outputLabel value="#{playerController.displayedTeam.name}"></h:outputLabel>
+					<h1 class="middle">
+						<h:outputLabel class="team-main-title" value="#{playerController.displayedTeam.name}"></h:outputLabel>
 					</h1>
 					</section>
 				
@@ -29,7 +29,7 @@
 		    	<div class="row">
 			    	<div class="col-md-4">
 			    		<div class="tile box box-green">
-			    		 	Data12
+			    		 	#{playerController.displayedTeam.group.league.name}
 			    		</div>
 			    	</div>
 			    	<div class="col-md-3">
@@ -44,7 +44,7 @@
 			    	</div>
 		    	</div>
 		    	
-		    	<h1 class="middle" style="font: x-large; color: white;">ROSTER</h1>
+		    	<h1 class="middle team-main-title">ROSTER</h1>
 		    	<div id="roster">
 		    		<ui:repeat var="player" value="#{playerController.displayedTeam.currentPlayers}">
 				    	<div class="row">
@@ -121,7 +121,7 @@
 				<section class="content-header"> <!-- Content Header (Page header) -->
 				<section class="content-header">
 				<h1 class="middle" style="color: white">
-					<h:outputLabel value="#{playerController.displayedPlayer.name}"></h:outputLabel>
+					<h:outputLabel class="team-main-title" value="#{playerController.displayedPlayer.name}"></h:outputLabel>
 				</h1>
 				</section> </section>
 
@@ -180,13 +180,13 @@
 									<b>Current Team</b>
 								</h3>
 							</div>
-							<div class="box-body no-padding">
-								<div class="col-md-5">
+							<div class="box-body" style="margin-left: 20px;">
+								<div class="col-md-12">
 									<label class="team-box-teamname">#{playerController.displayedPlayer.currentTeam
 										!= null ? playerController.displayedPlayer.currentTeam.name :
 										'Free agent' }</label>
 								</div>
-								<div class="col-md-7">
+								<div class="col-md-12">
 									<p:graphicImage
 										value="#{playerController.displayedPlayersTeamsPicture}"
 										class="box-picture-team" alt="">

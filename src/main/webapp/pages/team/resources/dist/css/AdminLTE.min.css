@@ -2075,7 +2075,7 @@ deg
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
-	padding: 10px
+	padding: 0px
 }
 
 .no-header .box-body {
@@ -2598,6 +2598,13 @@ deg
 	border-color: #234343;
 }
 
+.team-main-title{
+	color: white; 
+	font-size: 40px;
+	font-weight: 500;
+	font-family: fantasy;	
+}
+
 .fixed-header{
 	position: fixed;
 	width: 100%;
@@ -2651,8 +2658,8 @@ deg
 }
 
 .box-picture-team{
-	height: 180px;
-	width:  200px;
+	height: 220px;
+	width:  260px;
 	border-radius: 5px;
 	margin-top: 5px;
 	margin-bottom: 5px;

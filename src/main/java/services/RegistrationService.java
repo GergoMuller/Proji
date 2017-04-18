@@ -8,9 +8,11 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import entities.City;
+import entities.League;
 import entities.Player;
 import entities.Team;
 import repositories.CityRepository;
+import repositories.LeagueRepository;
 import repositories.PlayerRepository;
 import repositories.TeamRepository;
 import repositories.UserRepository;
@@ -19,13 +21,15 @@ import repositories.UserRepository;
 public class RegistrationService {
 	
 	@Inject
-	CityRepository cityRepository;
+	private CityRepository cityRepository;
 	@Inject
-	TeamRepository teamRepsoitory;
+	private TeamRepository teamRepsoitory;
 	@Inject
-	PlayerRepository playerRepository;
+	private PlayerRepository playerRepository;
 	@Inject
-	UserRepository userRepository;
+	private UserRepository userRepository;
+	@Inject
+	private LeagueRepository leagueRepsoitory;
 
 	
 	public List<String> getAllCitiyNames(){
@@ -45,6 +49,7 @@ public class RegistrationService {
 	}
 	
 	public void createTeam(Team team){
+		League league = leagueRepsoitory.findBy((long)1000);
 		teamRepsoitory.save(team);
 	}
 	
