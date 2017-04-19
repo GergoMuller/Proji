@@ -71,4 +71,14 @@ public class LeagueService {
 		GroupName gName =  GroupName.valueOf(name);
 		return groupRepo.findByNameEqual(gName);
 	}
+	
+	public String getCurrentSeason(League league){
+		League leagueFromDb = leagueRepo.findBy(league.getId());
+		//lazy init van a seasons on
+		if(leagueFromDb.getSeasons() != null)
+			return leagueFromDb.getSeasons().get(leagueFromDb.getSeasons().size()-1).getSeason();
+		else{
+			return "2017";
+		}
+	}
 }

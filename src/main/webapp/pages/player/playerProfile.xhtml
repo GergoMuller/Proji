@@ -76,11 +76,23 @@
 							<ui:repeat var="sender"
 								value="#{playerController.currentPlayersOffers}">
 								<h:form>
-									<li><p:commandLink
+									<li>
+										<p:commandLink
 											action="#{contractController.loadContract(sender.id)}"
-											value="#{sender.signerTeam.name}"
 											oncomplete="$('#contractModal').modal('show')"
-											update="contractModalParent unseenMessages" /></li>
+											update="contractModalParent unseenMessages" 
+											rendered="#{sender.seenByPlayer}">
+											#{sender.signerTeam.name}
+										</p:commandLink>
+										<p:commandLink
+											action="#{contractController.loadContract(sender.id)}"
+											oncomplete="$('#contractModal').modal('show')"
+											update="contractModalParent unseenMessages" 
+											rendered="#{!sender.seenByPlayer}"
+											style="font-weight: 800;">
+											#{sender.signerTeam.name}
+										</p:commandLink>
+									</li>
 								</h:form>
 							</ui:repeat>
 						</ul>

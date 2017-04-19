@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import entities.Season;
+import entities.Team;
 import entities.TeamGroup;
 import services.LeagueService;
 import utilities.GroupName;
@@ -25,5 +27,12 @@ public class LeagueController {
 	
 	public GroupName[] getGroups(){
 		return GroupName.values();
+	}
+	
+	public String getCurrentSeason(Team team){
+		if(team.getGroup() != null)
+			return leagueService.getCurrentSeason(team.getGroup().getLeague());
+		else
+			return "no league";
 	}
 }

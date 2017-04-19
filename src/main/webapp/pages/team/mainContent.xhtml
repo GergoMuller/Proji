@@ -27,19 +27,55 @@
 	    	<div class="row">
 		    	<div class="col-md-4">
 		    		<div class="tile box box-green">
-		    		 	<p:outputLabel value="#{teamController.displayedTeam.group.name}"> </p:outputLabel>
+		    		 	<p:graphicImage value="#{teamController.displayedTeamsPicture}"
+		    		 					class="team-main-picture">
+		    		 	</p:graphicImage>
+		    		</div>
+		    	</div>
+		    	<div class="row col-md-3">
+		    		<div class="tile tile-small box box-default">
+		    		 	league:
 		    		 	<br></br>
-		    		 	<p:outputLabel value="#{teamController.displayedTeam.group.league.name}"> </p:outputLabel>
+		    		 	<p:outputLabel class="top-margin"
+		    		 					>
+		    		 		#{teamController.displayedTeam.group.league.name} 
+		    		 	</p:outputLabel>
 		    		</div>
-		    	</div>
-		    	<div class="col-md-3">
-		    		<div class="tile box box-default">
-		    		 	Data2
+		    		<div class="tile tile-small box box-default">
+		    		 	group:
+		    		 	<br></br>
+		    		 	<p:outputLabel class="top-margin"
+		    		 	   >
+		    		 		#{teamController.displayedTeam.group.name} 
+		    		 	</p:outputLabel>
 		    		</div>
+		    		<div class="tile tile-small box box-default">
+		    		 	owner:
+		    		 	<br></br>
+		    		 	<p:outputLabel class="top-margin">Paul Allan </p:outputLabel>
+		    		</div>
+		    		
 		    	</div>
+		    	
 		    	<div class="col-md-5">
 		    		<div class="tile box box-blue">
-		    		 	Data3
+		    		 	<div class="row margin-left">
+		    		 		foundation date:
+		    		 		<p:outputLabel class="margin-left">#{teamController.displayedTeam.foundedIn} </p:outputLabel>
+		    		 	</div>
+		    		 	<div class="row margin-left">
+		    		 		current season:
+		    		 		<p:outputLabel class="margin-left">#{leagueController.getCurrentSeason(teamController.displayedTeam)} </p:outputLabel>
+		    		 	</div>
+		    		 	<div class="row margin-left">
+		    		 		wins:
+
+		    		 		<p:outputLabel class="margin-left">#{teamController.displayedTeam.wins} </p:outputLabel>
+		    		 	</div>
+		    		 	<div class="row margin-left">
+		    		 		losses:
+		    		 		<p:outputLabel class="margin-left">#{teamController.displayedTeam.losses} </p:outputLabel>
+		    		 	</div>
 		    		</div>
 		    	</div>
 	    	</div>
