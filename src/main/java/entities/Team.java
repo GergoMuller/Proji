@@ -87,6 +87,7 @@ public class Team extends User implements Serializable {
 	public void setPreviousPlayers(List<Player> previousPlayers) {
 		this.previousPlayers = previousPlayers;
 	}
+	@XmlTransient
 	public TeamGroup getGroup() {
 		return group;
 	}
